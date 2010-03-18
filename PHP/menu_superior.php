@@ -52,7 +52,7 @@ foreach($menu as $clave => $componentes)
 /************* ADMINISTRACION ***************************/
 if (in_array(_F_usuario_cache('nivel'),array(_N_administrador,_N_vendedor)))
 {
-echo '<li class="dir" style="background-color:#F00;"><a href="'.PROY_URL.'ventas" title="Obtener lista de compra-venta en espera">Ventas</a></li>';
+echo '<li class="dir lidestacado"><a href="'.PROY_URL.'ventas" title="Obtener lista de compra-venta en espera">Ventas</a></li>';
 }
 
 if (_F_usuario_cache('nivel') == _N_administrador)
@@ -86,7 +86,7 @@ echo '<li class="dir"><a href="'.PROY_URL.'~administracion" title="administraci�
 <li><a href="<?php echo PROY_URL; ?>ayuda?tema=como_pagar" title="Como pagar">¿Como pagar?</a></li>
 </ul></li>
 
-<li class="dir" style="background-color:#F00;"><a href="<?php echo PROY_URL; ?>contactanos" title="Contáctanos">Contáctanos</a>
+<li class="dir lidestacado"><a href="<?php echo PROY_URL; ?>contactanos" title="Contáctanos">Contáctanos</a>
 <ul>
 <li><a href="<? echo PROY_URL; ?>contactanos" title="Contáctanos">Contáctanos</a></li>
 <li><a href="http://twitter.com/flor360" target="_blank" title="Flor360 en Twitter">...en Twitter!</a></li>

@@ -187,7 +187,7 @@
 }
 
 .dropdown li.hover,
-.dropdown li:hover {
+.dropdown li:hover, .lidestacado {
 background-color: #EC454E;
 background-image:url('/IMG/stock/fondo-h.png');
 }
