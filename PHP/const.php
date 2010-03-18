@@ -1,6 +1,7 @@
 <?php
 // Proyecto
 define('PROY_NOMBRE','Flor360, la mejor de las floristerias en El Salvador');
+define('PROY_TELEFONO','2243-6017 (oficinas centrales) o 2531-4899 (sucursal Centro Comercial Galerías Escalón)');
 define('PROY_URL',preg_replace(array("/\/?$/","/www./"),"","http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']))."/");
 define('PROY_MAIL_POSTMASTER','informacion@'.$_SERVER['HTTP_HOST']);
 define('PROY_MAIL_REPLYTO',PROY_MAIL_POSTMASTER);
