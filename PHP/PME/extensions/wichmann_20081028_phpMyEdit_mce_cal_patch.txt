@@ -1,0 +1,69 @@
+### Eclipse Workspace Patch 1.0
+#P wss-quick-wins
+Index: lib/extension/phpMyEdit/extensions/phpMyEdit-mce-cal.class.php
+===================================================================
+RCS file: /src/cvs/wss/lib/extension/phpMyEdit/extensions/phpMyEdit-mce-cal.class.php,v
+retrieving revision 1.1
+diff -u -r1.1 phpMyEdit-mce-cal.class.php
+--- lib/extension/phpMyEdit/extensions/phpMyEdit-mce-cal.class.php	17 Sep 2008 16:31:39 -0000	1.1
++++ lib/extension/phpMyEdit/extensions/phpMyEdit-mce-cal.class.php	29 Oct 2008 17:26:32 -0000
+@@ -394,18 +394,25 @@
+ 				$size   && $size_ml_props .= ' size="'.$size.'"';
+ 				$maxlen && $size_ml_props .= ' maxlength="'.$maxlen.'"';
+ 				echo '<input class="',$css_class_name,'" ';
+-				echo ($this->password($k) ? 'type="password"' : 'type="text"');
+-				echo ($this->readonly($k) ? ' disabled' : '');
++				echo ($this->password($k) ? 'type="password"' : 'type="'.($this->fileupload($k) ? 'file' : 'text').'" ');
++				echo ($this->readonly($k) ? ' disabled' : '');				
+ 				/* calendar mod start */
+ 				echo ' id="',$this->dhtml['prefix'].'fld_'.$this->fds[$k],'"';
+ 				/* calendar mod end */
+-				echo ' name="',$this->cgi['prefix']['data'].$this->fds[$k],'"';
++				echo ' name="',$this->cgi['prefix']['data'].$this->fds[$k],''.($this->fileupload($k) ? 'IMG' : '').'"';
++				if ($this->fileupload($k)) { 
++                	echo ' onChange="extract(this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].'IMG.value,this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].')"';
++				}
+ 				echo $size_ml_props,' value="';
+ 				echo htmlspecialchars($this->fdd[$k]['default']),'">';
+                 /* calendar mod start */
+ 				/* Call htmlcal helper function */
+ 				$this->calPopup_helper($k, null);
+ 				/* calendar mod end */
++				if ($this->fileupload($k)) { 
++            		echo '['.htmlspecialchars($row["qf$k"]).']';
++            		echo '<input type="hidden" name="'.$this->cgi['prefix']['data'].$this->fds[$k].'" value="'.htmlspecialchars($row["qf$k"]).'">'; 
++				}
+ 			}
+ 			echo '</td>',"\n";
+ 			if ($this->guidance) {
+@@ -459,15 +466,27 @@
+ 			$size_ml_props = '';
+ 			$maxlen = intval($this->fdd[$k]['maxlen']);
+ 			$size   = isset($this->fdd[$k]['size']) ? $this->fdd[$k]['size'] : min($maxlen, 60);
++            if ($this->fileupload($k)) {
++            	$size = 15;
++            }
+ 			$size   && $size_ml_props .= ' size="'.$size.'"';
+ 			$maxlen && $size_ml_props .= ' maxlength="'.$maxlen.'"';
+-			echo '<input class="',$css_class_name,'" type="text" ';
++			echo '<input class="',$css_class_name,'" type="'.($this->fileupload($k) ? 'file' : 'text').'" ';
+ 			echo ($this->readonly($k) ? 'disabled ' : '');
+ 			/* calendar mod start */
+ 			echo ' id="',$this->dhtml['prefix'].'fld_'.$this->fds[$k],'"';
+ 			/* calendar mod end */
+-			echo 'name="',$this->cgi['prefix']['data'].$this->fds[$k],'" value="';
+-			echo htmlspecialchars($row["qf$k"]),'" ',$size_ml_props,'>',"\n";
++			echo ' name="',$this->cgi['prefix']['data'].$this->fds[$k],''.($this->fileupload($k) ? 'IMG' : '').'"';
++			echo ' value="';			
++			echo htmlspecialchars($row["qf$k"]),'" ';
++           	if ($this->fileupload($k)) { 
++           		echo ' onChange="extract(this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].'IMG.value,this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].')" ';
++			}			
++			echo $size_ml_props,' />',"\n";
++			if ($this->fileupload($k)) { 
++            	echo '['.htmlspecialchars($row["qf$k"]).']';
++            	echo '<input type="hidden" name="'.$this->cgi['prefix']['data'].$this->fds[$k].'" value="'.htmlspecialchars($row["qf$k"]).'">'; 
++			}			
+             /* calendar mod start */
+ 			/* Call calPopup helper function */
+ 			$this->calPopup_helper($k, htmlspecialchars($row["qf$k"]));

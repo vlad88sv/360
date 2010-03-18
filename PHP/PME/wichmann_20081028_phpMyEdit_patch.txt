@@ -1,0 +1,92 @@
+### Eclipse Workspace Patch 1.0
+#P wss-quick-wins
+Index: lib/extension/phpMyEdit/phpMyEdit.class.php
+===================================================================
+RCS file: /src/cvs/wss/lib/extension/phpMyEdit/phpMyEdit.class.php,v
+retrieving revision 1.1
+diff -u -r1.1 phpMyEdit.class.php
+--- lib/extension/phpMyEdit/phpMyEdit.class.php	17 Sep 2008 16:31:40 -0000	1.1
++++ lib/extension/phpMyEdit/phpMyEdit.class.php	28 Oct 2008 16:51:09 -0000
+@@ -222,6 +222,7 @@
+ 	function copy_enabled()   { return stristr($this->options, 'P') && $this->add_enabled(); }
+ 	function tabs_enabled()   { return $this->display['tabs'] && count($this->tabs) > 0; }
+ 	function hidden($k)       { return stristr($this->fdd[$k]['input'],'H'); }
++        function fileupload($k)   { return stristr($this->fdd[$k]['input'],'F'); }
+ 	function password($k)     { return stristr($this->fdd[$k]['input'],'W'); }
+ 	function readonly($k)     { return stristr($this->fdd[$k]['input'],'R') || $this->virtual($k);     }
+ 	function virtual($k)      { return stristr($this->fdd[$k]['input'],'V') && $this->col_has_sql($k); }
+@@ -967,6 +968,7 @@
+ 
+ 		if ($this->display['form']) {
+ 			echo '<form class="',$this->getCSSclass('form'),'" method="post"';
++			echo ' enctype="multipart/form-data" ';
+ 			echo ' action="',$page_name,'" name="'.$this->cgi['prefix']['sys'].'form">',"\n";
+ 		}
+ 		return true;
+@@ -1075,13 +1077,19 @@
+ 					$len_props .= ' maxlength="'.$maxlen.'"';
+ 				}
+ 				echo '<input class="',$css_class_name,'" ';
+-				echo ($this->password($k) ? 'type="password"' : 'type="text"');
++				echo ($this->password($k) ? 'type="password"' : 'type="'.($this->fileupload($k) ? 'file' : 'text').'" ');
+ 				echo ($this->readonly($k) ? ' disabled' : '');
+-				echo ' name="',$this->cgi['prefix']['data'].$this->fds[$k],'"';
++				echo ' name="',$this->cgi['prefix']['data'].$this->fds[$k],''.($this->fileupload($k) ? 'IMG' : '').'"';
++				if ($this->fileupload($k)) { 
++                	echo ' onChange="extract(this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].'IMG.value,this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].')"';
++				}
+ 				echo $len_props,' value="';
+ 				if($escape) echo htmlspecialchars($this->fdd[$k]['default']);
+ 			    else echo $this->fdd[$k]['default'];
+ 				echo '" />';
++				if ($this->fileupload($k)) { 
++                	echo '<input type="hidden" name="'.$this->cgi['prefix']['data'].$this->fds[$k].'" id="'.$this->fds[$k].'" value="">'; 
++				}
+ 			}
+ 			echo '</td>',"\n";
+ 			if ($this->guidance) {
+@@ -1094,7 +1102,7 @@
+ 	} /* }}} */
+ 
+ 	function display_copy_change_delete_record() /* {{{ */
+-	{
++	{		
+ 		/*
+ 		 * For delete or change: SQL SELECT to retrieve the selected record
+ 		 */
+@@ -1214,19 +1222,31 @@
+ 		} else {
+ 			$len_props = '';
+ 			$maxlen = intval($this->fdd[$k]['maxlen']);
+-			$size   = isset($this->fdd[$k]['size']) ? $this->fdd[$k]['size'] : min($maxlen, 60); 
++			$size   = isset($this->fdd[$k]['size']) ? $this->fdd[$k]['size'] : min($maxlen, 60);
++            if ($this->fileupload($k)) {
++            	$size = 15;
++            }
+ 			if ($size > 0) {
+ 				$len_props .= ' size="'.$size.'"';
+ 			}
+ 			if ($maxlen > 0) {
+ 				$len_props .= ' maxlength="'.$maxlen.'"';
+ 			}
+-			echo '<input class="',$css_class_name,'" type="text"';
++			echo '<input class="',$css_class_name,'" type="'.($this->fileupload($k) ? 'file' : 'text').'" ';
+ 			echo ($this->readonly($k) ? ' disabled' : '');
+-			echo ' name="',$this->cgi['prefix']['data'].$this->fds[$k],'" value="';
++			echo ' name="',$this->cgi['prefix']['data'].$this->fds[$k],''.($this->fileupload($k) ? 'IMG' : '').'"';
++			echo ' value="';
+ 			if($escape) echo htmlspecialchars($row["qf$k"]);
+ 			else echo $row["qf$k"];
+-			echo '"',$len_props,' />',"\n";
++			echo '"';
++           	if ($this->fileupload($k)) { 
++           		echo ' onChange="extract(this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].'IMG.value,this.form.'.$this->cgi['prefix']['data'].$this->fds[$k].')" ';
++			}			
++			echo $len_props,' />',"\n";
++			if ($this->fileupload($k)) { 
++            	echo '['.htmlspecialchars($row["qf$k"]).']';
++            	echo '<input type="hidden" name="'.$this->cgi['prefix']['data'].$this->fds[$k].'" value="'.htmlspecialchars($row["qf$k"]).'">'; 
++			}
+ 		}
+ 		echo '</td>',"\n";
+ 	} /* }}} */
