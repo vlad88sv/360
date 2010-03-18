@@ -105,7 +105,7 @@ echo '<li class="dir"><a href="'.PROY_URL.'~administracion" title="administraciÃ
 </form>
 </li>
 
-<div rel="nofollow" style="float:right"><script defer="defer" type="text/javascript" src="http://widgets.amung.us/classic.js"></script><script type="text/javascript">WAU_classic('75ferr1qqs05')</script></div>
+<div rel="nofollow" style="float:right"><script type="text/javascript" src="http://widgets.amung.us/classic.js"></script><script type="text/javascript">WAU_classic('75ferr1qqs05')</script></div>
 
 </ul>
 </div>
