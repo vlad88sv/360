@@ -14,10 +14,13 @@ $('.ajax_estado').ajaxForm(options);
 ");
 $GLOBAL_MOSTRAR_PIE = false;
 
+$buffer = '';
+$total = 0;
 $c = 'SELECT provar.foto, provar.descripcion AS "variedad_titulo", provar.receta, procon.codigo_producto, procon.titulo AS "contenedor_titulo",`codigo_compra`, `codigo_usuario`, `codigo_variedad`, `precio_grabado`, `tipo_t_credito`, `fecha_exp_t_credito`, `nombre_t_credito`, `pin_4_reverso_t_credito`, `correo_contacto`, `direccion_entrega`, `fecha_entrega`, `telefono_destinatario`, `telefono_remitente`, `tarjeta_de`, `tarjeta_para`, `tarjeta_cuerpo`, `estado`, `estado_notas`, `usuario_notas`, `transaccion` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN flores_producto_variedad AS provar USING(codigo_variedad) LEFT JOIN flores_producto_contenedor AS procon USING(codigo_producto) WHERE 1 ORDER BY `fecha` DESC, `estado` DESC';
 $r = db_consultar($c);
 while ($f = mysql_fetch_assoc($r))
 {
+    $total += $f['precio_grabado'];
     $info_producto_foto =
     '<a href="'.PROY_URL.'vitrina-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.
     '<img style="width:133px;height:200px" src="'.imagen_URL($f['foto'],133,200).'" /></a>';
@@ -64,7 +67,7 @@ while ($f = mysql_fetch_assoc($r))
     '<strong>Tarjeta Cuerpo</strong>'.BR.ui_textarea('',$f['tarjeta_cuerpo']). BR. BR.
     '<strong>Notas del comprador</strong>'.BR.ui_textarea('',$f['usuario_notas']);
 
-    echo sprintf('
+    $buffer .= sprintf('
     <div id="codigo_compra_'.$f['codigo_compra'].'" style="height:200px;clear:both;display:block;">
     <div style="float:left;width:133px;">%s</div>
 
@@ -86,5 +89,7 @@ while ($f = mysql_fetch_assoc($r))
 
     </div>',$info_producto_foto,$info_importante,$info_producto,$info_estado,$info_estado_admin);
 }
-
+$total = number_format($total,2);
+echo "<h1>Total historico de ventas: \$$total + envíos</h1>";
+echo $buffer;
 ?>
