@@ -176,7 +176,6 @@
 }
 
 .dropdown>li {
-    background: none;
     border-left:4px solid #FFFFFF;
     color: #FFFFFF;
     white-space: nowrap;
@@ -187,9 +186,11 @@
 }
 
 .dropdown li.hover,
-.dropdown li:hover, .lidestacado {
+.dropdown li:hover,
+.lidestacado {
 background-color: #EC454E;
 background-image:url('/IMG/stock/fondo-h.png');
+font-weight:bolder;
 }
 
 .dropdown a:link,
@@ -273,6 +274,10 @@ background-image:url('/IMG/stock/fondo-h.png');
 }
 .dropdown .dir ul li a:hover {
     color:#663399;
+}
+
+.dropdown .busqueda {
+    float:right;
 }
 
 .dropdown .busqueda:hover {

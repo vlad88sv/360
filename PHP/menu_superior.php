@@ -86,7 +86,7 @@ echo '<li class="dir"><a href="'.PROY_URL.'~administracion" title="administraci�
 <li><a href="<?php echo PROY_URL; ?>ayuda?tema=como_pagar" title="Como pagar">¿Como pagar?</a></li>
 </ul></li>
 
-<li class="dir lidestacado"><a href="<?php echo PROY_URL; ?>contactanos" title="Contáctanos">Contáctanos</a>
+<li class="dir"><a href="<?php echo PROY_URL; ?>contactanos" title="Contáctanos">Contáctanos</a>
 <ul>
 <li><a href="<? echo PROY_URL; ?>contactanos" title="Contáctanos">Contáctanos</a></li>
 <li><a href="http://twitter.com/flor360" target="_blank" title="Flor360 en Twitter">...en Twitter!</a></li>
@@ -95,9 +95,9 @@ echo '<li class="dir"><a href="'.PROY_URL.'~administracion" title="administraci�
 </ul>
 </li>
 
-<li class="dir"><a target="_blank" href="http://blog.flor360.com" title="Blog de Flor360.com">Blog.360</a></li>
+<li class="dir lidestacado"><a target="_blank" href="http://blog.flor360.com" title="Blog de Flor360.com">Blog.360</a></li>
 
-<li class="dir busqueda" style="float:right">
+<li class="dir busqueda">
 <form action="<?php echo PROY_URL; ?>buscar" class="buscar">
 <?php echo ui_input('busqueda',@$_GET['busqueda']);?> <input type="submit" value="Búscar" class="btnlnk btnlnk-mini" />
 </form>
