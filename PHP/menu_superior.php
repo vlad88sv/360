@@ -95,19 +95,17 @@ echo '<li class="dir"><a href="'.PROY_URL.'~administracion" title="administraciÃ
 </ul>
 </li>
 
-<!--
-<li class="dir"><a target="_blank" href="http://www.facebook.com/pages/httpflor360com/348293355878" title="Visitanos en FaceBook">Facebook.360</a></li>
-!-->
+<li class="dir"><a target="_blank" href="http://blog.flor360.com" title="Blog de Flor360.com">Blog.360</a></li>
 
-<li class="dir busqueda">
+<li class="dir busqueda" style="float:right">
 <form action="<?php echo PROY_URL; ?>buscar" class="buscar">
 <?php echo ui_input('busqueda',@$_GET['busqueda']);?> <input type="submit" value="BÃºscar" class="btnlnk btnlnk-mini" />
 </form>
 </li>
 
-<div rel="nofollow" style="float:right">
-    <script type="text/javascript" src="http://widgets.amung.us/colored.js"></script><script type="text/javascript">WAU_colored('75ferr1qqs05', '8cc63f000000')</script>
+</ul>
 </div>
 
-</ul>
+<div rel="nofollow" style="position:fixed;bottom:0;right:0;">
+    <script type="text/javascript" src="http://widgets.amung.us/colored.js"></script><script type="text/javascript">WAU_colored('75ferr1qqs05', '8cc63f000000')</script>
 </div>
