@@ -105,7 +105,3 @@ echo '<li class="dir"><a href="'.PROY_URL.'~administracion" title="administraciÃ
 
 </ul>
 </div>
-
-<div rel="nofollow" style="position:fixed;bottom:0;right:0;">
-    <script type="text/javascript" src="http://widgets.amung.us/colored.js"></script><script type="text/javascript">WAU_colored('75ferr1qqs05', '8cc63f000000')</script>
-</div>
