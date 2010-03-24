@@ -68,29 +68,14 @@ function GENERAR_CABEZA()
 
 function GENERAR_PIE()
 {
-global $GLOBAL_MOSTRAR_PIE, $HEAD_titulo, $HEAD_descripcion;
-if (!$GLOBAL_MOSTRAR_PIE) return;
-if (isset($_GET['peticion']) && !in_array($_GET['peticion'],array('vitrina','categoria'))) return;
+global $HEAD_titulo, $HEAD_descripcion;
+//if (!isset($_GET['peticion']) || in_array($_GET['peticion'],array('categoria')))  
 ?>
-<h1>¡Comparte <strong>esta</strong> página en la web para que más Salvadoreños alegren su día!</h1>
-<center>
-<?php
-// FaceBook
-echo ui_href('',sprintf('http://www.facebook.com/sharer.php?u=%s&t=%s&src=sp',urlencode(PROY_URL_ACTUAL_DINAMICA), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/facebook.gif" title="FaceBook" alt="FaceBook" />','','target="_blank"');
-// del.icio.us
-echo ui_href('',sprintf('http://del.icio.us/post?url=%s&title=%s',urlencode(PROY_URL), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/delicious.gif" title="del.icio.us" alt="del.icio.us" />','','target="_blank"');
-// Digg
-echo ui_href('',sprintf('http://digg.com/submit?phase=2&url=%s&title=%s',urlencode(PROY_URL), urlencode(utf8_decode($HEAD_titulo))),'<img class="social" src="IMG/social/digg.gif" title="Digg" alt="Digg" />','','target="_blank"');
-// StumbleUpon
-echo ui_href('',sprintf('http://www.stumbleupon.com/submit?url=%s&title=%s',urlencode(PROY_URL), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/stumbleupon.gif" title="StumbleUpon" alt="StumbleUpon" />','','target="_blank"');
-// Twitter
-echo ui_href('',sprintf('http://twitter.com/home?status=Actualmente viendo %s, %s',urlencode(PROY_URL_ACTUAL_DINAMICA), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/twitter.gif" title="Twitter" alt="Twitter" />','','target="_blank"');
-?>
-</center>
 <div id="inscribete">
-<form action="<?php echo PROY_URL?>verificar" method="post">
+<form target="_blank" action="<?php echo PROY_URL?>verificar" method="post">
 Inscribe tu correo para recibir ofertas especiales <input name="ce" type="text" value="" /> <input name="inscribir" type="submit" class="btnlnk btnlnk-mini" value="Inscribirme" />
 </form>
+
 </div>
 <div id="pie-pagina">
 <?php cargar_editable('portada'); ?>

@@ -57,7 +57,7 @@ function ui_js_ini_datepicker ($inicio = '', $fin = '', $extra = ''){
 }
 function ui_js_ini_slider ($id_gui, $objetivo = '', $value = '0', $inicio = '0', $fin = '100', $paso = '1'){
 
-	return "$('#slider').slider({value:100, min: 0, max: 500, step: 50, slide: function(event, ui) {	$('#amount').val('$' + ui.value); }	});
+	return "$('#slider').slider({value:100, min: 0, max: 500, step: 50, slide: function(event, ui) { $('#amount').val('$' + ui.value); }	});
 		$('#amount').val( $('#slider').slider('value'));
 		});
 		";
@@ -72,5 +72,29 @@ function ui_array_a_opciones($array)
 	}
 
 	return $buffer;
+}
+function GENERAR_SOCIAL($t="")
+{
+	global $HEAD_titulo;
+	$b = '<div style="text-align:right">';
+	$b .=
+	$t .
+	// FaceBook
+	ui_href('',sprintf('http://www.facebook.com/sharer.php?u=%s&t=%s&src=sp',urlencode(PROY_URL_ACTUAL_DINAMICA), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/facebook.gif" title="FaceBook" alt="FaceBook" />','','target="_blank"')
+	.
+	// del.icio.us
+	ui_href('',sprintf('http://del.icio.us/post?url=%s&title=%s',urlencode(PROY_URL), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/delicious.gif" title="del.icio.us" alt="del.icio.us" />','','target="_blank"')
+	.
+	// Digg
+	ui_href('',sprintf('http://digg.com/submit?phase=2&url=%s&title=%s',urlencode(PROY_URL), urlencode(utf8_decode($HEAD_titulo))),'<img class="social" src="IMG/social/digg.gif" title="Digg" alt="Digg" />','','target="_blank"')
+	.
+	// StumbleUpon
+	ui_href('',sprintf('http://www.stumbleupon.com/submit?url=%s&title=%s',urlencode(PROY_URL), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/stumbleupon.gif" title="StumbleUpon" alt="StumbleUpon" />','','target="_blank"')
+	.
+	// Twitter
+	ui_href('',sprintf('http://twitter.com/home?status=Actualmente viendo %s, %s',urlencode(PROY_URL_ACTUAL_DINAMICA), urlencode($HEAD_titulo)),'<img class="social" src="IMG/social/twitter.gif" title="Twitter" alt="Twitter" />','','target="_blank"')
+	;
+	$b .= '</div>';
+	return $b;
 }
 ?>

@@ -96,7 +96,7 @@
     //$CATEGORIAS .= SI_ADMIN(BR.flores_db_ui_obtener_categorias_cmb('cmb_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria','Agregar','submit'));
     $CATEGORIAS .= SI_ADMIN(BR.'<form action="'.PROY_URL_ACTUAL.'" method="POST">'.flores_db_ui_obtener_categorias_chkbox('chk_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria_v2','Agregar','submit','btnlnk').'</form>');
 
-    $csimilar = sprintf('SELECT procon.codigo_producto, procon.titulo, provar.foto, provar.descripcion FROM flores_producto_variedad AS provar LEFT JOIN flores_producto_contenedor AS procon USING(codigo_producto) WHERE precio BETWEEN (%s)*0.75 AND (%s)*1.25 GROUP BY codigo_producto ORDER BY RAND() LIMIT 4',$PRECIO,$PRECIO);
+    $csimilar = sprintf('SELECT procon.codigo_producto, procon.titulo, provar.foto, provar.descripcion FROM flores_producto_contenedor AS procon LEFT JOIN flores_producto_variedad AS provar USING(codigo_producto) WHERE precio BETWEEN (%s)*0.60 AND (%s)*1.40 GROUP BY provar.codigo_producto ORDER BY RAND() LIMIT 4',$PRECIO,$PRECIO);
     $PRODUCTOS_SIMILARES = '';
     $rsimilar = db_consultar($csimilar);
     if (mysql_num_rows($rsimilar))
@@ -140,8 +140,7 @@
     echo '<td>' . ui_input('btn_comprar_ahora','Comprar ahora','submit','btnlnk').'<br /><img src="IMG/stock/visa.png"/><img src="IMG/stock/mastercard.png"/></td>';
     echo '</table>';
 
-    echo
-<<< HTML
+    echo '
 <h2>¿Deseas realizar la compra vía telefónica?</h2>
 <p class="medio-oculto">Realiza tu compra vía llamada telefónica al número <strong>2243-6017</strong> o <strong>2531-4899</strong></p>
 
@@ -161,10 +160,13 @@
 <p class="medio-oculto">
 Nuestra primera sucursal de Flor360.com se encuentra operando en <strong>Centro Comercial Galerias Escalón, 3er Nivel, enfrente del Carousel</strong> [<strong>2531-4899</strong>], ¡suscribete y te informaremos de muchas ofertas!.
 </p>
+
+<h2>¡Comparte este arreglo con tus amistades!</h2>
+'.GENERAR_SOCIAL().'
 </td>
 </tr>
 </table>
-HTML;
+';
 
     if (_F_usuario_cache('nivel') != _N_administrador && !db_contar(db_prefijo.'visita','ip=INET_ATON("'.$_SERVER['REMOTE_ADDR'].'") AND session_id="'.session_id().'" AND codigo_producto='.$contenedor['codigo_producto'].' AND (DATE_SUB(NOW(),INTERVAL 1 HOUR) < `fecha`)'))
     {
