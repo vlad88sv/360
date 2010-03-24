@@ -78,7 +78,7 @@ $HEAD_titulo = PROY_NOMBRE . ' Catalogo multipropositos (Facebook, Foros, etc.)'
                     $f['variedad_foto'] = 'imagen_133_200_'.$f['variedad_foto'];
                 }
                 $bELEMENTOS .= '<div class="categoria-elemento">
-                <a href="'.PROY_URL.'vitrina-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">
+                <a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">
                 <img style="width:133px;height:200px;" title="'.$f['contenedor_descripcion'].'" src="'.$f['variedad_foto'].'" />
                 </a>';
                 $bELEMENTOS .= '<div class="titulo">'.$f['contenedor_titulo'].'</div>';

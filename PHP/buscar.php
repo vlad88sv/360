@@ -36,7 +36,7 @@ if (is_numeric($busqueda))
     if (mysql_num_rows($r))
     {
         $f = mysql_fetch_assoc($r);
-        header('Location: ' . PROY_URL.'vitrina-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']));
+        header('Location: ' . PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']));
         ob_end_clean();
         exit;
     }
@@ -164,7 +164,7 @@ function BUSCAR_mostrar_resultados($r)
                 if($f = mysql_fetch_assoc($r))
                 {
                     $bELEMENTOS .= '<div class="categoria-elemento">
-                    <a href="'.PROY_URL.'vitrina-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">
+                    <a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">
                     <img style="height:200px;" title="'.$f['contenedor_descripcion'].'" src="'.imagen_URL($f['variedad_foto'],0,200).'" />
                     </a>';
                     $bELEMENTOS .= '<div class="titulo">'.$f['contenedor_titulo'].'</div>';
@@ -186,7 +186,7 @@ function BUSCAR_mostrar_resultados($r)
         {
             echo sprintf('<tr><td>%s</td><td nowrap="nowrap">%s</td><td>%s</td><td>%s</td><td nowrap="nowrap">%s</td></tr>',
                          '<img style="height:100px" src="'.imagen_URL($f['variedad_foto'],0,100).'" />',
-                         '<a href="'.PROY_URL.'vitrina-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.$f['contenedor_titulo'].'</a>',
+                         '<a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.$f['contenedor_titulo'].'</a>',
                          nl2br($f['contenedor_descripcion']),
                          $f['color'],
                          $f['precio_combinado']

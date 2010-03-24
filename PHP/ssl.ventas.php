@@ -22,7 +22,7 @@ while ($f = mysql_fetch_assoc($r))
 {
     $total += $f['precio_grabado'];
     $info_producto_foto =
-    '<a href="'.PROY_URL.'vitrina-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.
+    '<a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.
     '<img style="width:133px;height:200px" src="'.imagen_URL($f['foto'],133,200).'" /></a>';
 
     $info_producto =

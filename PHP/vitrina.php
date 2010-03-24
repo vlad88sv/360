@@ -37,7 +37,7 @@
     if ($titulo_SEO != $_GET['titulo'].'.html')
     {
         header("HTTP/1.1 301 Moved Permanently");
-        header('Location: '. PROY_URL.'vitrina-'.SEO($contenedor['titulo'].'-'.$contenedor['codigo_producto']));
+        header('Location: '. PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($contenedor['titulo'].'-'.$contenedor['codigo_producto']));
         ob_end_clean();
         exit;
     }
@@ -101,7 +101,7 @@
     $rsimilar = db_consultar($csimilar);
     if (mysql_num_rows($rsimilar))
         while ($fsimilar = mysql_fetch_assoc($rsimilar))
-            $PRODUCTOS_SIMILARES .= sprintf('<a href="%s"><img style="width:100px;height:150px;" src="'.imagen_URL($fsimilar['foto'],100,150).'" title="Producto similar: %s" /></a> ',PROY_URL.'vitrina-'.SEO($fsimilar['titulo'].'-'.$fsimilar['codigo_producto']),$fsimilar['descripcion']);
+            $PRODUCTOS_SIMILARES .= sprintf('<a href="%s"><img style="width:100px;height:150px;" src="'.imagen_URL($fsimilar['foto'],100,150).'" title="Producto similar: %s" /></a> ',PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($fsimilar['titulo'].'-'.$fsimilar['codigo_producto']),$fsimilar['descripcion']);
 
     /* Desplegar lo que conseguimos */
     echo '<h1>Flor360.com: regalos, flores y arreglos florales en El Salvador</h1>';

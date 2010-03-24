@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 set_time_limit(0);
 ini_set('memory_limit',         '128M');
 ini_set('max_input_time',       '6000');
@@ -187,7 +187,7 @@ function SSL_COMPRA_PROCESAR()
         {
             $c = 'SELECT titulo, descripcion FROM flores_producto_contenedor LEFT JOIN flores_producto_variedad USING (codigo_producto) WHERE codigo_variedad="'.db_codex($_POST['variedad']).'"';
             $r = mysql_fetch_assoc(db_consultar($c));
-            $location = PROY_URL.'vitrina-'.SEO($f['titulo'].'-'.$f['codigo_producto']);
+            $location = PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['titulo'].'-'.$f['codigo_producto']);
         }
         else
             $location = PROY_URL;

@@ -80,7 +80,7 @@ $opts['fdd']['codigo_producto'] = array(
   'default'  => '0',
   'sort'     => true
 );
-$opts['fdd']['codigo_producto']['URL'] = PROY_URL.'vitrina--$value';
+$opts['fdd']['codigo_producto']['URL'] = PROY_URL.'arreglos-florales-floristerias-en-el-salvador--$value';
 
 $opts['fdd']['titulo'] = array(
   'name'     => 'Titulo',
@@ -129,6 +129,6 @@ if (isset($_POST['PME_sys_saveadd']))
     $c = sprintf('SELECT MAX(codigo_producto) AS MAX_ID FROM %s',db_prefijo.'producto_contenedor');
     $r = db_consultar($c);
     $f = mysql_fetch_assoc($r);
-    $_LOCATION = PROY_URL.'vitrina--'.$f['MAX_ID'];
+    $_LOCATION = PROY_URL.'arreglos-florales-floristerias-en-el-salvador--'.$f['MAX_ID'];
 }
 ?>

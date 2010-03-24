@@ -17,13 +17,13 @@ echo '<h1>Precios</h1>';
 echo sprintf('El precio mas bajo en el sistema es: $%s, el precio promedio es: $%s, el mas alto es: $%s',$epreassoc['min'],$epreassoc['avg'],$epreassoc['max']);
 echo '<hr />';
 echo '<table style="text-align:center;width:100%;table-layout:fixed;">';
-echo '<td>Arreglo mas barato:<br /><a href="'.PROY_URL.'vitrina-'.SEO($emin['titulo'].'-'.$emin['codigo_producto']).'"><img src="'.PROY_URL.'imagen_133_200_'.$emin['foto'].'.jpg" /></a></td>';
-echo '<td>Arreglo mas caro:<br /><a href="'.PROY_URL.'vitrina-'.SEO($emax['titulo'].'-'.$emax['codigo_producto']).'"><img src="'.PROY_URL.'imagen_133_200_'.$emax['foto'].'.jpg" /></a></td>';
+echo '<td>Arreglo mas barato:<br /><a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($emin['titulo'].'-'.$emin['codigo_producto']).'"><img src="'.PROY_URL.'imagen_133_200_'.$emin['foto'].'.jpg" /></a></td>';
+echo '<td>Arreglo mas caro:<br /><a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($emax['titulo'].'-'.$emax['codigo_producto']).'"><img src="'.PROY_URL.'imagen_133_200_'.$emax['foto'].'.jpg" /></a></td>';
 echo '</table>';
 echo '<h1>Los productos mas vistos</h1>';
 echo '<table class="tabla-estandar ancha">';
 echo '<tr><th>Fotografia</th><th>Titulo del producto</th><th>No. Visitas</th></tr>';
 while ($f = mysql_fetch_assoc($pmv))
-	echo sprintf('<tr><td>%s</td><td>%s</td><td>%s</td></tr>', '<img src="'.PROY_URL.'imagen_133_200_'.$f['foto'].'.jpg" />', '#'.$f['codigo_producto'].' ~ <a href="'.PROY_URL.'vitrina-'.SEO($f['titulo'].'-'.$f['codigo_producto']).'">'.$f['titulo'].'</a>', $f['vistas']);
+	echo sprintf('<tr><td>%s</td><td>%s</td><td>%s</td></tr>', '<img src="'.PROY_URL.'imagen_133_200_'.$f['foto'].'.jpg" />', '#'.$f['codigo_producto'].' ~ <a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['titulo'].'-'.$f['codigo_producto']).'">'.$f['titulo'].'</a>', $f['vistas']);
 echo '</table>';
 ?>

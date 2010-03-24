@@ -50,7 +50,8 @@ RewriteBase /
 
 RewriteRule ^(iniciar|finalizar|registrar|buscar|~usuarios|~contenedores|~variedades|~categorias|~accesorios|~productos_categoria|~filtros|~menu|~administracion|~compras|~estadisticas|~massmail|informacion|ventas|ayuda|editar|verificar|contactanos)$ index.php?peticion=$1&%{QUERY_STRING} [L]
 RewriteRule ^comprar-articulo-.*$ index.php?peticion=comprar [L]
-RewriteRule ^vitrina-(.*)-([0-9]+).*$ index.php?peticion=vitrina&titulo=$1&codigo_contenedor=$2 [L]
+RewriteRule ^vitrina-(.*)-([0-9]+).*$ http://flor360.com/arreglos-florales-floristerias-en-el-salvador-$1-$2.html [R=301,L]
+RewriteRule ^arreglos-florales-floristerias-en-el-salvador-(.*)-([0-9]+).*$ index.php?peticion=vitrina&titulo=$1&codigo_contenedor=$2 [L]
 RewriteRule ^categoria-superior-.*-([0-9]+).*$ index.php?peticion=categoria&modo=superior&codigo_categoria=$1&%{QUERY_STRING} [L]
 RewriteRule ^categoria-(.+)-especial.*$ index.php?peticion=categoria&modo=filtro&codigo_categoria=$1&%{QUERY_STRING} [L]
 RewriteRule ^categoria-.*-([0-9]+).*$ index.php?peticion=categoria&codigo_categoria=$1&%{QUERY_STRING} [L]
