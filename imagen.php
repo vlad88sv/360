@@ -11,6 +11,9 @@ switch($_GET['tipo'])
     case 'tcredito':
         IMAGEN_tipo_tcredito();
         break;
+    case 'random':
+        IMAGEN_tipo_random();
+        break;
 }
 
 function IMAGEN_tipo_tcredito()
@@ -56,6 +59,30 @@ function IMAGEN_tipo_normal()
     header("Content-type: $outputtype");
     header("Content-length: " . filesize($escalado));
     echo $output;
+}
+
+function IMAGEN_tipo_random()
+{
+    require_once('PHP/vital.php');
+
+    $archivo = 'estatico/imagen_sms.todosv.com.jpg';
+    
+    $c = 'SELECT DISTINCT codigo_producto, foto FROM flores_producto_variedad ORDER BY RAND() LIMIT 3';
+    $r = db_consultar($c);
+
+    $canvas = imagecreatetruecolor(336,168);
+    $x = 0;
+    while($f = mysql_fetch_assoc($r))
+    {
+        $foto  = imagecreatefromjpeg('IMG/i/'.$f['foto']);
+        imagecopyresampled($canvas,$foto,$x,0,0,0,112,168,imagesx($foto),imagesy($foto));
+        imagedestroy($foto);
+        $x += 112;
+    }
+    $logo = imagecreatefrompng("estatico/logo_difuso.png");
+    imagecopy($canvas,$logo,0,0,0,0,336,168);
+    imagejpeg($canvas,$archivo,65);
+    imagedestroy($canvas);
 }
 exit;
 ?>
