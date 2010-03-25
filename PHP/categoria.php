@@ -128,7 +128,7 @@
                 }
                 $bELEMENTOS .= '<div class="categoria-elemento">
                 <a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">
-                <img style="width:133px;height:200px;" title="'.$f['contenedor_descripcion'].'" src="'.$f['variedad_foto'].'" />
+                <img title="'.$f['contenedor_descripcion'].'" src="'.$f['variedad_foto'].'" />
                 </a>';
                 $bELEMENTOS .= '<div class="titulo">'.$f['contenedor_titulo'].'</div>';
                 $bELEMENTOS .= '<div class="precio">'.$f['precio_combinado'].'</div>';

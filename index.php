@@ -56,7 +56,10 @@ ob_start();
 <?php $HEAD = ob_get_clean(); ?>
 <?php
 /* MOSTRAR TODO */
-echo  $HEAD,$BODY;
+$tidy_config = array('clean' => true,'output-xhtml' => true);
+$tidy = tidy_parse_string($HEAD.$BODY,$tidy_config,'UTF8');
+$tidy->cleanRepair();
+echo  trim($tidy);
 ?>
 <?php
 /* ---------------------------------------------------------------------------*/

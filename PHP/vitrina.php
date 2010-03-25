@@ -62,9 +62,9 @@
         {
             $PRECIO = $f['precio'];
             $VARIEDADES .= ' checked="checked"';
-            $IMG_CONTENEDOR = '<img id="imagen_contenedor" style="width:350;height:525px;display:block;margin:auto;" src="'.imagen_URL($f['foto'],350,525).'" />';
+            $IMG_CONTENEDOR = '<img id="imagen_contenedor" style="width:350;height:525px;display:block;margin:auto;" src="'.imagen_URL($f['foto'],350,525,'img0.').'" />';
         }
-        $VARIEDADES .= ' rel="'.imagen_URL($f['foto'],350,525).'"';
+        $VARIEDADES .= ' rel="'.imagen_URL($f['foto'],350,525,'img0.').'"';
         $VARIEDADES .= ' id="'.$f['foto'].'"';
         $VARIEDADES .= ' value="'.$f['codigo_variedad'].'" /></td>';
         $VARIEDADES .= '<td style="width:100%">'.$f['descripcion'].'</td>'.
@@ -101,7 +101,7 @@
     $rsimilar = db_consultar($csimilar);
     if (mysql_num_rows($rsimilar))
         while ($fsimilar = mysql_fetch_assoc($rsimilar))
-            $PRODUCTOS_SIMILARES .= sprintf('<a href="%s"><img style="width:100px;height:150px;" src="'.imagen_URL($fsimilar['foto'],100,150).'" title="Producto similar: %s" /></a> ',PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($fsimilar['titulo'].'-'.$fsimilar['codigo_producto']),$fsimilar['descripcion']);
+            $PRODUCTOS_SIMILARES .= sprintf('<a href="%s"><img style="width:100px;height:150px;" src="'.imagen_URL($fsimilar['foto'],100,150,'img0.').'" title="Producto similar: %s" /></a> ',PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($fsimilar['titulo'].'-'.$fsimilar['codigo_producto']),$fsimilar['descripcion']);
 
     /* Desplegar lo que conseguimos */
     echo '<h1>Flor360.com: regalos, flores y arreglos florales en El Salvador</h1>';

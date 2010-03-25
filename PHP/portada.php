@@ -103,7 +103,7 @@ for($i=0;$i<4;$i++)
     if (mysql_num_rows($r) && $f = mysql_fetch_assoc($r))
     {
     $contenido .= '<a href="'.PROY_URL.'categoria-'.SEO($f['titulo_categoria'].'-'.$f['codigo_categoria']).'">';
-    $contenido .= '<img class="bloque" title="'.$f['titulo_categoria'].'" alt="'.$f['titulo_categoria'].'" src="'.imagen_URL($f['foto'],133,200).'" />';
+    $contenido .= '<img class="bloque" title="'.$f['titulo_categoria'].'" alt="'.$f['titulo_categoria'].'" src="'.imagen_URL($f['foto'],133,200,'img0.').'" />';
     $contenido .= '</a><div class="titulo-categoria">'.$f['titulo_categoria'].'</div>';
     }
 
@@ -139,14 +139,14 @@ for($i=0;$i<$nFilas;$i++)
             {
                 $TOP10 .= '<div class="titulo" style="font-size:1.4em;font-weight:bolder;">'.$f['categoria_titulo'].'</div>';
 
-                $TOP10 .= '<a href="'.PROY_URL.'categoria-'.SEO($f['categoria_titulo'].'-'.$f['codigo_categoria']).'"><img title="'.$f['categoria_titulo'].'" alt="'.$f['categoria_titulo'].'" src="'.imagen_URL($f['variedad_foto'],0,200).'" /></a>';
+                $TOP10 .= '<a href="'.PROY_URL.'categoria-'.SEO($f['categoria_titulo'].'-'.$f['codigo_categoria']).'"><img title="'.$f['categoria_titulo'].'" alt="'.$f['categoria_titulo'].'" src="'.imagen_URL($f['variedad_foto'],0,200,'img0.').'" /></a>';
                 $checked = '';
             }
             else
             {
             $TOP10 .= '<div class="titulo" style="font-size:1.4em;font-weight:bolder;">'.$f['descripcion_filtro'].'</div>';
 
-                $TOP10 .= '<a href="'.PROY_URL.'categoria-'.$f['filtro'].'-especial.html"><img title="'.$f['categoria_titulo'].'" alt="'.$f['categoria_titulo'].'" src="'.imagen_URL($f['variedad_foto'],0,200).'" /></a>';
+                $TOP10 .= '<a href="'.PROY_URL.'categoria-'.$f['filtro'].'-especial.html"><img title="'.$f['categoria_titulo'].'" alt="'.$f['categoria_titulo'].'" src="'.imagen_URL($f['variedad_foto'],0,200,'img0.').'" /></a>';
                 $checked = 'checked="checked"';
             }
 

@@ -394,10 +394,11 @@ function tweet($status)
     return ($resultArray['http_code'] == 200);
 }
 
-function imagen_URL($HASH, $ancho, $alto)
+function imagen_URL($HASH, $ancho, $alto, $servidor=null)
 {
-    $servidor = floor((int)substr(hexdec(substr($HASH,0,2)),0,1) / 2);
+    if (!$servidor)
+        $servidor = 'img'.substr(hexdec(substr($HASH,0,2)),-1,1).'.';
     
-    return preg_replace(array("/\/?$/","/www./"),"",'http://img'.$servidor.'.'.$_SERVER['HTTP_HOST']."/imagen_".$ancho.'_'.$alto.'_'.$HASH.'.jpg');
+    return preg_replace(array("/\/?$/","/www./"),"",'http://'.$servidor.$_SERVER['HTTP_HOST']."/imagen_".$ancho.'_'.$alto.'_'.$HASH.'.jpg');
 }
 ?>
