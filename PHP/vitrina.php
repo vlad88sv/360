@@ -156,7 +156,7 @@
 <strong>¡Regalale ya una sonrisa a todos tus seres queridos con Flor360.com, la mejor de las floristerias en El Salvador!</strong>
 </p>
 
-<h2>¿Deseas realizar la compra en nuestra sucursal</h2>
+<h2>¿Deseas realizar la compra en nuestra sucursal?</h2>
 <p class="medio-oculto">
 Nuestra primera sucursal de Flor360.com se encuentra operando en <strong>Centro Comercial Galerias Escalón, 3er Nivel, enfrente del Carousel</strong> [<strong>2531-4899</strong>], ¡suscribete y te informaremos de muchas ofertas!.
 </p>
