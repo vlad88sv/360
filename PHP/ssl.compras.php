@@ -375,8 +375,8 @@ function SSL_MOSTRAR_FACTURA($id_factura)
     echo '<h2>Factura</h2>';
     echo $factura;    
     echo '<hr />';
-    echo sprintf('<p>Puede consultar el estado de su orden desde la siguiente dirección Web:<br /> <input type="text" value="%s" width="100%" /></p>',PROY_URL.'informacion?tipo=estado&pin='.$transaccion);
-    echo sprintf('<p>Su copia del recibo virtual se encuentra en la siguiente dirección web<br /> <input type="text" value="%s" width="100%" /></p>',PROY_URL.'informacion?tipo=factura&pin='.$transaccion);
+    echo sprintf('<p>Puede consultar el estado de su orden desde la siguiente dirección Web:<br /> <input type="text" value="%s" width="100%%" /></p>',PROY_URL.'informacion?tipo=estado&pin='.$transaccion);
+    echo sprintf('<p>Su copia del recibo virtual se encuentra en la siguiente dirección web<br /> <input type="text" value="%s" width="100%%" /></p>',PROY_URL.'informacion?tipo=factura&pin='.$transaccion);
     echo '<p>Por favor guarde las direcciones anteriores para poder consultarlas en un futuro o si desea cancelar su orden</p>';
     echo '<p class="medio-oculto"><strong>Nota:</strong> es posible que lo contactemos telefonicamente para aclarar la transaccion si algun dato es invalido</p>';
     return;
