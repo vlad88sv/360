@@ -48,7 +48,7 @@
 
     /*************** variedades ********************************************/
     // Luego obtenemos toda la información de sus variedades
-    $c = sprintf('SELECT `codigo_variedad`, `codigo_producto`, `foto`, `descripcion`, `precio` FROM `%s` WHERE codigo_producto="%s" ORDER BY precio ASC',db_prefijo.'producto_variedad',$contenedor['codigo_producto']);
+    $c = sprintf('SELECT `codigo_variedad`, `codigo_producto`, `foto`, `descripcion`, `precio` FROM `%s` WHERE codigo_producto="%s" ORDER BY precio ASC, descripcion ASC',db_prefijo.'producto_variedad',$contenedor['codigo_producto']);
     $variedad = db_consultar($c);
 
     $VARIEDADES_ADMIN = '<h2>Administración de variedades</h2>';
