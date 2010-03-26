@@ -36,7 +36,7 @@ RewriteCond %{REQUEST_URI} ^/imagen_([0-9]+)_([0-9]+)_([a-za-z0-9]{40})(\.jpg){0
 RewriteCond %{DOCUMENT_ROOT}/IMG/i/m/%1_%2_%3 -f [NC]
 RewriteRule ^imagen_([0-9]+)_([0-9]+)_([a-za-z0-9]{40}).*$ %{DOCUMENT_ROOT}/IMG/i/m/$1_$2_$3 [L]
 
-RewriteRule ^imagen_([0-9]+)_([0-9]+)_(.*)$ imagen.php?tipo=normal&ancho=$1&alto=$2&sha1=$3 [L]
+RewriteRule ^imagen_([0-9]+)_([0-9]+)_([a-za-z0-9]{40}).*$ imagen.php?tipo=normal&ancho=$1&alto=$2&sha1=$3 [L]
 RewriteRule ^imagen_SSL_(.*)$ imagen.php?tipo=tcredito&pin=$1 [L]
 RewriteRule ^imagen_random\.jpg$ imagen.php?tipo=random [L]
 RewriteRule ^admin_(.+)$ index.php?peticion=admin&op=$1&%{QUERY_STRING} [L]
