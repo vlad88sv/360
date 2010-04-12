@@ -30,10 +30,6 @@ RewriteRule ^ajax$ ajax.php?%{QUERY_STRING} [L]
 
 RewriteCond %{REQUEST_URI} ^/imagen_([0-9]+)_([0-9]+)_([a-za-z0-9]{40})(\.jpg){0,1}$
 RewriteCond %{DOCUMENT_ROOT}/IMG/i/m/%1_%2_%3 -f [NC]
-ForceType image/jpeg
-
-RewriteCond %{REQUEST_URI} ^/imagen_([0-9]+)_([0-9]+)_([a-za-z0-9]{40})(\.jpg){0,1}$
-RewriteCond %{DOCUMENT_ROOT}/IMG/i/m/%1_%2_%3 -f [NC]
 RewriteRule ^imagen_([0-9]+)_([0-9]+)_([a-za-z0-9]{40}).*$ %{DOCUMENT_ROOT}/IMG/i/m/$1_$2_$3 [L]
 
 RewriteRule ^imagen_([0-9]+)_([0-9]+)_([a-za-z0-9]{40}).*$ imagen.php?tipo=normal&ancho=$1&alto=$2&sha1=$3 [L]
