@@ -63,7 +63,9 @@ function IMAGEN_tipo_normal()
 
 function IMAGEN_tipo_random()
 {
-    require_once('PHP/vital.php');
+    $base = dirname(__FILE__);
+    if(!file_exists("$base/secreto.php")) die("ERROR #1");
+    require_once ("$base/db.php"); // Conexión hacia la base de datos [depende de secreto.php]
 
     $archivo = 'estatico/imagen_sms.todosv.com.jpg';
     
