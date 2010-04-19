@@ -14,7 +14,8 @@
                     <img src="IMG/stock/bandera_SLV.gif" alt="Bandera de El Salvador" /><br />
                     El Salvador
                     <p class="medio-oculto">
-                        <span style="text-decoration: blink;">ESA: (503) 2243-6017</span><br />
+                        <span style="color:#F00;font-weight:bolder;">PEDIDOS: (503) 2243-6017</span><br />
+                        <span style="color:#F00;font-weight:bolder;">SUCURSAL: (503) 2531-4899</span><br />
                         <?php if (!S_iniciado()) { ?>
                         <a rel="nofollow" href="<?php echo PROY_URL ?>iniciar" title="Iniciar sesión">Iniciar sesión</a> / <a rel="nofollow" href="<?php echo PROY_URL ?>registrar" title="Registrarse">Registrarse</a>
                         <?php } else { ?>
