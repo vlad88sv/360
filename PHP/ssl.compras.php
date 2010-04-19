@@ -311,7 +311,7 @@ $salida='enlinea'|'pdf'
 */
 function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
 {
-    $c = sprintf('SELECT procon.`codigo_producto`, procon.`titulo` AS "titulo_contenedor", provar.`descripcion` AS "titulo_variedad", provar.foto, comcon.`codigo_compra`, comcon.`codigo_usuario`, comcon.`codigo_variedad`, FORMAT(comcon.`precio_grabado`,2) AS precio_grabado, comcon.`direccion_entrega`, comcon.`fecha_entrega`, comcon.`tarjeta_de`, comcon.`tarjeta_para`, comcon.`tarjeta_cuerpo`, comcon.`usuario_notas`, comcon.`transaccion`, comcon.`fecha`, `estado` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN `flores_producto_variedad` AS provar USING(codigo_variedad) LEFT JOIN `flores_producto_contenedor` AS procon USING(codigo_producto)  WHERE transaccion="%s"',db_codex($transaccion));
+    $c = sprintf('SELECT procon.`codigo_producto`, procon.`titulo` AS "titulo_contenedor", provar.`descripcion` AS "titulo_variedad", provar.foto, comcon.`codigo_compra`, comcon.`codigo_usuario`, comcon.`codigo_variedad`, FORMAT(comcon.`precio_grabado`,2) AS precio_grabado, comcon.`direccion_entrega`, comcon.`fecha_entrega`, comcon.`tarjeta_de`, comcon.`tarjeta_para`, comcon.`tarjeta_cuerpo`, comcon.`usuario_notas`, comcon.`transaccion`, comcon.`fecha`, `estado`, `correo_contacto`, `telefono_remitente`, `usuario_notas` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN `flores_producto_variedad` AS provar USING(codigo_variedad) LEFT JOIN `flores_producto_contenedor` AS procon USING(codigo_producto)  WHERE transaccion="%s"',db_codex($transaccion));
     $r = db_consultar($c);
 
     if (!mysql_num_rows($r))
@@ -333,6 +333,10 @@ function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
     'Remitente' => $f['tarjeta_de'],
     'Destinatario' => $f['tarjeta_para'],
     'Enviar a' => $f['direccion_entrega'],
+    'Fecha de entrega' => date('d/m/Y',strtotime($f['fecha_entrega'])),
+    'Correo contacto' => $f['correo_contacto'],
+    'Teléfono remitente' => $f['telefono_remitente'],
+    'Notas adicionales del comprador' => $f['usuario_notas'] ? $f['usuario_notas'] : '[No especificó nada en especial]'
     );
     foreach($campo AS $clave => $valor)
         $buffer .= sprintf('<tr><td>%s</td><td style="font-weight:bold">%s</td></tr>',$clave, $valor);
