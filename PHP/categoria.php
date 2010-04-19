@@ -231,7 +231,7 @@ if (_F_usuario_cache('nivel') == _N_administrador)
     echo '<hr />';
     echo '</div>';
 }
-echo '<h1>Flor360.com: regalos, flores y arreglos florales en El Salvador</h1>';
+echo '<h1>Flores, regalos, decoraciones y arreglos florales en El Salvador.<br />Tel. '.PROY_TELEFONO.'</h1>';
 echo '<table style="width:100%;border-collapse:collapse;margin:0;border:none;padding:0">';
 echo '<tr>';
 echo '<td style="width:170px;vertical-align:top;">'.$bFiltro.'</td>';
