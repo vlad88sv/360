@@ -28,7 +28,7 @@ tinyMCE.init({
     button_tile_map : true,
 });</script>
 ';
-
+$GLOBAL_TIDY_BREAKS = true;
 if (isset($_POST['archivo']))
     file_put_contents('TXT/'.$_GET['archivo'].'.editable',$_POST['archivo']);
 echo '<form action="'.PROY_URL_ACTUAL_DINAMICA.'" method="POST"/>';

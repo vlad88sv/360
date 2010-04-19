@@ -56,10 +56,15 @@ ob_start();
 <?php $HEAD = ob_get_clean(); ?>
 <?php
 /* MOSTRAR TODO */
-$tidy_config = array('clean' => true,'output-xhtml' => true);
-$tidy = tidy_parse_string($HEAD.$BODY,$tidy_config,'UTF8');
-$tidy->cleanRepair();
-echo  trim($tidy);
+if(isset($GLOBAL_TIDY_BREAKS))
+    echo $HEAD.$BODY;
+else
+{
+    $tidy_config = array('output-xhtml' => true);
+    $tidy = tidy_parse_string($HEAD.$BODY,$tidy_config,'UTF8');
+    $tidy->cleanRepair();
+    echo  trim($tidy);
+}
 ?>
 <?php
 /* ---------------------------------------------------------------------------*/
