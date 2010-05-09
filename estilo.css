@@ -42,16 +42,17 @@ a:hover{color:#50f;border:none;}
 .categoria-elemento>a>img{width:133px;height:200px;}
 .categoria-elemento>.precio{color:#555;}
 .tabla-estandar{width:100%;}
-.tabla-estandar td{vertical-align:top;padding:0 10px;border:1px solid #CCC;}
+.tabla-estandar td{vertical-align:top;padding:1px 10px;border:1px solid #CCC;}
 .tabla-estandar input{width:11ex;}
 .info:before{content:url('IMG/stock/exclamacion32.gif');margin:0 1em;float:left;}
 .info{display:block;vertical-align:bottom;font-weight:bold;font-size:1em;background-color:#FEFEFE;color:#000;border:1px dashed #F00;}
 .confirmacion:before{content:url('IMG/stock/alto.png');margin:0 1em;float:left;}
-.confirmacion{display:block;vertical-align:bottom;font-weight:normal;font-size:1em;background-color:#F0F0F0;color:#BBB;}
+.confirmacion{display:block;vertical-align:bottom;font-weight:normal;font-size:1em;background-color:#F0F0F0;color:#111;}
 .error{display:block;font-weight:bold;font-size:1em;background-color:#FFF;color:#F00;padding:10px 0;border:1px dashed #000;}
-.btn{padding:0.5em;border:1px solid #F00;font-size:1.3em;font-weight:bolder;width:50% !important;}
+.btn{font-size:18px !important;color:#F00 !important;}
 
-#tabla-ventas {font-size:8pt;}
+#tabla-ventas,#tabla-ventas input {font-size:8pt;padding:0;border:thin solid #DDD;margin:0;background-color:#FFF;}
+#tabla-ventas .ir {width:3ex;background-color:#F9F9F9;height:14px;}
 #caja-refinado>table{width:100%;}
 #caja-refinado table tr td + td{text-align:right;}
 #caja-refinado table{color:#8a8989;font-weight:normal;font-size:9pt;padding:0;margin:0;}

@@ -137,7 +137,7 @@
     echo '<hr />';
     echo '<table>';
     echo '<td id="izq-compra" class="medio-oculto">Luego tendrás la oportunidad de escoger el texto de la tarjeta.<br />¿tarjeta gratis? ¡solo en Flor360.com!.<br /><strong>Recuerda que el precio ya incluye sevicio a domicilio de entrega en el departamento de San Salvador. Contactenos previamente si su envio es en otro departamento.</strong></td>';
-    echo '<td>' . ui_input('btn_comprar_ahora','Comprar ahora','submit','btnlnk').'<br /><img src="IMG/stock/visa.png"/><img src="IMG/stock/mastercard.png"/></td>';
+    echo '<td>' . ui_input('btn_comprar_ahora','Comprar ahora','submit','btn').'<br /><img src="'.PROY_URL.'IMG/stock/credit_card_logos_4.gif"/></td>';
     echo '</table>';
 
     echo '

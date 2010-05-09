@@ -8,18 +8,54 @@ ini_set('post_max_size',        '50M');
 
 // Temporalmente HARDCODED, pero migrar a tabla.
 $cmbLugares =
-'<option value="0.00">San Salvador (area metropolitana) - $0.00</option>'.
-'<option value="0.00">San Salvador (area periferica) - $5.00</option>'.
-'<option value="0.00">Santa Tecla - $0.00</option>'.
-'<option value="0.00">Antiguo cuscatlan - $0.00</option>'.
-'<option value="0.00">Col. Escalon - $0.00</option>'.
-'<option value="0.00">Col. San Benito - $0.00</option>'.
-'<option value="0.00">Antiguo Cuscatlán - $0.00</option>'.
+'<optgroup label="Zona metropolitana">'.
+'<option value="0.00">San Salvador - $0.00</option>'.
+'<option value="0.00">Ciudad Delgado - $0.00</option>'.
 '<option value="0.00">Mejicanos - $0.00</option>'.
-'<option value="0.00">Soyapango - $5.00</option>'.
-'<option value="0.00">San Jacinto - $5.00</option>'.
-'<option value="0.00">San Bartolo - $7.00</option>'.
-'<option value="0.00">San Martín - $10.00</option>';
+'<option value="0.00">Cuscatancingo - $0.00</option>'.
+'<option value="0.00">Ayutuxtepeque - $0.00</option>'.
+'</optgroup>'.
+'<optgroup label="Gran San Salvador">'.
+'<option value="1.00">Antiguo Cuscatlán - $1.00</option>'.
+'<option value="3.00">Santa Tecla - $3.00</option>'.
+'<option value="6.00">Soyapango - $6.00</option>'.
+'<option value="6.00">Ilopango - $6.00</option>'.
+'<option value="10.00">San Martín - $10.00</option>'.
+'<option value="10.00">San Bartolomé - $10.00</option>'.
+'<option value="10.00">San Bartolomé Perulapia - $10.00</option>'.
+'<option value="10.00">Panchimalco - $10.00</option>'.
+'<option value="10.00">Santo Tomás - $10.00</option>'.
+'<option value="10.00">Santiago Texacuango - $10.00</option>'.
+'<option value="10.00">Santiago Texacuangos - $10.00</option>'.
+'<option value="10.00">San Marcos - $10.00</option>'.
+'</optgroup>'.
+'<optgroup label="San Salvador, otros municipios">'.
+'<option value="12.00">Apopa - $12.00</option>'.
+'<option value="12.00">Tonacatepeque - $12.00</option>'.
+'<option value="12.00">El Paisnal - $12.00</option>'.
+'<option value="12.00">Nejapa - $12.00</option>'.
+'<option value="12.00">Aguilares - $12.00</option>'.
+'<option value="12.00">Guazapa - $12.00</option>'.
+'<option value="12.00">Rosario de mora - $12.00</option>'.
+'</optgroup>'.
+'<optgroup label="Departamentos Central y Occidental">'.
+'<option value="20.00">San Vicente - $20.00</option>'.
+'<option value="20.00">Cabañas - $20.00</option>'.
+'<option value="20.00">Chalatenango - $20.00</option>'.
+'<option value="20.00">La Libertad - $20.00</option>'.
+'<option value="20.00">La Paz - $20.00</option>'.
+'<option value="20.00">Cuscatlán - $20.00</option>'.
+'<option value="20.00">Santa Ana - $20.00</option>'.
+'<option value="20.00">Sonsonate - $20.00</option>'.
+'<option value="20.00">Ahuchapán - $20.00</option>'.
+'</optgroup>'.
+'<optgroup label="Departamentos Orientales">'.
+'<option value="30.00">Usulután - $30.00</option>'.
+'<option value="30.00">San Miguel - $30.00</option>'.
+'<option value="30.00">Morazán - $30.00</option>'.
+'<option value="30.00">La Unión - $30.00</option>'.
+'</optgroup>'
+;
 
 if (isset($_GET['tipo']) && isset($_GET['pin']))
 {
@@ -117,48 +153,42 @@ echo ui_input('variedad',$variedad['codigo_variedad'],'hidden');
 
 echo '<p class="info">Datos de entrega</p>';
 echo '<table class="tabla-estandar">';
-echo '<tr><th>Fecha de entrega</th><th>Teléfono del destinatario</th></tr>';
+echo '<tr><th>Fecha de entrega</th><th>Zona de entrega</th></tr>';
 echo '<tr>
-<td>Fecha '. ui_input('txt_fecha_entrega', @$_POST['txt_fecha_entrega']).'<p class="medio-oculto">La fecha se ingresa en el formato "día/mes/año". Haga clic en la caja de texto para utilizar el calendario virtual.</p></td>
-<td>Teléfono '.ui_input('txt_telefono_destinatario', @$_POST['txt_telefono_destinatario']).'<p class="medio-oculto">Deje este campo en blanco si no desea que contactemos con la persona que recibirá el regalo.</p></td>
+<td>'. ui_input('txt_fecha_entrega', @$_POST['txt_fecha_entrega']).'<p class="medio-oculto">La fecha se ingresa en el formato "día/mes/año".<br />Haga clic en la caja de texto para utilizar el calendario virtual.</p></td>
+<td><select name="destino" id="destino">'.$cmbLugares.'</select><p class="medio-oculto" style="font-weight:bolder;color:#F00;">Seleccione la zona en la que se ubica la dirección de su entrega.<br />Favor seleccionar correctamente pues de lo contrario retrasará su pedido.</p></td>
 </tr>';
 echo '<tr>';
-echo '<th>Dirección de entrega</th><th>Otras especificaciones</th>';
+echo '<th>Otras especificaciones</th><th>Dirección de entrega</th>';
 echo '</tr>';
 echo '<tr>';
-echo '<td style="width:50%">' . ui_textarea('txt_direccion_entrega',@$_POST['txt_direccion_entrega'],'','width:100%').'<p class="medio-oculto" style="font-weight:bolder;color:#F00;">Datos requeridos: municipio, colonia/poligono, calle y número de casa. Incluya todas las referencias posibles.</p></td>';
 echo '<td style="width:50%">' . ui_textarea('txt_usuario_notas',@$_POST['txt_usuario_notas'],'','width:100%').'<p class="medio-oculto">Ej. horas en las que puede encontrarse la persona o instrucciones especiales como tocar fuerte, etc.</p></td>';
+echo '<td style="width:50%">' . ui_textarea('txt_direccion_entrega',@$_POST['txt_direccion_entrega'],'','width:100%').'<p class="medio-oculto" style="font-weight:bolder;color:#F00;">Datos requeridos: municipio, colonia/poligono, calle y número de casa.<br />Incluya todas las referencias posibles.</p></td>';
 echo '</tr>';
 echo '</table>';
 
-/*
 echo '<p class="info">Personalice los detalles de su tarjeta</p>';
 echo '<table class="tabla-estandar">';
-echo '<tr>';
-echo '<th>Informacion</th><th>Lugar de entrega</th>';
-echo '<td><p class="medio-oculto">Flor360 envia de forma gratuita unicamente al area metropolitana de San Salvador / Mejicanos / Col. Escalon / Col. San Benito / Santa Tecla / Antiguo cuscatlan </p></td><td><select name="destino">'.$cmbLugares.'</select></td>';
-echo '</tr>';
-echo '</table>';
-*/
-
-echo '<p class="info">Personalice los detalles de su tarjeta</p>';
-echo '<table class="tabla-estandar">';
+echo '<tr><th>Nombre de quien envia</th><th>Nombre de quien recibe</th></tr>';
+echo '<td style="width:50%">' . ui_input('txt_tarjeta_de',@$_POST['txt_tarjeta_de']).'</td>';
+echo '<td style="width:50%">' . ui_input('txt_tarjeta_para',@$_POST['txt_tarjeta_para']).'</td>';
 echo '<tr><th colspan="2">Mensaje de la tarjeta</th></tr>';
 echo '<tr><td colspan="2">'.ui_textarea('txt_tarjeta_cuerpo',@$_POST['txt_tarjeta_cuerpo'],'','width:100%') . '</td></tr>';
-echo '<tr><th>De</th><th>Para</th></tr>';
-echo '<td style="width:50%">Nombre remitente ' . ui_input('txt_tarjeta_de',@$_POST['txt_tarjeta_de']).'</td>';
-echo '<td style="width:50%">Nombre destinatario ' . ui_input('txt_tarjeta_para',@$_POST['txt_tarjeta_para']).'</td>';
+echo '</table>';
+
+echo '<table class="tabla-estandar">';
+echo '<p class="info">Ingrese los datos de contacto. Seran necesarios para informarle sobre su orden.</p>';
+echo '<tr><th>Su correo electronico</th><th>Telefono de quien envia</th><th>Telefono de quien recibe</th></tr>
+<tr>
+<td>'.ui_input('txt_correo_contacto',@$_POST['txt_correo_contacto'],'','','width:100%').'<p class="medio-oculto"><strong>Su email</strong>, asegurese de que este activo por si necesitamos contactarlo.</p></td>
+<td>'.ui_input('txt_telefono_remitente',@$_POST['txt_telefono_remitente'],'','','width:100%').'<p class="medio-oculto">Su télefono es necesario para poder confirmar el pago</p></td>
+<td>'.ui_input('txt_telefono_destinatario', @$_POST['txt_telefono_destinatario']).'<p class="medio-oculto">Deje este campo en blanco si no desea que contactemos con la persona que recibirá el regalo.</p></td>
+</tr>';
 echo '</table>';
 
 echo '<table class="tabla-estandar">';
 echo '<p class="info">Ingrese los datos de facturación. Recuerde que esta bajo una conexión segura.</p>';
-echo '<tr><th colspan="2">Su correo electronico</th><th colspan="2">Teléfono de contacto</th></tr>
-<tr>
-<td colspan="2">' . ui_input('txt_correo_contacto',@$_POST['txt_correo_contacto'],'','','width:100%').'<p class="medio-oculto"><strong>Su email</strong>, asegurese de que este activo por si necesitamos contactarlo.</p></td>
-<td colspan="2">'.ui_input('txt_telefono_remitente',@$_POST['txt_telefono_remitente'],'','','width:100%').'<p class="medio-oculto">Su télefono es necesario para poder confirmar el pago</p></td>
-</tr>';
-
-echo '<tr><th>Número de tarjeta de crédito</th><th colspan="2">Nombre del titular</th></tr>';
+echo '<tr><th>Número de tarjeta de crédito</th><th colspan="2">Nombre del titular de la tarjeta de credito</th></tr>';
 echo '<tr>';
 echo '<td>' . ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']). ' <p class="medio-oculto">Favor ingresarlo sin espacios ni guiones</p></td>';
 echo '<td colspan="2">' . ui_input('txt_nombre_t_credito',@$_POST['txt_nombre_t_credito']). ' <p class="medio-oculto"><strong>Su nombre</strong> tal como aparece en su tarjeta de crédito</p></td>';
@@ -181,13 +211,17 @@ Tal como se muestra a continuación, el número de verificación de la tarjeta (
 CVV es un elemento de seguridad que permite tanto a Flor360.com como al proveedor de la tarjeta de crédito identificar al pasajero como el titular de la tarjeta y proporcionarle seguridad adicional para protegerlo contra fraudes.
 <center><img src="estatico/cvv_4digits.gif" style="width:240px;height:115px;" /> <img src="estatico/cvv_16digits.gif" style="width:240px;height:115px;" /></center>
 </p>
+<p>
+<strong>Código de Seguridad (CVV). ¿Qué es?</strong><br />
+El código de seguridad CVV o Código de Validación de la Tarjeta (Card Validation Value) es necesario para comprobar la autenticidad de la tarjeta de pago. Esta validación sustituye la necesidad de presentar la tarjeta física a la hora de realizar sus trámites.<br />
+Gracias al CVV, es posible reducir el fraude en linea, ya que permite asegurarnos que el cliente tiene en posesión la tarjeta física. Esta funcionalidad tiene por objeto proteger la seguridad de los usuarios que efectúan pagos a través de Internet.
+</p>
 ';
 
 echo '<hr />';
-echo '<p class="confirmacion">Al hacer clic en el botón "Comprar" acepto que ' . PROY_NOMBRE . ' cargue a mi cuenta de credito la cantidad exacta de $<strong>'.$variedad['precio'].'</strong> sin derecho a devolución en caso de que decida cancelar el pedido en un futuro.</p>';
+echo '<p class="confirmacion">Al hacer clic en el botón "Comprar" acepto que ' . PROY_NOMBRE . ' cargue a mi cuenta de credito la cantidad exacta de $<strong>'.$variedad['precio'].'</strong> más $<span style="font-weight:bold" id="precio_envio">0.00</span> de recargo de envío.</p>';
 
 echo '<table style="width:100%;"><tr><td style="text-align:center">'.ui_input('btn_comprar', 'Comprar', 'submit','btn').'</td><td style="text-align:center">'.ui_input('btn_cancelar', 'Cancelar', 'submit','btn').'</td></tr></table>';
-echo '<p class="medio-oculto">[recibira un recibo virtual imprimible]</p>';
 
 echo '<p class="medio-oculto">' . PROY_NOMBRE . ' almacenará su información financiera de forma segura. Sus datos financieros serán eliminados de nuestro sistema luego de 6 meses.</p>';
 echo '</form>';
@@ -198,6 +232,7 @@ $GLOBAL_MOSTRAR_PIE = false;
 echo JS_onload('
     $.datepicker.regional["es"];
     $("#txt_fecha_entrega").datepicker({minDate: 0, constrainInput: true, dateFormat : "yy-mm-dd", defaultDate: +1});
+    $("#destino").change(function(){$("#precio_envio").html($("#destino option:selected").val());});
     ');
 
 
@@ -322,7 +357,7 @@ function SSL_COMPRA_PROCESAR()
     $DATOS['usuario_notas'] =                   @$_POST['txt_usuario_notas'];
     $DATOS['correo_contacto'] =                 @$_POST['txt_correo_contacto'];
     $DATOS['transaccion'] =                     @$_POST['transaccion'];
-    $DATOS['precio_envio'] =                    @$_POST['destino'];
+    $DATOS['precio_envio'] =                    @(double)$_POST['destino'];
 
     if ($_POST['txt_numero_t_credito'] == str_repeat('1',16))
     {
@@ -338,7 +373,7 @@ $salida='enlinea'|'pdf'
 */
 function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
 {
-    $c = sprintf('SELECT procon.`codigo_producto`, procon.`titulo` AS "titulo_contenedor", provar.`descripcion` AS "titulo_variedad", provar.foto, comcon.`codigo_compra`, comcon.`codigo_usuario`, comcon.`codigo_variedad`, FORMAT(comcon.`precio_grabado`,2) AS precio_grabado, comcon.`direccion_entrega`, comcon.`fecha_entrega`, comcon.`tarjeta_de`, comcon.`tarjeta_para`, comcon.`tarjeta_cuerpo`, comcon.`usuario_notas`, comcon.`transaccion`, comcon.`fecha`, `estado`, `correo_contacto`, `telefono_remitente`, `usuario_notas`, `nombre_t_credito` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN `flores_producto_variedad` AS provar USING(codigo_variedad) LEFT JOIN `flores_producto_contenedor` AS procon USING(codigo_producto)  WHERE transaccion="%s"',db_codex($transaccion));
+    $c = sprintf('SELECT procon.`codigo_producto`, procon.`titulo` AS "titulo_contenedor", provar.`descripcion` AS "titulo_variedad", provar.foto, comcon.`codigo_compra`, comcon.`codigo_usuario`, comcon.`codigo_variedad`, FORMAT(comcon.`precio_grabado`,2) AS precio_grabado, FORMAT(comcon.`precio_envio`,2) AS precio_envio, comcon.`direccion_entrega`, comcon.`fecha_entrega`, comcon.`tarjeta_de`, comcon.`tarjeta_para`, comcon.`tarjeta_cuerpo`, comcon.`usuario_notas`, comcon.`transaccion`, comcon.`fecha`, `estado`, `correo_contacto`, `telefono_remitente`, `usuario_notas`, `nombre_t_credito` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN `flores_producto_variedad` AS provar USING(codigo_variedad) LEFT JOIN `flores_producto_contenedor` AS procon USING(codigo_producto)  WHERE transaccion="%s"',db_codex($transaccion));
     $r = db_consultar($c);
 
     if (!mysql_num_rows($r))
@@ -361,6 +396,8 @@ function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
     'Producto' => $f['titulo_contenedor'],
     'Variedad' => $f['titulo_variedad'],
     'Precio' => '$'.$f['precio_grabado'],
+    'Recargo de envio' => '$'.$f['precio_envio'],
+    'Total' => '$'.number_format(($f['precio_grabado']+$f['precio_envio']),2,'.',','),
     'Remitente' => $f['tarjeta_de'],
     'Destinatario' => $f['tarjeta_para'],
     'Tarjeta' => $f['tarjeta_cuerpo'],
