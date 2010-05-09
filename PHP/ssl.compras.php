@@ -190,7 +190,7 @@ echo '<table class="tabla-estandar">';
 echo '<p class="info">Ingrese los datos de facturación. Recuerde que esta bajo una conexión segura.</p>';
 echo '<tr><th>Número de tarjeta de crédito</th><th colspan="2">Nombre del titular de la tarjeta de credito</th></tr>';
 echo '<tr>';
-echo '<td>' . ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']). ' <p class="medio-oculto">Favor ingresarlo sin espacios ni guiones</p></td>';
+echo '<td>' . ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']). ' <p class="medio-oculto" style="color:#F00;">Favor ingresarlo de la forma exacta en la que aparece en su tarjeta.<br />Puede ingresar el numero con o sin guiones.</p></td>';
 echo '<td colspan="2">' . ui_input('txt_nombre_t_credito',@$_POST['txt_nombre_t_credito']). ' <p class="medio-oculto"><strong>Su nombre</strong> tal como aparece en su tarjeta de crédito</p></td>';
 echo '</tr>';
 
@@ -198,11 +198,26 @@ echo '<tr><th>Número de verificación CCV</th><th>Fecha expiración</th><th>Tip
 echo '<tr>';
 echo '<td>' . ui_input('txt_ccv',@$_POST['txt_ccv']). ' <p class="medio-oculto">Identifique este número con las instrucciones mas adelante</p></td>';
 echo '<td>'. ui_input('txt_fecha_expiracion',@$_POST['txt_fecha_expiracion']). ' <p class="medio-oculto">Formato MM/YY</p></td>';
-echo '<td>' . ui_combobox('cmb_tipo_t_credito','<option value="visa">Visa</option><option value="mastercard">Mastercard</option>').'</td>';
+echo '<td>'.ui_combobox('cmb_tipo_t_credito',
+'
+      <option value="Visa">Visa</option>
+      <option value="Visa Electron">Visa Electron</option>
+      <option value="American Express">American Express</option>
+      <option value="Carte Blanche">Carte Blanche</option>
+      <option value="Diners Club">Diners Club</option>
+      <option value="Discover">Discover</option>
+      <option value="Enroute">enRoute</option>
+      <option value="JCB">JCB</option>
+      <option value="Maestro">Maestro</option>
+      <option value="MasterCard">MasterCard</option>
+      <option value="Solo">Solo</option>
+      <option value="Switch">Switch</option>
+      <option value="LaserCard">Laser</option>
+',$_POST['cmb_tipo_t_credito']).'</td>';
 echo '</table>';
 
 echo '
-<p>
+<p class="medio-oculto">
 <strong>¿Cuál es el número de verificación de la tarjeta de crédito o débito (CVV) y dónde aparece?</strong>
 Para ofrecerle la máxima seguridad, le solicitamos que introduzca el número de verificación de su tarjeta de crédito o débito (CVV) antes de procesar el pago.<br />
 <br />
@@ -211,7 +226,7 @@ Tal como se muestra a continuación, el número de verificación de la tarjeta (
 CVV es un elemento de seguridad que permite tanto a Flor360.com como al proveedor de la tarjeta de crédito identificar al pasajero como el titular de la tarjeta y proporcionarle seguridad adicional para protegerlo contra fraudes.
 <center><img src="estatico/cvv_4digits.gif" style="width:240px;height:115px;" /> <img src="estatico/cvv_16digits.gif" style="width:240px;height:115px;" /></center>
 </p>
-<p>
+<p class="medio-oculto">
 <strong>Código de Seguridad (CVV). ¿Qué es?</strong><br />
 El código de seguridad CVV o Código de Validación de la Tarjeta (Card Validation Value) es necesario para comprobar la autenticidad de la tarjeta de pago. Esta validación sustituye la necesidad de presentar la tarjeta física a la hora de realizar sus trámites.<br />
 Gracias al CVV, es posible reducir el fraude en linea, ya que permite asegurarnos que el cliente tiene en posesión la tarjeta física. Esta funcionalidad tiene por objeto proteger la seguridad de los usuarios que efectúan pagos a través de Internet.
@@ -219,7 +234,7 @@ Gracias al CVV, es posible reducir el fraude en linea, ya que permite asegurarno
 ';
 
 echo '<hr />';
-echo '<p class="confirmacion">Al hacer clic en el botón "Comprar" acepto que ' . PROY_NOMBRE . ' cargue a mi cuenta de credito la cantidad exacta de $<strong>'.$variedad['precio'].'</strong> más $<span style="font-weight:bold" id="precio_envio">0.00</span> de recargo de envío.</p>';
+echo '<p class="confirmacion">Al hacer clic en el botón "Comprar" acepto que <span style="font-weight:bold;font-style:italic">' . PROY_NOMBRE . '</span> cargue a mi cuenta de credito la cantidad exacta de $<strong>'.$variedad['precio'].'</strong> más $<span style="font-weight:bold" id="precio_envio">0.00</span> de recargo de envío.</p>';
 
 echo '<table style="width:100%;"><tr><td style="text-align:center">'.ui_input('btn_comprar', 'Comprar', 'submit','btn').'</td><td style="text-align:center">'.ui_input('btn_cancelar', 'Cancelar', 'submit','btn').'</td></tr></table>';
 
@@ -273,17 +288,11 @@ function SSL_COMPRA_PROCESAR()
     // Verificamos que todos los datos sean válidos
     $ERRORES = array();
 
-    //Medio validamos el número de la tarjeta
-
-    if (!preg_match('/^\d{10,16}$/',$_POST['txt_numero_t_credito']))
+    require_once('PHP/ssl.vericard.php');
+    $_POST['txt_numero_t_credito'] = preg_replace ('/[^\d]/', '', $_POST['txt_numero_t_credito']);
+    if (!checkCreditCard ($_POST['txt_numero_t_credito'], $_POST['cmb_tipo_t_credito'], $ccerror, $ccerrortext))
     {
-        $ERRORES[] = 'El numero de tarjeta de credito no parece valido, Ud. ingresó '.$_POST['txt_numero_t_credito'].' ('.strlen($_POST['txt_numero_t_credito']).' digitos), por favor verifiquelo.';
-    }
-
-    //Válidamos el tipo de tarjeta de credito
-    if (!in_array($_POST['cmb_tipo_t_credito'],array('visa','mastercard')))
-    {
-        $ERRORES[] = 'Parece que de alguna manera escogió un tipo inválido de tarjeta de crédito.';
+        $ERRORES[] = $ccerrortext;
     }
 
     // Tratamos de ver si la direccion de entrega es valida
@@ -315,11 +324,6 @@ function SSL_COMPRA_PROCESAR()
     if (!validcorreo($_POST['txt_correo_contacto']))
     {
         $ERRORES[] = 'El correo ingresado no parece valido, por favor compruebelo.';
-    }
-
-    if ($_POST['txt_numero_t_credito'] == str_repeat('0',16))
-    {
-        $ERRORES[] = 'Número de tarjeta de crédito inválido.';
     }
 
     if (count($ERRORES) > 0)
