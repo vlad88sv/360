@@ -198,10 +198,14 @@ function URL_ObtenerReferencia()
 }
 
 // Wrapper de envío de correo electrónico. HTML/utf-8
-function correo($para, $asunto, $mensaje)
+function correo($para, $asunto, $mensaje,$exHeaders=null)
 {
     $headers = 'MIME-Version: 1.0' . "\r\n" . 'Content-type: text/html; charset=UTF-8' . "\r\n";
-    $headers .= 'From: '. PROY_NOMBRE .' <'. PROY_MAIL_POSTMASTER . ">\r\n";
+    $headers .= 'From: "'. PROY_NOMBRE .'" <'. PROY_MAIL_POSTMASTER . ">\r\n";
+    if (!empty($exHeaders))
+    {
+        $headers .= $exHeaders;
+    }
     $mensaje = sprintf('<html><head><title>%s</title></head><body>%s</body>',PROY_NOMBRE,$mensaje);
     return mail($para,'=?UTF-8?B?'.base64_encode($asunto).'?=',$mensaje,$headers);
 }
@@ -250,9 +254,9 @@ function HEAD_CSS()
         //$buffer .= '<style type="text/css">'.file_get_contents($CSS.".css")."</style>\n";
         //$buffer = preg_replace('!/\*[^*]*\*+([^/][^*]*\*+)*/!', '', $buffer);
         //$buffer = str_replace(array("\r\n", "\r", "\n", "\t", '  ', '    ', '    '), '', $buffer);
-      
+
         $buffer .= '<link rel="stylesheet" type="text/css" href="'.$CSS.'.css" />'."\n";
-        
+
     }
     echo $buffer;
     echo "\n";
@@ -311,7 +315,7 @@ function protegerme($solo_salir=false,$niveles=array())
         return;
 
     if (!$solo_salir)
-        header('Location: '. PROY_URL.'iniciar');
+        header('Location: '. PROY_URL.'iniciar?ref='.curPageURL());
     ob_end_clean();
     exit;
 }
@@ -398,7 +402,7 @@ function imagen_URL($HASH, $ancho, $alto, $servidor=null)
 {
     if (!$servidor)
         $servidor = 'img'.substr(hexdec(substr($HASH,0,2)),-1,1).'.';
-    
+
     return preg_replace(array("/\/?$/","/www./"),"",'http://'.$servidor.$_SERVER['HTTP_HOST']."/imagen_".$ancho.'_'.$alto.'_'.$HASH.'.jpg');
 }
 ?>

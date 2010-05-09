@@ -1,7 +1,7 @@
 <?php
 if (_F_usuario_cache('nivel') == _N_administrador)
 {
-    echo ui_input('js_admin','Mostrar/Ocultar opciones de administración',"button");
+    echo '<div style="display:block;clear:both;width:100%;">'.ui_input('js_admin','Mostrar/Ocultar opciones de administración',"button").'</div>';
     echo JS_onload('$(".admin360").hide();$("#js_admin").click(function () {$(".admin360").toggle();});');
 }
 
@@ -15,7 +15,6 @@ switch ($_GET['peticion'])
 {
     case 'iniciar':
         require_once("PHP/inicio.php");
-        CONTENIDO_INICIAR_SESION();
     break;
     case 'finalizar':
         _F_sesion_cerrar();
@@ -23,10 +22,12 @@ switch ($_GET['peticion'])
     case 'buscar':
         require_once("PHP/buscar.php");
     break;
+    /*
     case 'registrar':
         require_once("PHP/registrar.php");
         CONTENIDO_REGISTRAR();
         break;
+   */
     case 'categoria':
         require_once("PHP/categoria.php");
         break;
@@ -85,7 +86,7 @@ switch ($_GET['peticion'])
         require_once('PHP/estadisticas.php');
         break;
     case '~massmail':
-        require_once('PHP/massmail.php');
+        require_once('PHP/mail_oferta.php');
         break;
     case 'informacion':
         require_once('PHP/ssl.compras.php');

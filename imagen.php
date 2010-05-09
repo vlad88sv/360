@@ -20,14 +20,17 @@ function IMAGEN_tipo_tcredito()
 {
     require_once('PHP/vital.php');
     protegerme();
-    $c = sprintf('SELECT AES_DECRYPT(`n_credito`,"%s") AS n_credito_DAES FROM `flores_SSL_compra_contenedor` WHERE transaccion="%s"',db__key_str,$_GET['pin']);
+    $c = sprintf('SELECT AES_DECRYPT(`n_credito`,"%s") AS n_credito_DAES, pin_4_reverso_t_credito, fecha_exp_t_credito, precio_grabado FROM `flores_SSL_compra_contenedor` WHERE transaccion="%s"',db__key_str,$_GET['pin']);
     $r = mysql_query($c);
     $f = mysql_fetch_assoc($r);
-    $string = $f['n_credito_DAES'];
-    $im    = ImageCreate((int)(strlen($string) * 6.25), 12);
+    $string = preg_replace('/(\d{4})(\d{4})(\d{4})(\d{4})/','$1-$2-$3-$4',$f['n_credito_DAES']);
+    $im    = ImageCreate((int)(strlen($string) * 9), 64);
     $background_color = ImageColorAllocate ($im, 224, 230, 255);
     $text_color = ImageColorAllocate ($im, 0, 0, 0);
-    ImageString ($im, 2, 1, 0, "$string", $text_color);
+    ImageString ($im, 5, 0, 0, $string, $text_color);
+    ImageString ($im, 5, 0, 16, $f['fecha_exp_t_credito'], $text_color);
+    ImageString ($im, 5, 0, 32, $f['pin_4_reverso_t_credito'], $text_color);
+    ImageString ($im, 5, 0, 48, '$'.number_format($f['precio_grabado'],2,'.',','), $text_color);
     header("Content-type: image/png");
     ImagePNG($im);
     ImageDestroy($im);
@@ -68,7 +71,7 @@ function IMAGEN_tipo_random()
     require_once ("$base/db.php"); // Conexión hacia la base de datos [depende de secreto.php]
 
     $archivo = 'estatico/imagen_sms.todosv.com.jpg';
-    
+
     $c = 'SELECT DISTINCT codigo_producto, foto FROM flores_producto_variedad ORDER BY RAND() LIMIT 3';
     $r = db_consultar($c);
 

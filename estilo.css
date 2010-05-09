@@ -1,5 +1,6 @@
-html, body{margin:0 auto;padding:0;border:0;width:100%;background:#93d160;font-size:100%;font-family:Verdana, Helvetica,"Lucida Grande", Arial, sans-serif;height:100%;font-size:1em;background-attachment:fixed;background-image:url('IMG/stock/fondo.png');background-position:top left;background-repeat:repeat;}
+html, body{margin:0 auto;padding:0;border:0;width:100%;background:#93d160;font-size:100%;font-family:Verdana, Helvetica,"Lucida Grande", Arial, sans-serif;height:100%;font-size:1em;background-attachment:fixed;background-image:url('IMG/stock/fondo.jpg');background-position:top left;background-repeat:repeat;}
 input[type=text],input[type=password],select,textarea{border:1px solid #95C795;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;padding:1px;background-color:#FFF;font-weight:bolder;color:#000;}
+input[type=submit]{font-size:0.7em;vertical-align:middle;}
 table th{border-top:thin solid #c0c0c0;border-left:thin solid #c0c0c0;border-right:thin solid #c0c0c0;background-color:#eee;}
 h1, h2, h3{margin:.8em 0 .2em 0;padding:0;background-image:url('IMG/stock/fondo-h.png');}
 h1{display:block;-moz-border-radius:10px;-webkit-border-radius:10px;background-color:#95C795;color:#FFF;font-size:100%;text-align:center;padding:5px;}
@@ -18,12 +19,14 @@ a:hover{color:#50f;border:none;}
 .auto_mostrar{display:none;}
 .btnlnk-mini{line-height:normal;padding:0px;margin:0px;font-size:small;}
 .mini{font-size:0.7em;}
-.pme-hr{border:0px solid;padding:0px;margin:0px;border-top-width:1px;height:1px;}
-.pme-main{border:#004d9c 1px solid;border-collapse:collapse;border-spacing:0px;width:100%;}
-.pme-navigation{border:#004d9c 0px solid;border-collapse:collapse;border-spacing:0px;width:100%;}
-.pme-navigation-0, .pme-navigation-1{white-space:nowrap;}
-.pme-header{border:#004d9c 1px solid;padding:4px;background:#add8e6;}
-.pme-key-0, .pme-value-0, .pme-help-0, .pme-navigation-0, .pme-cell-0, .pme-key-1, .pme-value-1, .pme-help-0, .pme-navigation-1, .pme-cell-1, .pme-sortinfo, td.pme-filter{border:#004d9c 1px solid;padding:3px;}
+.pme-form{border:none;margin:0;padding:0;}
+.pme-hr{border:0 solid;padding:0;margin:0;border-top-width:1px;height:1px;}
+.pme-main{border:#004d9c 1px solid;border-collapse:collapse;border-spacing:0;width:100%;}
+.pme-navigation{border:#004d9c 0 solid;border-collapse:collapse;border-spacing:0;width:100%;}
+.pme-navigation-0,.pme-navigation-1{white-space:nowrap;}
+.pme-header{border:#004d9c 1px solid;padding:4px;background:#CCC;}
+.pme-form a{border:none;padding:0;background:none;text-decoration:none;}
+.pme-key-0,.pme-value-0,.pme-help-0,.pme-navigation-0,.pme-cell-0,.pme-key-1,.pme-value-1,.pme-help-0,.pme-navigation-1,.pme-cell-1,.pme-sortinfo,td.pme-filter{border:#004d9c 1px solid;padding:3px;}
 .pme-buttons{text-align:left;}
 .pme-message{text-align:center;}
 .pme-stats{text-align:right;}
@@ -39,18 +42,22 @@ a:hover{color:#50f;border:none;}
 .categoria-elemento>a>img{width:133px;height:200px;}
 .categoria-elemento>.precio{color:#555;}
 .tabla-estandar{width:100%;}
-.tabla-estandar td{vertical-align:top;padding:0 10px;}
+.tabla-estandar td{vertical-align:top;padding:0 10px;border:1px solid #CCC;}
+.tabla-estandar input{width:11ex;}
 .info:before{content:url('IMG/stock/exclamacion32.gif');margin:0 1em;float:left;}
-.info{display:block;vertical-align:bottom;font-weight:bold;font-size:1em;background-color:#F0F0F0;color:#BBB;border:1px dashed #F00;}
+.info{display:block;vertical-align:bottom;font-weight:bold;font-size:1em;background-color:#FEFEFE;color:#000;border:1px dashed #F00;}
 .confirmacion:before{content:url('IMG/stock/alto.png');margin:0 1em;float:left;}
 .confirmacion{display:block;vertical-align:bottom;font-weight:normal;font-size:1em;background-color:#F0F0F0;color:#BBB;}
 .error{display:block;font-weight:bold;font-size:1em;background-color:#FFF;color:#F00;padding:10px 0;border:1px dashed #000;}
+.btn{padding:0.5em;border:1px solid #F00;font-size:1.3em;font-weight:bolder;width:50% !important;}
+
+#tabla-ventas {font-size:8pt;}
 #caja-refinado>table{width:100%;}
 #caja-refinado table tr td + td{text-align:right;}
 #caja-refinado table{color:#8a8989;font-weight:normal;font-size:9pt;padding:0;margin:0;}
 #pie-pagina p, .medio-oculto, .medio-oculto a{color:#8a8989;font-weight:normal;font-size:7pt;padding:0;margin:0;}
 #pie-pagina p, .medio-oculto a{font-weight:bolder;}
-#wrapper{margin:auto;height:auto;min-height:100%;width:980px;overflow:hidden;background-color:#FFF;}
+#wrapper{margin:auto;height:auto;min-height:100%;width:980px;overflow:hidden;background-color:#FFF;border-left:1px solid #62BD18;border-right:1px solid #62BD18;}
 #header{top:0px;padding:0px;margin:0px;background-color:#FFF;}
 #header>table{width:100%;margin:0;border:0;padding:0;border-collapse:collapse;}
 #header tr{margin:0;border:0;}
@@ -89,8 +96,8 @@ a:hover{color:#50f;border:none;}
 #formulario-compra input{width:98%;}
 #menu_superior{border-spacing:0;border-collapse:collapse;line-height:29px;height:29px;}
 #menu_superior:after{clear:both;}
-.social{width:48px;height:48px;vertical-align:middle;}
 
+.social{width:48px;height:48px;vertical-align:middle;}
 .dropdown, .dropdown li, .dropdown ul{list-style:none;margin:0;padding:0;}
 .dropdown{z-index:597;}
 .dropdown li{float:left;height:29px;line-height:normal;}

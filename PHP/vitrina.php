@@ -111,15 +111,15 @@
     echo '<td style="width:50%;vertical-align:top">';
 
     // Mostrar los datos del contenedor
-    echo '<h1>', $contenedor['titulo'],'</h1>';
+    echo '<h1>', '#', $contenedor['codigo_producto'], '. ', $contenedor['titulo'], '</h1>';
 
     if (!isset($IMG_CONTENEDOR))
     {
         $IMG_CONTENEDOR = '<img src="IMG/stock/sin_imagen.jpg" title="Sin Imagen" />';
     }
 
-    $nVistas = SI_ADMIN('. Veces visto: '. db_contar(db_prefijo.'visita','codigo_producto='.$contenedor['codigo_producto']));
-    echo  '<div style="width:100%;text-align:center">'.$IMG_CONTENEDOR.'<p class="medio-oculto">Foto propiedad de Flor360.com - producto codigo #' . $contenedor['codigo_producto'] . $nVistas . '</p>';
+    $nVistas = SI_ADMIN('<p class="medio-oculto">Veces visto: '. db_contar(db_prefijo.'visita','codigo_producto='.$contenedor['codigo_producto']).'</p>');
+    echo  '<div style="width:100%;text-align:center">'.$IMG_CONTENEDOR.'<h1>Código de producto: '. $contenedor['codigo_producto'] .'</h1>'.$nVistas;
     echo '<h2>Productos similares</h2>';
     echo $PRODUCTOS_SIMILARES;
     echo '</div></td>';
@@ -142,12 +142,12 @@
 
     echo '
 <h2>¿Deseas realizar la compra vía telefónica?</h2>
-<p class="medio-oculto">Realiza tu compra vía llamada telefónica al número <strong>2243-6017</strong> o <strong>2531-4899</strong></p>
+<p class="medio-oculto">Realiza tu compra vía llamada telefónica al número <strong>2243-6017</strong></p>
 
 <p class="medio-oculto">No olvides tener listos los siguientes datos:</p>
 
 <ul class="medio-oculto">
-<li>El código del producto que deseas comprar es: <strong>34</strong></li>
+<li>El código del producto que deseas comprar es: <strong>'.$contenedor['codigo_producto'].'</strong></li>
 <li>La dirección <strong>exacta</strong> de entrega</li>
 <li>La forma de cancelar el producto (contra-entrega, etc.)</li>
 </ul>
@@ -156,9 +156,9 @@
 <strong>¡Regalale ya una sonrisa a todos tus seres queridos con Flor360.com, la mejor de las floristerias en El Salvador!</strong>
 </p>
 
-<h2>¿Deseas realizar la compra en nuestra sucursal?</h2>
+<h2>¿Deseas realizar la compra en nuestras oficinas?</h2>
 <p class="medio-oculto">
-Nuestra primera sucursal de Flor360.com se encuentra operando en <strong>Centro Comercial Galerias Escalón, 3er Nivel, enfrente del Carousel</strong> [<strong>2531-4899</strong>], ¡suscribete y te informaremos de muchas ofertas!.
+Flor360.com opera en <strong>Residencial Cumbres de la Esmeralda, calle Teotl, #20. (Misma calle de la entrada principal U. Albert Einstein</strong>.
 </p>
 
 <h2>¡Comparte este arreglo con tus amistades!</h2>

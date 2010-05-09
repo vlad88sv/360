@@ -1,7 +1,4 @@
 <?php
-function CONTENIDO_INICIAR_SESION()
-{
-
 if (isset($_POST['iniciar_proceder']))
 {
     ob_start();
@@ -32,9 +29,9 @@ $HEAD_titulo = PROY_NOMBRE . ' - Iniciar sesion';
 if (isset($_GET['ref']))
     $_POST['iniciar_retornar'] = $_GET['ref'];
 
-echo "Estimado usuario, si no posee una cuenta y desea registrar una... ". ui_href("","./registrar","¡entonces registrese ahora!") . ", es gratis, fácil y rápido.<br />";
+/* echo "Estimado usuario, si no posee una cuenta y desea registrar una... ". ui_href("","./registrar","¡entonces registrese ahora!") . ", es gratis, fácil y rápido.<br />"; */
 $retorno = empty($_POST['iniciar_retornar']) ? PROY_URL : $_POST['iniciar_retornar'];
-echo "<form action=\"iniciar\" method=\"POST\">";
+echo '<form action="iniciar" method="POST">';
 echo ui_input("iniciar_retornar", $retorno, "hidden");
 echo "<table>";
 echo ui_tr(ui_td("Correo electronico (e-mail)") . ui_td(ui_input("iniciar_campo_correo")));
@@ -42,5 +39,4 @@ echo ui_tr(ui_td("Constraseña") . ui_td(ui_input("iniciar_campo_clave","","pass
 echo "</table>";
 echo ui_input("iniciar_proceder", "Iniciar sesión", "submit")."<br />";
 echo "</form>";
-}
 ?>

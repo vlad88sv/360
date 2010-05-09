@@ -14,10 +14,9 @@
                     <img src="IMG/stock/bandera_SLV.gif" alt="Bandera de El Salvador" /><br />
                     El Salvador
                     <p class="medio-oculto">
-                        <span style="color:#F00;font-weight:bolder;">PEDIDOS: (503) 2243-6017</span><br />
-                        <span style="color:#F00;font-weight:bolder;">SUCURSAL: (503) 2531-4899</span><br />
+                        <span style="color:#F00;font-weight:bolder;">Tel.: (+503) 2243-6017</span><br />
                         <?php if (!S_iniciado()) { ?>
-                        <a rel="nofollow" href="<?php echo PROY_URL ?>iniciar" title="Iniciar sesión">Iniciar sesión</a> / <a rel="nofollow" href="<?php echo PROY_URL ?>registrar" title="Registrarse">Registrarse</a>
+                        <a rel="nofollow" href="<?php echo PROY_URL ?>iniciar" title="Iniciar sesión">Iniciar sesión</a>
                         <?php } else { ?>
                         <a rel="nofollow" href="<?php echo PROY_URL ?>finalizar" title="Cerrar sesión">Cerrar sesión</a>
                         <?php } ?>
@@ -53,7 +52,7 @@ foreach($menu as $clave => $componentes)
 /************* ADMINISTRACION ***************************/
 if (in_array(_F_usuario_cache('nivel'),array(_N_administrador,_N_vendedor)))
 {
-echo '<li class="dir lidestacado"><a href="'.PROY_URL.'ventas" title="Obtener lista de compra-venta en espera">Ventas</a></li>';
+echo '<li class="dir lidestacado"><a href="'.PROY_URL.'ventas?fecha_entrega=now" title="Obtener lista de compra-venta en espera">Ventas</a></li>';
 }
 
 if (_F_usuario_cache('nivel') == _N_administrador)

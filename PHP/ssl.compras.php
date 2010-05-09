@@ -6,6 +6,21 @@ ini_set('max_execution_time',   '6000');
 ini_set('upload_max_filesize',  '50M');
 ini_set('post_max_size',        '50M');
 
+// Temporalmente HARDCODED, pero migrar a tabla.
+$cmbLugares =
+'<option value="0.00">San Salvador (area metropolitana) - $0.00</option>'.
+'<option value="0.00">San Salvador (area periferica) - $5.00</option>'.
+'<option value="0.00">Santa Tecla - $0.00</option>'.
+'<option value="0.00">Antiguo cuscatlan - $0.00</option>'.
+'<option value="0.00">Col. Escalon - $0.00</option>'.
+'<option value="0.00">Col. San Benito - $0.00</option>'.
+'<option value="0.00">Antiguo Cuscatlán - $0.00</option>'.
+'<option value="0.00">Mejicanos - $0.00</option>'.
+'<option value="0.00">Soyapango - $5.00</option>'.
+'<option value="0.00">San Jacinto - $5.00</option>'.
+'<option value="0.00">San Bartolo - $7.00</option>'.
+'<option value="0.00">San Martín - $10.00</option>';
+
 if (isset($_GET['tipo']) && isset($_GET['pin']))
 {
     switch ($_GET['tipo'])
@@ -17,7 +32,7 @@ if (isset($_GET['tipo']) && isset($_GET['pin']))
                 echo '<h1>Rastreo del estado de su pedido</h1>';
                 echo sprintf('<p>Pedido <strong>%s</strong><br />Su pedido se encuentra en el siguiente estado: <strong>%s</strong></p>',$_GET['pin'],$estado);
                 echo sprintf('<p>Si necesita mas información no dude en comunicarse con nosotros en cualquiera de las siguientes formas:<br/>
-                             <ul><li>Llamandonos al <strong>2243-6017</strong> o al <strong>2531-4899</strong> [Sucursal Galerías Escalón]</li><li>Usando nuestro <a href="'.PROY_URL.'contactanos">formulario de contacto</a></li><li>Enviarnos un correo a <a href="mailto:informacion@flor360.com">informacion@flor360.com</a></li><li>Visitarnos en <strong>Centro Comercial Galerías Escalón, Nivel 3</strong></li></ul></p>');
+                             <ul><li>Llamandonos al '.PROY_TELEFONO.'</li><li>Usando nuestro <a href="'.PROY_URL.'contactanos">formulario de contacto</a></li><li>Enviarnos un correo a <a href="mailto:informacion@flor360.com">informacion@flor360.com</a></li><li>Visitarnos en <strong>Centro Comercial Galerías Escalón, Nivel 3</strong></li></ul></p>');
                 echo '<p>¿Necesita enviar otro regalo?, ¿le gustan nuestros arreglos?, entonces lo invitamos a <a href="'.PROY_URL.'">regresar a página principal</a>.</p>';
             }
             else
@@ -28,7 +43,8 @@ if (isset($_GET['tipo']) && isset($_GET['pin']))
             break;
 
         case 'factura':
-            echo SSL_COMPRA_FACTURA($_GET['pin']);
+            list($buffer,$f) = SSL_COMPRA_FACTURA($_GET['pin']);
+            echo $buffer;
             //ob_end_clean();
             //exit;
             break;
@@ -68,7 +84,7 @@ $variedad = mysql_fetch_assoc($variedad_r);
 
 // Tratemos de procesar la compra...
 $id_factura = SSL_COMPRA_PROCESAR();
-if ($id_factura)
+if (is_numeric($id_factura))
 {
     SSL_MOSTRAR_FACTURA($id_factura);
     echo '<hr />';
@@ -110,10 +126,20 @@ echo '<tr>';
 echo '<th>Dirección de entrega</th><th>Otras especificaciones</th>';
 echo '</tr>';
 echo '<tr>';
-echo '<td style="width:50%">' . ui_textarea('txt_direccion_entrega',@$_POST['txt_direccion_entrega'],'','width:100%').'<p class="medio-oculto">Datos básicos: municipio, colonia/poligono, calle y número de casa. Recuerde que por el momento le atendemos únicamente en el área metropolitana.</p></td>';
+echo '<td style="width:50%">' . ui_textarea('txt_direccion_entrega',@$_POST['txt_direccion_entrega'],'','width:100%').'<p class="medio-oculto" style="font-weight:bolder;color:#F00;">Datos requeridos: municipio, colonia/poligono, calle y número de casa. Incluya todas las referencias posibles.</p></td>';
 echo '<td style="width:50%">' . ui_textarea('txt_usuario_notas',@$_POST['txt_usuario_notas'],'','width:100%').'<p class="medio-oculto">Ej. horas en las que puede encontrarse la persona o instrucciones especiales como tocar fuerte, etc.</p></td>';
 echo '</tr>';
 echo '</table>';
+
+/*
+echo '<p class="info">Personalice los detalles de su tarjeta</p>';
+echo '<table class="tabla-estandar">';
+echo '<tr>';
+echo '<th>Informacion</th><th>Lugar de entrega</th>';
+echo '<td><p class="medio-oculto">Flor360 envia de forma gratuita unicamente al area metropolitana de San Salvador / Mejicanos / Col. Escalon / Col. San Benito / Santa Tecla / Antiguo cuscatlan </p></td><td><select name="destino">'.$cmbLugares.'</select></td>';
+echo '</tr>';
+echo '</table>';
+*/
 
 echo '<p class="info">Personalice los detalles de su tarjeta</p>';
 echo '<table class="tabla-estandar">';
@@ -134,7 +160,7 @@ echo '<tr><th colspan="2">Su correo electronico</th><th colspan="2">Teléfono de
 
 echo '<tr><th>Número de tarjeta de crédito</th><th colspan="2">Nombre del titular</th></tr>';
 echo '<tr>';
-echo '<td>' . ui_input('txt_numero_t_credito'). ' <p class="medio-oculto">Favor ingresarlo sin espacios ni guiones</p></td>';
+echo '<td>' . ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']). ' <p class="medio-oculto">Favor ingresarlo sin espacios ni guiones</p></td>';
 echo '<td colspan="2">' . ui_input('txt_nombre_t_credito',@$_POST['txt_nombre_t_credito']). ' <p class="medio-oculto"><strong>Su nombre</strong> tal como aparece en su tarjeta de crédito</p></td>';
 echo '</tr>';
 
@@ -157,13 +183,13 @@ CVV es un elemento de seguridad que permite tanto a Flor360.com como al proveedo
 </p>
 ';
 
-
 echo '<hr />';
 echo '<p class="confirmacion">Al hacer clic en el botón "Comprar" acepto que ' . PROY_NOMBRE . ' cargue a mi cuenta de credito la cantidad exacta de $<strong>'.$variedad['precio'].'</strong> sin derecho a devolución en caso de que decida cancelar el pedido en un futuro.</p>';
 
-echo '<center>'.ui_input('btn_comprar', 'Comprar', 'submit').ui_input('btn_cancelar', 'Cancelar', 'submit').'</center><br /><center>[recibira un recibo virtual imprimible]</center>';
+echo '<table style="width:100%;"><tr><td style="text-align:center">'.ui_input('btn_comprar', 'Comprar', 'submit','btn').'</td><td style="text-align:center">'.ui_input('btn_cancelar', 'Cancelar', 'submit','btn').'</td></tr></table>';
+echo '<p class="medio-oculto">[recibira un recibo virtual imprimible]</p>';
 
-echo '<p class="medio-oculto">' . PROY_NOMBRE . ' almacenará su información financiera de forma segura hasta por 6 meses, luego de este periodo todos su datos financieros serán eliminados de nuestro sistema.</p>';
+echo '<p class="medio-oculto">' . PROY_NOMBRE . ' almacenará su información financiera de forma segura. Sus datos financieros serán eliminados de nuestro sistema luego de 6 meses.</p>';
 echo '</form>';
 
 global $GLOBAL_MOSTRAR_PIE;
@@ -214,7 +240,7 @@ function SSL_COMPRA_PROCESAR()
 
     //Medio validamos el número de la tarjeta
 
-    if (!preg_match('/^\d{16}$/',$_POST['txt_numero_t_credito']))
+    if (!preg_match('/^\d{10,16}$/',$_POST['txt_numero_t_credito']))
     {
         $ERRORES[] = 'El numero de tarjeta de credito no parece valido, Ud. ingresó '.$_POST['txt_numero_t_credito'].' ('.strlen($_POST['txt_numero_t_credito']).' digitos), por favor verifiquelo.';
     }
@@ -241,7 +267,7 @@ function SSL_COMPRA_PROCESAR()
         $ERRORES[] = 'Por favor revise que la fecha de expiración de la tarjeta de crédito sea en el formato MES/AÑO incluyendo la pleca (/).';
     }
 
-    if (!preg_match('/^\d{3}$/',$_POST['txt_ccv']))
+    if (!preg_match('/^\d{3,4}$/',$_POST['txt_ccv']))
     {
         $ERRORES[] = 'Por favor revise que el número de verificación de la tarjeta de crédito sean tres (3) números. Sirvase de las instrucciones para encontrar este número en su tarjeta de crédito.';
     }
@@ -260,7 +286,7 @@ function SSL_COMPRA_PROCESAR()
     {
         $ERRORES[] = 'Número de tarjeta de crédito inválido.';
     }
-    
+
     if (count($ERRORES) > 0)
     {
         echo '<h1>Lo sentimos, hay errores en los datos ingresados</h1>';
@@ -275,28 +301,29 @@ function SSL_COMPRA_PROCESAR()
     $r = db_consultar($c);
     $f = mysql_fetch_assoc($r);
 
-    $DATOS['codigo_compra'] = '0';
-    $DATOS['codigo_usuario'] = '0';
-    $DATOS['codigo_variedad'] = $variedad['codigo_variedad'];
-    $DATOS['precio_grabado'] = $variedad['precio'];
-    $DATOS['n_credito'] = $f['t_credito_AES'];
-    $DATOS['tipo_t_credito'] = $_POST['cmb_tipo_t_credito'];
-    $DATOS['telefono_destinatario'] = $_POST['txt_telefono_destinatario'];
-    $DATOS['telefono_remitente'] = $_POST['txt_telefono_remitente'];
-    $DATOS['fecha_exp_t_credito'] = $_POST['txt_fecha_expiracion'];
-    $DATOS['nombre_t_credito'] = $_POST['txt_nombre_t_credito'];
-    $DATOS['pin_4_reverso_t_credito'] = $_POST['txt_ccv'];
-    $DATOS['direccion_entrega'] = $_POST['txt_direccion_entrega'];
-    $DATOS['fecha_entrega'] = $_POST['txt_fecha_entrega'];
-    $DATOS['tarjeta_de'] = $_POST['txt_tarjeta_de'];
-    $DATOS['tarjeta_para'] = $_POST['txt_tarjeta_para'];
-    $DATOS['tarjeta_cuerpo'] = $_POST['txt_tarjeta_cuerpo'];
-    $DATOS['usuario_notas'] = $_POST['txt_usuario_notas'];
-    $DATOS['correo_contacto'] = $_POST['txt_correo_contacto'];
-    $DATOS['estado'] = 'nuevo';
-    $DATOS['transaccion'] = $_POST['transaccion'];
-    $DATOS['fecha'] = mysql_datetime();
-    
+    $DATOS['codigo_compra'] =                   '0';
+    $DATOS['codigo_usuario'] =                  '0';
+    $DATOS['estado'] =                         'nuevo';
+    $DATOS['fecha'] =                           mysql_datetime();
+    $DATOS['codigo_variedad'] =                 @$variedad['codigo_variedad'];
+    $DATOS['precio_grabado'] =                  @$variedad['precio'];
+    $DATOS['n_credito'] =                       @$f['t_credito_AES'];
+    $DATOS['tipo_t_credito'] =                  @$_POST['cmb_tipo_t_credito'];
+    $DATOS['telefono_destinatario'] =           @$_POST['txt_telefono_destinatario'];
+    $DATOS['telefono_remitente'] =              @$_POST['txt_telefono_remitente'];
+    $DATOS['fecha_exp_t_credito'] =             @$_POST['txt_fecha_expiracion'];
+    $DATOS['nombre_t_credito'] =                @$_POST['txt_nombre_t_credito'];
+    $DATOS['pin_4_reverso_t_credito'] =         @$_POST['txt_ccv'];
+    $DATOS['direccion_entrega'] =               @$_POST['txt_direccion_entrega'];
+    $DATOS['fecha_entrega'] =                   @$_POST['txt_fecha_entrega'];
+    $DATOS['tarjeta_de'] =                      @$_POST['txt_tarjeta_de'];
+    $DATOS['tarjeta_para'] =                    @$_POST['txt_tarjeta_para'];
+    $DATOS['tarjeta_cuerpo'] =                  @$_POST['txt_tarjeta_cuerpo'];
+    $DATOS['usuario_notas'] =                   @$_POST['txt_usuario_notas'];
+    $DATOS['correo_contacto'] =                 @$_POST['txt_correo_contacto'];
+    $DATOS['transaccion'] =                     @$_POST['transaccion'];
+    $DATOS['precio_envio'] =                    @$_POST['destino'];
+
     if ($_POST['txt_numero_t_credito'] == str_repeat('1',16))
     {
         return '<p>ERROR</p>';
@@ -311,7 +338,7 @@ $salida='enlinea'|'pdf'
 */
 function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
 {
-    $c = sprintf('SELECT procon.`codigo_producto`, procon.`titulo` AS "titulo_contenedor", provar.`descripcion` AS "titulo_variedad", provar.foto, comcon.`codigo_compra`, comcon.`codigo_usuario`, comcon.`codigo_variedad`, FORMAT(comcon.`precio_grabado`,2) AS precio_grabado, comcon.`direccion_entrega`, comcon.`fecha_entrega`, comcon.`tarjeta_de`, comcon.`tarjeta_para`, comcon.`tarjeta_cuerpo`, comcon.`usuario_notas`, comcon.`transaccion`, comcon.`fecha`, `estado`, `correo_contacto`, `telefono_remitente`, `usuario_notas` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN `flores_producto_variedad` AS provar USING(codigo_variedad) LEFT JOIN `flores_producto_contenedor` AS procon USING(codigo_producto)  WHERE transaccion="%s"',db_codex($transaccion));
+    $c = sprintf('SELECT procon.`codigo_producto`, procon.`titulo` AS "titulo_contenedor", provar.`descripcion` AS "titulo_variedad", provar.foto, comcon.`codigo_compra`, comcon.`codigo_usuario`, comcon.`codigo_variedad`, FORMAT(comcon.`precio_grabado`,2) AS precio_grabado, comcon.`direccion_entrega`, comcon.`fecha_entrega`, comcon.`tarjeta_de`, comcon.`tarjeta_para`, comcon.`tarjeta_cuerpo`, comcon.`usuario_notas`, comcon.`transaccion`, comcon.`fecha`, `estado`, `correo_contacto`, `telefono_remitente`, `usuario_notas`, `nombre_t_credito` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN `flores_producto_variedad` AS provar USING(codigo_variedad) LEFT JOIN `flores_producto_contenedor` AS procon USING(codigo_producto)  WHERE transaccion="%s"',db_codex($transaccion));
     $r = db_consultar($c);
 
     if (!mysql_num_rows($r))
@@ -322,7 +349,11 @@ function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
 
     $f = mysql_fetch_assoc($r);
 
-    $buffer = '';
+    $buffer = '<style>';
+    $buffer .= 'table {border-collapse:collapse;}';
+    $buffer .= 'table th{border-top:thin solid #c0c0c0;border-left:thin solid #c0c0c0;border-right:thin solid #c0c0c0;background-color:#eee;}';
+    $buffer .= 'table td{border-top:thin solid #c0c0c0;border:thin solid #c0c0c0;}';
+    $buffer .= '</style>';
     $buffer .= '<table style="width:100%">';
     $campo = array(
     'Factura' => $f['transaccion'],
@@ -332,7 +363,9 @@ function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
     'Precio' => '$'.$f['precio_grabado'],
     'Remitente' => $f['tarjeta_de'],
     'Destinatario' => $f['tarjeta_para'],
+    'Tarjeta' => $f['tarjeta_cuerpo'],
     'Enviar a' => $f['direccion_entrega'],
+    'Fecha pedido' => date('d/m/Y'),
     'Fecha de entrega' => date('d/m/Y',strtotime($f['fecha_entrega'])),
     'Correo contacto' => $f['correo_contacto'],
     'Teléfono remitente' => $f['telefono_remitente'],
@@ -345,7 +378,7 @@ function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
     switch($salida)
     {
         case 'enlinea':
-            return $buffer;
+            return array($buffer,$f);
             break;
         case 'pdf':
             $buffer = '<html><body>'.$buffer.'</body></html>';
@@ -354,7 +387,6 @@ function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
             $dompdf->load_html($buffer);
             //$dompdf->render();
             //$dompdf->stream("factura-$transaccion.pdf");
-
     }
 }
 
@@ -362,22 +394,31 @@ function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
 function SSL_MOSTRAR_FACTURA($id_factura)
 {
     $transaccion=db_obtener(db_prefijo.'SSL_compra_contenedor','transaccion','codigo_compra="'.$id_factura.'"');
-    $factura = SSL_COMPRA_FACTURA($transaccion);
+    list($factura,$f) = SSL_COMPRA_FACTURA($transaccion);
 
-    $to      = 'Contactos Flor360.com <contacto@flor360.com>, Alejando Molina <a.molina@flor360.com>, Laura Cañas <l.canas@flor360.com>';
-    $subject = 'Nueva COMPRA en Flor360.com - ' . dechex(crc32(microtime()));
-    $message =
-                "Una venta ha sido realizada a travez de ".PROY_URL_ACTUAL."<br />\n" .
-                $factura . "<hr />\n".
-                "<br /><br />\n\nNo responda a contacto@flor360.com.<br />\n".
-                'En su lugar visite <a href="' . PROY_URL . 'ventas">~ventas</a>'."<br />\n";
-    @correo($to, $subject, $message);
+
+    // Correo para el staff de Flor360.com
+    $to      = 'Floristeria en El Salvador Flor360.com <cartero@flor360.com>';
+    $subject = 'Compra en '.PROY_NOMBRE.' - ' . dechex(crc32(microtime()));
+    $message = "<hr />\n" . $factura . "<hr />\n";
+    $headers = 'Reply-To: ' . (empty($f['tarjeta_de']) ? @$f['nombre_t_credito'] : @$f['tarjeta_de']) . ' <' . (empty($f['correo_contacto']) ? PROY_MAIL_REPLYTO :  @$f['correo_contacto']) .'>' . "\r\n";
+    @correo($to, $subject, $message, $headers);
+
+    // Correo para el cliente
+    if(!empty($f['correo_contacto']))
+    {
+        $to      = sprintf('"%s" <%s>',(empty($f['tarjeta_de']) ? @$f['nombre_t_credito'] : @$f['tarjeta_de']), @$f['correo_contacto']);
+        $subject = 'Su compra en '.PROY_NOMBRE.' - ' . dechex(crc32(microtime()));
+        $message = "<p>Gracias por su compra en Flor360.com, su pedido ha sido recibido.</p><p>Por favor corrobore que todos los datos a continuacion son correctos.</p><hr />\n" . $factura . "<hr />\n";
+        $headers = 'Reply-To: ' . (empty($f['tarjeta_de']) ? @$f['nombre_t_credito'] : @$f['tarjeta_de']) . ' <' . (empty($f['correo_contacto']) ? PROY_MAIL_REPLYTO :  @$f['correo_contacto']) .'>' . "\r\n";
+        @correo($to, $subject, $message, $headers);
+        }
 
     echo '<h1>Transaccion completada</h1>';
     echo '<p>¡Gracias por su compra!, el equipo de Flor360.com comenzara a elaborar su pedido con las flores mas frescas disponibles en este preciso momento.</p>';
     echo '<hr />';
     echo '<h2>Factura</h2>';
-    echo $factura;    
+    echo $factura;
     echo '<hr />';
     echo sprintf('<p>Puede consultar el estado de su orden desde la siguiente dirección Web:<br /> <input type="text" value="%s" width="100%%" /></p>',PROY_URL.'informacion?tipo=estado&pin='.$transaccion);
     echo sprintf('<p>Su copia del recibo virtual se encuentra en la siguiente dirección web<br /> <input type="text" value="%s" width="100%%" /></p>',PROY_URL.'informacion?tipo=factura&pin='.$transaccion);

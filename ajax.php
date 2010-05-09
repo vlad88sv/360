@@ -19,6 +19,5 @@ function AJAX_cambio_en_estado_de_orden()
     $DATOS['estado'] = $_POST['estado'];
     $DATOS['estado_notas'] = $_POST['estado_notas'];
     db_actualizar_datos(db_prefijo.'SSL_compra_contenedor',$DATOS,'codigo_compra="'.db_codex($_POST['codigo_compra']).'"');
-    echo '{"codigo_compra":"'.$_POST['codigo_compra'].'","estado":"'.$_POST['estado'].'","estado_notas":"'.$_POST['estado_notas'].'"}';
 }
 ?>

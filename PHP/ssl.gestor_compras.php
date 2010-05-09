@@ -76,6 +76,7 @@ $opts['fdd']['codigo_usuario'] = array(
   'name'     => 'Codigo usuario',
   'select'   => 'T',
   'maxlen'   => 11,
+    'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['codigo_variedad'] = array(
@@ -94,34 +95,40 @@ $opts['fdd']['n_credito'] = array(
   'name'     => 'N credito',
   'select'   => 'T',
   'maxlen'   => -1,
+  'options'  => 'FACPDV',
   'sort'     => true
 );
 
 $opts['fdd']['n_credito']['sql'] = 'AES_DECRYPT(n_credito,"'.db__key_str.'")';
 $opts['fdd']['n_credito']['sqlw'] = 'AES_ENCRYPT($val_qas,"'.db__key_str.'")';
 
+
 $opts['fdd']['tipo_t_credito'] = array(
   'name'     => 'Tipo t credito',
   'select'   => 'T',
   'maxlen'   => 150,
+  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['fecha_exp_t_credito'] = array(
   'name'     => 'Fecha exp t credito',
   'select'   => 'T',
   'maxlen'   => 15,
+  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['pin_4_reverso_t_credito'] = array(
   'name'     => 'Pin 4 reverso t credito',
   'select'   => 'T',
   'maxlen'   => 12,
+  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['direccion_entrega'] = array(
   'name'     => 'Direccion entrega',
   'select'   => 'T',
   'maxlen'   => -1,
+  'options'  => 'FACPDV',
   'textarea' => array(
     'rows' => 5,
     'cols' => 50),
@@ -137,18 +144,21 @@ $opts['fdd']['tarjeta_de'] = array(
   'name'     => 'Tarjeta de',
   'select'   => 'T',
   'maxlen'   => 150,
+  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['tarjeta_para'] = array(
   'name'     => 'Tarjeta para',
   'select'   => 'T',
   'maxlen'   => 150,
+  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['tarjeta_cuerpo'] = array(
   'name'     => 'Tarjeta cuerpo',
   'select'   => 'T',
   'maxlen'   => -1,
+  'options'  => 'FACPDV',
   'textarea' => array(
     'rows' => 5,
     'cols' => 50),
@@ -182,6 +192,7 @@ $opts['fdd']['usuario_notas'] = array(
   'name'     => 'Usuario notas',
   'select'   => 'T',
   'maxlen'   => -1,
+  'options'  => 'FACPDV',
   'textarea' => array(
     'rows' => 5,
     'cols' => 50),

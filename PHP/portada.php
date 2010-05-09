@@ -67,7 +67,7 @@ IF (_F_usuario_cache('nivel') == _N_administrador)
 // OPCIONES DE ADMINISTRACIÓN --- edición de portada --- //
 echo '<div class="admin360" style="display:block;width:100%;text-align:center">';
 echo '<hr />';
-echo '<form action="'.PROY_URL_ACTUAL.'" method="POST" enctype="multipart/form-data"/>';
+echo '<form action="'.PROY_URL_ACTUAL.'" method="POST" enctype="multipart/form-data">';
 echo '<h1>Opciones de administración</h1>';
 
 echo '<h2>Cambio de imagen principal</h2>

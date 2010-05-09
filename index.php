@@ -25,7 +25,6 @@ $HEAD_descripcion = 'Floristerias en El Salvador regalos de arreglos florales co
 <?php GENERAR_PIE(); ?>
 </div> <!-- secc_general !-->
 </div> <!-- wrapper !-->
-<?php echo GENERAR_GOOGLE_ANALYTICS(); ?>
 </body>
 </html>
 <?php $BODY = ob_get_clean(); ?>
@@ -52,6 +51,19 @@ ob_start();
 <?php HEAD_CSS(); ?>
 <?php HEAD_JS(); ?>
 <?php HEAD_EXTRA(); ?>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-12744164-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
 </head>
 <?php $HEAD = ob_get_clean(); ?>
 <?php
@@ -77,7 +89,7 @@ function GENERAR_CABEZA()
 function GENERAR_PIE()
 {
 global $HEAD_titulo, $HEAD_descripcion;
-//if (!isset($_GET['peticion']) || in_array($_GET['peticion'],array('categoria')))  
+//if (!isset($_GET['peticion']) || in_array($_GET['peticion'],array('categoria')))
 ?>
 <div id="inscribete">
 <form target="_blank" action="<?php echo PROY_URL?>verificar" method="post">
@@ -89,20 +101,5 @@ Inscribe tu correo para recibir ofertas especiales <input name="ce" type="text" 
 <?php cargar_editable('portada'); ?>
 </div>
 <?php
-}
-
-function GENERAR_GOOGLE_ANALYTICS()
-{
-    return '
-<script type="text/javascript">
-var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-document.write(unescape("%3Cscript src=\'" + gaJsHost + "google-analytics.com/ga.js\' type=\'text/javascript\'%3E%3C/script%3E"));
-</script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-12744164-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
-';
 }
 ?>

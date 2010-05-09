@@ -8,7 +8,7 @@ HTML;
 
 /* Opcion para modificacion global de precios */
 echo '<hr />
-<form action="'.PROY_URL_ACTUAL.'" method="POST" />
+<form action="'.PROY_URL_ACTUAL.'" method="POST" >
 <p>Modificar <strong>todos los precios</strong> en base al siguiente porcentaje '.ui_input('txt_porcentaje_precio').'</p>
 <p>Ejemplo: ingresar 100 sinfica incrementar todos los precios en en 100%.</p><p>Note que puede disminuir los precios poniendo valores negativos.</p>
 <p style="color:#F00"><strong>¡Advertencia!</strong> esta operación no puede ser revertida!</p>'.
@@ -17,7 +17,7 @@ ui_input('btn_porcentaje_precio','Realizar cambio','submit','btnlnk').
 
 /* Opcion para restablecer todo el sistema */
 echo '<hr />
-<form action="'.PROY_URL_ACTUAL.'" method="POST" />
+<form action="'.PROY_URL_ACTUAL.'" method="POST" >
 <p>Borrar <strong>todos los datos del sistema</strong>  '.ui_input('chk_confirmar_restablecer_sistema','confirmado','checkbox').'</p>
 <p style="color:#F00"><strong>¡Advertencia!</strong> esta operación no puede ser revertida!, los usuarios serán eliminados y se creará un nuevo usuario "administrador@localhost.com" con clave "administrador"</p>'.
 ui_input('btn_restablecer_sistema','Realizar cambio','submit','btnlnk').
