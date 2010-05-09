@@ -213,7 +213,7 @@ echo '<td>'.ui_combobox('cmb_tipo_t_credito',
       <option value="Solo">Solo</option>
       <option value="Switch">Switch</option>
       <option value="LaserCard">Laser</option>
-',$_POST['cmb_tipo_t_credito']).'</td>';
+',@$_POST['cmb_tipo_t_credito']).'</td>';
 echo '</table>';
 
 echo '
