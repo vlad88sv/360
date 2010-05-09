@@ -25,7 +25,7 @@ $r = db_consultar($c);
 while ($f = mysql_fetch_assoc($r))
 {
     $info_estado = '';
-    if(in_array($f['estado'],array('nuevo','aprobado','cobrado','transito','enviado')));
+    if(in_array($f['estado'],array('cobrado','enviado')));
         $total += $f['precio_grabado'];
     $info_producto_foto =
     '<a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.
@@ -53,12 +53,31 @@ while ($f = mysql_fetch_assoc($r))
     ui_input('pajax','modificar_orden','hidden').
     ui_combobox('estado', ui_array_a_opciones(array('nuevo' => 'Nuevo','aprobado' => 'Aprobado','cobrado' => 'Cobrado','transito' => 'En tránsito','enviado' => 'Enviado','error_pago' => 'Error en el pago','error_direccion' => 'Error en la dirección','error_flor360' => 'Error interno')),$f['estado'],'','width:70%').'<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Guardar" />'.BR.
     ui_textarea('estado_notas',$f['estado_notas'],'','width:98%;height:55px;').
-    '</form>'.
+    '</form>';
+
+    $info_estado_admin .=
     '<hr />'.
-    '<form action="'.PROY_URL.'" method="post">'.
     '<p class="medio-oculto">Pedido</p>'.
+    '<form style="display:inline" action="'.PROY_URL.'~compras" method="post" target="_blank">'.
+    ui_input('PME_sys_sfn[0]','0','hidden').
+    ui_input('PME_sys_fl','0','hidden').
+    ui_input('PME_sys_qfn','','hidden').
+    ui_input('PME_sys_fm','0','hidden').
+    ui_input('PME_sys_rec',$f['codigo_compra'],'hidden').
+    ui_input('PME_sys_operation','Cambiar','hidden').
+    ui_input('PME_sys_navfmdown','0','hidden').
     '<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Editar" />'.
+    '</form>'.
+    '<form style="display:inline" action="'.PROY_URL.'~compras" method="post" target="_blank">'.
+    ui_input('PME_sys_sfn[0]','0','hidden').
+    ui_input('PME_sys_fl','0','hidden').
+    ui_input('PME_sys_qfn','','hidden').
+    ui_input('PME_sys_fm','0','hidden').
+    ui_input('PME_sys_rec',$f['codigo_compra'],'hidden').
+    ui_input('PME_sys_operation','Suprimir','hidden').
+    ui_input('PME_sys_navfmdown','0','hidden').
     '<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Eliminar" />'.
+    '</form>'.
     '<p class="medio-oculto">Correos y notificaciones</p>'.
     ui_combobox('estado', ui_array_a_opciones(array('datos_basicos' => 'Datos básicos', 'facturacion_correcta' => 'Facturación correcta', 'facturacion_incorrecta' => 'Facturación incorrecta', 'pedido_aclarar' => 'Aclarar datos de pedido')),$f['estado'],'','width:70%').'<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Enviar" />'.BR.
     '</form>';

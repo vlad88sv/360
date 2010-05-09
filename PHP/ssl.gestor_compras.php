@@ -91,6 +91,12 @@ $opts['fdd']['precio_grabado'] = array(
   'maxlen'   => 11,
   'sort'     => true
 );
+$opts['fdd']['precio_envio'] = array(
+  'name'     => 'Precio envio',
+  'select'   => 'T',
+  'maxlen'   => 11,
+  'sort'     => true
+);
 $opts['fdd']['n_credito'] = array(
   'name'     => 'N credito',
   'select'   => 'T',
