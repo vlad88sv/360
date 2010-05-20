@@ -84,6 +84,7 @@ echo '<li class="dir"><a href="'.PROY_URL.'~administracion" title="administraci�
 <li><a href="<?php echo PROY_URL; ?>ayuda?tema=terminos_y_condiciones" title="Terminos y condiciones">Terminos y condiciones</a></li>
 <li><a href="<?php echo PROY_URL; ?>ayuda?tema=PF" title="Preguntas Frecuentes">Preguntas frecuentes</a></li>
 <li><a href="<?php echo PROY_URL; ?>ayuda?tema=como_pagar" title="Como pagar">¿Como pagar?</a></li>
+<li><a href="<?php echo PROY_URL; ?>ayuda?tema=precios_envio" title="Precios de envío">Precios de envío</a></li>
 </ul></li>
 
 <li class="dir"><a href="<?php echo PROY_URL; ?>contactanos" title="Contáctanos">Contáctanos</a>

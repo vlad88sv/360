@@ -64,6 +64,9 @@ IF (_F_usuario_cache('nivel') == _N_administrador)
 
 IF (_F_usuario_cache('nivel') == _N_administrador)
 {
+echo '<div style="display:block;clear:both;width:100%;">'.ui_input('js_admin','Mostrar/Ocultar opciones de administración',"button").'</div>';
+echo JS_onload('$(".admin360").hide();$("#js_admin").click(function () {$(".admin360").toggle();});');
+
 // OPCIONES DE ADMINISTRACIÓN --- edición de portada --- //
 echo '<div class="admin360" style="display:block;width:100%;text-align:center">';
 echo '<hr />';

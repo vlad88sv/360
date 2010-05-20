@@ -29,7 +29,7 @@ echo '<table>';
 
 while ($f = mysql_fetch_assoc($r))
 {
-    $escalado = 'IMG/fb/'.$f['codigo_producto'].'.jpg';
+    $escalado = 'IMG/fb/'.($f['codigo_producto']+100).'.jpg';
     $origen = 'IMG/i/'.$f['foto'];
     $ancho = 350;
     $alto = 525;
@@ -46,7 +46,7 @@ while ($f = mysql_fetch_assoc($r))
        $im->thumbnailImage($ancho,$alto,false);
        $im->writeImage($escalado);
     }
-    $img = '<img src="IMG/fb/'.$f['codigo_producto'].'.jpg" />';
+    $img = '<img src="IMG/fb/'.($f['codigo_producto']+100).'.jpg" />';
     $txt = '<textarea onClick="select();" style="height:20em;width:60em;">'.$f['titulo']."\n-\n".$f['contenedor_descripcion']."\n-\nCódigo del producto: #".$f['codigo_producto']."\n-\n".PROY_URL.'</textarea><br /><input  onClick="select();" style="width:60em;" type="text" value="[url='.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['titulo'].'-'.$f['codigo_producto']).'][img]'.PROY_URL.'imagen_350_525_'.$f['foto'].'.jpg[/img][/url]"/><br />'.$f['precio_combinado'];
     echo sprintf('<tr><td>%s</td><td>%s</td><td>%s</td></tr>',$f['codigo_producto'],$img,$txt);
 }

@@ -5,6 +5,8 @@ ini_set('max_input_time',       '6000');
 ini_set('max_execution_time',   '6000');
 ini_set('upload_max_filesize',  '50M');
 ini_set('post_max_size',        '50M');
+require_once('PHP/ssl.comun.php');
+
 
 // Temporalmente HARDCODED, pero migrar a tabla.
 $cmbLugares =
@@ -16,10 +18,10 @@ $cmbLugares =
 '<option value="0.00">Ayutuxtepeque - $0.00</option>'.
 '</optgroup>'.
 '<optgroup label="Gran San Salvador">'.
-'<option value="1.00">Antiguo Cuscatlán - $1.00</option>'.
+'<option value="0.00">Antiguo Cuscatlán - $0.00</option>'.
 '<option value="3.00">Santa Tecla - $3.00</option>'.
-'<option value="6.00">Soyapango - $6.00</option>'.
-'<option value="6.00">Ilopango - $6.00</option>'.
+'<option value="5.00">Soyapango - $5.00</option>'.
+'<option value="5.00">Ilopango - $5.00</option>'.
 '<option value="10.00">San Martín - $10.00</option>'.
 '<option value="10.00">San Bartolomé - $10.00</option>'.
 '<option value="10.00">San Bartolomé Perulapia - $10.00</option>'.
@@ -27,7 +29,7 @@ $cmbLugares =
 '<option value="10.00">Santo Tomás - $10.00</option>'.
 '<option value="10.00">Santiago Texacuango - $10.00</option>'.
 '<option value="10.00">Santiago Texacuangos - $10.00</option>'.
-'<option value="10.00">San Marcos - $10.00</option>'.
+'<option value="3.00">San Marcos - $3.00</option>'.
 '</optgroup>'.
 '<optgroup label="San Salvador, otros municipios">'.
 '<option value="12.00">Apopa - $12.00</option>'.
@@ -39,15 +41,15 @@ $cmbLugares =
 '<option value="12.00">Rosario de mora - $12.00</option>'.
 '</optgroup>'.
 '<optgroup label="Departamentos Central y Occidental">'.
-'<option value="20.00">San Vicente - $20.00</option>'.
-'<option value="20.00">Cabañas - $20.00</option>'.
-'<option value="20.00">Chalatenango - $20.00</option>'.
-'<option value="20.00">La Libertad - $20.00</option>'.
-'<option value="20.00">La Paz - $20.00</option>'.
-'<option value="20.00">Cuscatlán - $20.00</option>'.
-'<option value="20.00">Santa Ana - $20.00</option>'.
-'<option value="20.00">Sonsonate - $20.00</option>'.
-'<option value="20.00">Ahuchapán - $20.00</option>'.
+'<option value="30.00">San Vicente - $20.00</option>'.
+'<option value="30.00">Cabañas - $20.00</option>'.
+'<option value="30.00">Chalatenango - $20.00</option>'.
+'<option value="30.00">La Libertad - $20.00</option>'.
+'<option value="30.00">La Paz - $20.00</option>'.
+'<option value="30.00">Cuscatlán - $20.00</option>'.
+'<option value="30.00">Santa Ana - $20.00</option>'.
+'<option value="30.00">Sonsonate - $20.00</option>'.
+'<option value="30.00">Ahuchapán - $20.00</option>'.
 '</optgroup>'.
 '<optgroup label="Departamentos Orientales">'.
 '<option value="30.00">Usulután - $30.00</option>'.
@@ -172,8 +174,8 @@ echo '<table class="tabla-estandar">';
 echo '<tr><th>Nombre de quien envia</th><th>Nombre de quien recibe</th></tr>';
 echo '<td style="width:50%">' . ui_input('txt_tarjeta_de',@$_POST['txt_tarjeta_de']).'</td>';
 echo '<td style="width:50%">' . ui_input('txt_tarjeta_para',@$_POST['txt_tarjeta_para']).'</td>';
-echo '<tr><th colspan="2">Mensaje de la tarjeta</th></tr>';
-echo '<tr><td colspan="2">'.ui_textarea('txt_tarjeta_cuerpo',@$_POST['txt_tarjeta_cuerpo'],'','width:100%') . '</td></tr>';
+echo '<tr><th colspan="2">Mensaje de la tarjeta - limitado a 300 letras</th></tr>';
+echo '<tr><td colspan="2">'.ui_input('txt_tarjeta_cuerpo',@$_POST['txt_tarjeta_cuerpo'],'','','','maxlength="300"') . '</td></tr>';
 echo '</table>';
 
 echo '<table class="tabla-estandar">';
@@ -188,17 +190,11 @@ echo '</table>';
 
 echo '<table class="tabla-estandar">';
 echo '<p class="info">Ingrese los datos de facturación. Recuerde que esta bajo una conexión segura.</p>';
-echo '<tr><th>Número de tarjeta de crédito</th><th colspan="2">Nombre del titular de la tarjeta de credito</th></tr>';
+echo '<tr><th>Número de tarjeta de crédito</th><th>Fecha expiración</th><th>Tipo tarjeta de crédito</th></tr>';
 echo '<tr>';
-echo '<td>' . ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']). ' <p class="medio-oculto" style="color:#F00;">Favor ingresarlo de la forma exacta en la que aparece en su tarjeta.<br />Puede ingresar el numero con o sin guiones.</p></td>';
-echo '<td colspan="2">' . ui_input('txt_nombre_t_credito',@$_POST['txt_nombre_t_credito']). ' <p class="medio-oculto"><strong>Su nombre</strong> tal como aparece en su tarjeta de crédito</p></td>';
-echo '</tr>';
-
-echo '<tr><th>Número de verificación CCV</th><th>Fecha expiración</th><th>Tipo tarjeta de crédito</th></tr>';
-echo '<tr>';
-echo '<td>' . ui_input('txt_ccv',@$_POST['txt_ccv']). ' <p class="medio-oculto">Identifique este número con las instrucciones mas adelante</p></td>';
+echo '<td>'. ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']). ' <p class="medio-oculto" style="color:#F00;">Favor ingresarlo de la forma exacta en la que aparece en su tarjeta.<br />Puede ingresar el numero con o sin guiones.</p></td>';
 echo '<td>'. ui_input('txt_fecha_expiracion',@$_POST['txt_fecha_expiracion']). ' <p class="medio-oculto">Formato MM/YY</p></td>';
-echo '<td>'.ui_combobox('cmb_tipo_t_credito',
+echo '<td>'. ui_combobox('cmb_tipo_t_credito',
 '
       <option value="Visa">Visa</option>
       <option value="Visa Electron">Visa Electron</option>
@@ -214,6 +210,12 @@ echo '<td>'.ui_combobox('cmb_tipo_t_credito',
       <option value="Switch">Switch</option>
       <option value="LaserCard">Laser</option>
 ',@$_POST['cmb_tipo_t_credito']).'</td>';
+echo '</tr>';
+
+echo '<tr><th>Número de verificación CCV</th><th colspan="2">Nombre del titular de la tarjeta de credito</th></tr>';
+echo '<tr>';
+echo '<td>'. ui_input('txt_ccv',@$_POST['txt_ccv']). ' <p class="medio-oculto">Identifique este número con las instrucciones mas adelante</p></td>';
+echo '<td colspan="2">' . ui_input('txt_nombre_t_credito',@$_POST['txt_nombre_t_credito']). ' <p class="medio-oculto"><strong>Su nombre</strong> tal como aparece en su tarjeta de crédito</p></td>';
 echo '</table>';
 
 echo '
@@ -232,6 +234,12 @@ El código de seguridad CVV o Código de Validación de la Tarjeta (Card Validat
 Gracias al CVV, es posible reducir el fraude en linea, ya que permite asegurarnos que el cliente tiene en posesión la tarjeta física. Esta funcionalidad tiene por objeto proteger la seguridad de los usuarios que efectúan pagos a través de Internet.
 </p>
 ';
+
+/*
+  // Alta demanda
+echo '<hr />';
+echo '<p class="confirmacion">Atencion: debido a la alta demanda y saturación para este día 10 de Mayo, su arreglo podria ser entregado mañana 11 de Mayo. Esta nota tiene vigencia para todos los pedidos realizados a partir de las 11:00a.m. (hora local) el 10 de Mayo.</p>';
+*/
 
 echo '<hr />';
 echo '<p class="confirmacion">Al hacer clic en el botón "Comprar" acepto que <span style="font-weight:bold;font-style:italic">' . PROY_NOMBRE . '</span> cargue a mi cuenta de credito la cantidad exacta de $<strong>'.$variedad['precio'].'</strong> más $<span style="font-weight:bold" id="precio_envio">0.00</span> de recargo de envío.</p>';
@@ -320,12 +328,12 @@ function SSL_COMPRA_PROCESAR()
     {
         $ERRORES[] = 'El nombre del acreedor de la tarjeta de crédito parece inválido';
     }
-
+/*
     if (!validcorreo($_POST['txt_correo_contacto']))
     {
         $ERRORES[] = 'El correo ingresado no parece valido, por favor compruebelo.';
     }
-
+*/
     if (count($ERRORES) > 0)
     {
         echo '<h1>Lo sentimos, hay errores en los datos ingresados</h1>';
@@ -370,66 +378,6 @@ function SSL_COMPRA_PROCESAR()
     return db_agregar_datos(db_prefijo.'SSL_compra_contenedor',$DATOS);
 }
 
-/*****************************************************************************/
-/*
-Emite facturas virtuales para la compra.
-$salida='enlinea'|'pdf'
-*/
-function SSL_COMPRA_FACTURA($transaccion,$salida='enlinea')
-{
-    $c = sprintf('SELECT procon.`codigo_producto`, procon.`titulo` AS "titulo_contenedor", provar.`descripcion` AS "titulo_variedad", provar.foto, comcon.`codigo_compra`, comcon.`codigo_usuario`, comcon.`codigo_variedad`, FORMAT(comcon.`precio_grabado`,2) AS precio_grabado, FORMAT(comcon.`precio_envio`,2) AS precio_envio, comcon.`direccion_entrega`, comcon.`fecha_entrega`, comcon.`tarjeta_de`, comcon.`tarjeta_para`, comcon.`tarjeta_cuerpo`, comcon.`usuario_notas`, comcon.`transaccion`, comcon.`fecha`, `estado`, `correo_contacto`, `telefono_remitente`, `usuario_notas`, `nombre_t_credito` FROM `flores_SSL_compra_contenedor` AS comcon LEFT JOIN `flores_producto_variedad` AS provar USING(codigo_variedad) LEFT JOIN `flores_producto_contenedor` AS procon USING(codigo_producto)  WHERE transaccion="%s"',db_codex($transaccion));
-    $r = db_consultar($c);
-
-    if (!mysql_num_rows($r))
-    {
-        echo '<p>Lo sentimos, tal factura no existe</p>';
-        return;
-    }
-
-    $f = mysql_fetch_assoc($r);
-
-    $buffer = '<style>';
-    $buffer .= 'table {border-collapse:collapse;}';
-    $buffer .= 'table th{border-top:thin solid #c0c0c0;border-left:thin solid #c0c0c0;border-right:thin solid #c0c0c0;background-color:#eee;}';
-    $buffer .= 'table td{border-top:thin solid #c0c0c0;border:thin solid #c0c0c0;}';
-    $buffer .= '</style>';
-    $buffer .= '<table style="width:100%">';
-    $campo = array(
-    'Factura' => $f['transaccion'],
-    'F360' => $f['codigo_producto'].':'.$f['codigo_variedad'],
-    'Producto' => $f['titulo_contenedor'],
-    'Variedad' => $f['titulo_variedad'],
-    'Precio' => '$'.$f['precio_grabado'],
-    'Recargo de envio' => '$'.$f['precio_envio'],
-    'Total' => '$'.number_format(($f['precio_grabado']+$f['precio_envio']),2,'.',','),
-    'Remitente' => $f['tarjeta_de'],
-    'Destinatario' => $f['tarjeta_para'],
-    'Tarjeta' => $f['tarjeta_cuerpo'],
-    'Enviar a' => $f['direccion_entrega'],
-    'Fecha pedido' => date('d/m/Y'),
-    'Fecha de entrega' => date('d/m/Y',strtotime($f['fecha_entrega'])),
-    'Correo contacto' => $f['correo_contacto'],
-    'Teléfono remitente' => $f['telefono_remitente'],
-    'Notas adicionales del comprador' => $f['usuario_notas'] ? $f['usuario_notas'] : '[No especificó nada en especial]'
-    );
-    foreach($campo AS $clave => $valor)
-        $buffer .= sprintf('<tr><td>%s</td><td style="font-weight:bold">%s</td></tr>',$clave, $valor);
-    $buffer .= '</table>';
-
-    switch($salida)
-    {
-        case 'enlinea':
-            return array($buffer,$f);
-            break;
-        case 'pdf':
-            $buffer = '<html><body>'.$buffer.'</body></html>';
-            require_once('PHP/dompdf/dompdf_config.inc.php');
-            $dompdf = new DOMPDF();
-            $dompdf->load_html($buffer);
-            //$dompdf->render();
-            //$dompdf->stream("factura-$transaccion.pdf");
-    }
-}
 
 /*****************************************************************************/
 function SSL_MOSTRAR_FACTURA($id_factura)

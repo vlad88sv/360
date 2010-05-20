@@ -1,13 +1,8 @@
 <?php
 
     // Escribir las opciones si es administrador unicamente
-    if (_F_usuario_cache('nivel') == _N_administrador)
-    {
-        if (isset($_POST['btn_nElementos_por_fila']) && isset($_POST['txt_nElementos_por_fila']) && is_numeric($_POST['txt_nElementos_por_fila']))
-            {
-                escribir_opcion('categoria_articulos_por_fila',$_POST['txt_nElementos_por_fila']);
-            }
-    }
+    if (_F_usuario_cache('nivel') == _N_administrador && isset($_POST['btn_nElementos_por_fila']) && isset($_POST['txt_nElementos_por_fila']) && is_numeric($_POST['txt_nElementos_por_fila']))
+        escribir_opcion('categoria_articulos_por_fila',$_POST['txt_nElementos_por_fila']);
 
     /* Tablas */
     // pc = _producto_contenedor
@@ -95,8 +90,6 @@
     $FROM = sprintf('FROM flores_producto_contenedor AS pc LEFT JOIN (SELECT * FROM flores_producto_variedad ORDER BY precio ASC) AS pv USING(codigo_producto) LEFT JOIN flores_productos_categoria AS pcat USING(codigo_producto) LEFT JOIN flores_categorias AS cat USING(codigo_categoria) %s',$WHERE);
     $GROUP_BY = 'GROUP BY pv.codigo_producto';
     $c = 'SELECT '. join(', ',$CAMPOS) . ' ' . $FROM . ' '. $REFINADO .' ' . $GROUP_BY . ' ORDER BY RAND(curdate()+0)';
-    //$c = 'SELECT '. join(', ',$CAMPOS) . ' ' . $FROM . ' '. $REFINADO .' ' . $GROUP_BY . ' ORDER BY RAND("20100219")';
-    echo SI_ADMIN ('<p class="medio-oculto admin360">'.$c.'</p>');
     $r = db_consultar($c);
 
     if (!mysql_num_rows($r))
@@ -177,19 +170,6 @@
         $bFiltro .= '</table>';
     }
 
-/* ESPECIALES */
-/*
-    $c = 'SELECT COUNT(*) AS cuenta, tcat.codigo_categoria, tcat.titulo AS "titulo_categoria"'. ' FROM flores_producto_contenedor LEFT JOIN flores_productos_categoria USING(codigo_producto) LEFT JOIN flores_categorias AS tcat USING(codigo_categoria) WHERE codigo_producto IN (SELECT pc.codigo_producto ' . $FROM .') AND tcat.tipo="especial" GROUP BY codigo_categoria';
-    $r = db_consultar($c);
-
-    $bFiltro .= '<h2>Especiales</h2>';
-
-    $bFiltro .= '<table>';
-    while ($f = mysql_fetch_array($r))
-        $bFiltro .= '<tr><td><a href="'.PROY_URL_ACTUAL.'?refinado=categoria&valor='.$f['codigo_categoria'].'">'.$f['titulo_categoria'].'</a></td><td>['.$f['cuenta'].']</td></tr>'."\n";
-    $bFiltro .= '</table>';
-*/
-
     $c = 'SELECT rango_precio, COUNT(DISTINCT codigo_producto) AS cuenta FROM (SELECT pc.codigo_producto, pv.precio, CASE WHEN MAX(pv.precio) < 15 THEN "-15" WHEN MAX(pv.precio) BETWEEN 15 AND 30 THEN "15-30" WHEN MAX(pv.precio) BETWEEN 30 AND 45 THEN "30-45" WHEN MAX(pv.precio) > 45 THEN "+45" END AS rango_precio ' . $FROM . ' GROUP BY pc.codigo_producto) AS latabla GROUP BY rango_precio ORDER BY latabla.precio';
     $r = db_consultar($c);
     $bFiltro .= '<h2>Precio</h2>';
@@ -222,6 +202,8 @@
 /* SALIDA */
 if (_F_usuario_cache('nivel') == _N_administrador)
 {
+echo '<div style="display:block;clear:both;width:100%;">'.ui_input('js_admin','Mostrar/Ocultar opciones de administración',"button").'</div>';
+echo JS_onload('$(".admin360").hide();$("#js_admin").click(function () {$(".admin360").toggle();});');
     echo '<div class="admin360" style="display:block;width:100%;text-align:center">';
     echo '<hr />';
     echo '<form action="'.PROY_URL_ACTUAL.'" method="POST" enctype="multipart/form-data"/>';

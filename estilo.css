@@ -1,5 +1,6 @@
-html, body{margin:0 auto;padding:0;border:0;width:100%;background:#93d160;font-size:100%;font-family:Verdana, Helvetica,"Lucida Grande", Arial, sans-serif;height:100%;font-size:1em;background-attachment:fixed;background-image:url('IMG/stock/fondo.jpg');background-position:top left;background-repeat:repeat;}
-input[type=text],input[type=password],select,textarea{border:1px solid #95C795;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;padding:1px;background-color:#FFF;font-weight:bolder;color:#000;}
+html,body {margin:0 auto;padding:0;border:0;width:100%;height:100%;}
+body{background:#93d160;font-size:100%;font-family:Verdana, Helvetica,"Lucida Grande", Arial, sans-serif;font-size:1em;background-attachment:fixed;background-image:url('IMG/stock/fondo.png');background-position:top left;background-repeat:repeat;}
+input[type=text],input[type=password],select,textarea{border:1px solid #84B684;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;padding:1px;background-color:#DAFFB5;font-weight:bolder;color:#000;}
 input[type=submit]{font-size:0.7em;vertical-align:middle;}
 table th{border-top:thin solid #c0c0c0;border-left:thin solid #c0c0c0;border-right:thin solid #c0c0c0;background-color:#eee;}
 h1, h2, h3{margin:.8em 0 .2em 0;padding:0;background-image:url('IMG/stock/fondo-h.png');}
@@ -45,7 +46,7 @@ a:hover{color:#50f;border:none;}
 .tabla-estandar td{vertical-align:top;padding:1px 10px;border:1px solid #CCC;}
 .tabla-estandar input{width:11ex;}
 .info:before{content:url('IMG/stock/exclamacion32.gif');margin:0 1em;float:left;}
-.info{display:block;vertical-align:bottom;font-weight:bold;font-size:1em;background-color:#FEFEFE;color:#000;border:1px dashed #F00;}
+.info{display:block;vertical-align:bottom;font-weight:bold;font-size:1em;background-color:#FEFEFE;color:#000;border:1px dashed #F00;margin-top:1em;}
 .confirmacion:before{content:url('IMG/stock/alto.png');margin:0 1em;float:left;}
 .confirmacion{display:block;vertical-align:bottom;font-weight:normal;font-size:1em;background-color:#F0F0F0;color:#111;}
 .error{display:block;font-weight:bold;font-size:1em;background-color:#FFF;color:#F00;padding:10px 0;border:1px dashed #000;}
@@ -56,7 +57,7 @@ a:hover{color:#50f;border:none;}
 #caja-refinado>table{width:100%;}
 #caja-refinado table tr td + td{text-align:right;}
 #caja-refinado table{color:#8a8989;font-weight:normal;font-size:9pt;padding:0;margin:0;}
-#pie-pagina p, .medio-oculto, .medio-oculto a{color:#8a8989;font-weight:normal;font-size:7pt;padding:0;margin:0;}
+#pie-pagina p, .medio-oculto, .medio-oculto a{color:#8a8989;font-weight:normal;font-size:7pt;margin:0;}
 #pie-pagina p, .medio-oculto a{font-weight:bolder;}
 #wrapper{margin:auto;height:auto;min-height:100%;width:980px;overflow:hidden;background-color:#FFF;border-left:1px solid #62BD18;border-right:1px solid #62BD18;}
 #header{top:0px;padding:0px;margin:0px;background-color:#FFF;}
@@ -79,7 +80,7 @@ a:hover{color:#50f;border:none;}
 #error{background-color:#F00;border:2px solid #000;margin:0;padding:5px;max-width:100%;font-weight:bold;color:#FFF;text-align:center;margin-top:5px;margin-bottom:5px;}
 #error:before{content:'Error: '}
 #info{background-color:#FFFF00;border:2px solid #F00;margin:0;padding:5px;max-width:100%;font-weight:bold;color:#000000;text-align:center;margin-top:5px;margin-bottom:5px;}
-#info:before{content:"InformaciÃ³n: "}
+#info:before{content:"Informacion: "}
 #nota{display:block;background-color:#CCCCFF;border:2px solid #000000;margin:0;padding:5px;max-width:100%;font-weight:bold;color:#000000;text-align:center;margin-top:5px;margin-bottom:5px;}
 #nota:before{content:"Nota: "}
 #pub_descripcion_corta{width:100%;background-color:#EEE;}

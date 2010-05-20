@@ -10,7 +10,7 @@ HTML;
 echo '<hr />
 <form action="'.PROY_URL_ACTUAL.'" method="POST" >
 <p>Modificar <strong>todos los precios</strong> en base al siguiente porcentaje '.ui_input('txt_porcentaje_precio').'</p>
-<p>Ejemplo: ingresar 100 sinfica incrementar todos los precios en en 100%.</p><p>Note que puede disminuir los precios poniendo valores negativos.</p>
+<p>Ejemplo: ingresar 100 significa mantener los precios, ingresar 125 significa incrementar los precios en 25%, ingresar 50 seria poner todo a mitad de precio.</p><p>Note que puede disminuir los precios poniendo valores negativos.</p>
 <p style="color:#F00"><strong>¡Advertencia!</strong> esta operación no puede ser revertida!</p>'.
 ui_input('btn_porcentaje_precio','Realizar cambio','submit','btnlnk').
 '</form>';
@@ -28,7 +28,7 @@ function ADMINISTRACION_PROCESAR_PORCENTAJE_PRECIOS()
     if (!(isset($_POST['btn_porcentaje_precio']) && isset($_POST['txt_porcentaje_precio']) && is_numeric($_POST['txt_porcentaje_precio'])))
         return;
 
-    $c = sprintf('UPDATE %s SET precio=precio+(precio*(%s/100))',db_prefijo.'producto_variedad',$_POST['txt_porcentaje_precio']);
+    $c = sprintf('UPDATE %s SET precio=(precio*(%s/100))',db_prefijo.'producto_variedad',$_POST['txt_porcentaje_precio']);
     db_consultar($c);
 }
 

@@ -17,14 +17,32 @@ $HEAD_titulo = PROY_NOMBRE;
 $HEAD_descripcion = 'Floristerias en El Salvador regalos de arreglos florales con entrega a domicilio. Peluches, ramos florales, bouquet o ramo de novia, botonier para novio, bodas, novias, dia de la madre.';
 ?>
 <?php ob_start(); ?>
-<body>
-<div id="wrapper">
-<div id="header"><?php GENERAR_CABEZA(); ?></div>
-<div id="secc_general">
 <?php require_once('PHP/traductor.php'); ?>
-<?php GENERAR_PIE(); ?>
-</div> <!-- secc_general !-->
-</div> <!-- wrapper !-->
+<?php $BODY = ob_get_clean(); ?>
+
+<?php ob_start(); ?>
+<body>
+
+<?php if(!isset($GLOBAL_IMPRESION)) { ?>
+    <div id="wrapper">
+    <div id="header"><?php GENERAR_CABEZA(); ?></div>
+    <div id="secc_general">
+    <?php echo $BODY; ?>
+    <?php GENERAR_PIE(); ?>
+    </div> <!-- secc_general !-->
+    </div> <!-- wrapper !-->
+<?php } else { ?>
+    <style>
+    body{background:none !important;background-image:none !important;}
+    #wrapper{border:none !important;margin:0 !important;padding:1em !important;}
+    .medio-oculto{font-size:11pt;}
+    </style>
+    <div id="wrapper">
+    <div id="secc_general">
+    <?php echo $BODY; ?>
+    </div> <!-- secc_general !-->
+    </div> <!-- wrapper !-->
+<?php } ?>
 </body>
 </html>
 <?php $BODY = ob_get_clean(); ?>
@@ -67,6 +85,7 @@ ob_start();
 </head>
 <?php $HEAD = ob_get_clean(); ?>
 <?php
+
 /* MOSTRAR TODO */
 if(isset($GLOBAL_TIDY_BREAKS))
     echo $HEAD.$BODY;
@@ -91,6 +110,7 @@ function GENERAR_PIE()
 global $HEAD_titulo, $HEAD_descripcion;
 //if (!isset($_GET['peticion']) || in_array($_GET['peticion'],array('categoria')))
 ?>
+<iframe src="http://www.facebook.com/plugins/likebox.php?id=348293355878&amp;width=970&amp;connections=17&amp;stream=false&amp;header=true&amp;height=287" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:970px; height:200px;" allowTransparency="true"></iframe>
 <div id="inscribete">
 <form target="_blank" action="<?php echo PROY_URL?>verificar" method="post">
 Inscribe tu correo para recibir ofertas especiales <input name="ce" type="text" value="" /> <input name="inscribir" type="submit" class="btnlnk btnlnk-mini" value="Inscribirme" />

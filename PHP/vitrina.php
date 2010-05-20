@@ -53,18 +53,18 @@
 
     $VARIEDADES_ADMIN = '<h2>Administración de variedades</h2>';
     $VARIEDADES = '';
-    $VARIEDADES .= '<table style="width:100%">';
+    $VARIEDADES .= '<table style="width:98%">';
     for ($i=0; $i<mysql_num_rows($variedad); $i++) {
         $f = mysql_fetch_assoc($variedad);
         $VARIEDADES .=  '<tr>';
-        $VARIEDADES .= '<td><input type="radio" class="variedad" name="variedad"';
+        $VARIEDADES .= '<td style="width:480px;"><input type="radio" class="variedad" name="variedad"';
         if (empty($flag_selected))
         {
             $PRECIO = $f['precio'];
             $VARIEDADES .= ' checked="checked"';
-            $IMG_CONTENEDOR = '<img id="imagen_contenedor" style="width:350;height:525px;display:block;margin:auto;" src="'.imagen_URL($f['foto'],350,525,'img0.').'" />';
+            $IMG_CONTENEDOR = '<img id="imagen_contenedor" style="width:480px;height:720px;display:block;margin:auto;" src="'.imagen_URL($f['foto'],480,720,'img0.').'" />';
         }
-        $VARIEDADES .= ' rel="'.imagen_URL($f['foto'],350,525,'img0.').'"';
+        $VARIEDADES .= ' rel="'.imagen_URL($f['foto'],480,720,'img0.').'"';
         $VARIEDADES .= ' id="'.$f['foto'].'"';
         $VARIEDADES .= ' value="'.$f['codigo_variedad'].'" /></td>';
         $VARIEDADES .= '<td style="width:100%">'.$f['descripcion'].'</td>'.
@@ -96,7 +96,7 @@
     //$CATEGORIAS .= SI_ADMIN(BR.flores_db_ui_obtener_categorias_cmb('cmb_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria','Agregar','submit'));
     $CATEGORIAS .= SI_ADMIN(BR.'<form action="'.PROY_URL_ACTUAL.'" method="POST">'.flores_db_ui_obtener_categorias_chkbox('chk_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria_v2','Agregar','submit','btnlnk').'</form>');
 
-    $csimilar = sprintf('SELECT procon.codigo_producto, procon.titulo, provar.foto, provar.descripcion FROM flores_producto_contenedor AS procon LEFT JOIN flores_producto_variedad AS provar USING(codigo_producto) WHERE precio BETWEEN (%s)*0.60 AND (%s)*1.40 GROUP BY provar.codigo_producto ORDER BY RAND() LIMIT 4',$PRECIO,$PRECIO);
+    $csimilar = sprintf('SELECT procon.codigo_producto, procon.titulo, provar.foto, provar.descripcion FROM flores_producto_contenedor AS procon LEFT JOIN flores_producto_variedad AS provar USING(codigo_producto) WHERE codigo_producto <> %s AND precio BETWEEN (%s)*0.60 AND (%s)*1.40 GROUP BY provar.codigo_producto ORDER BY RAND() LIMIT 9',$contenedor['codigo_producto'],$PRECIO,$PRECIO);
     $PRODUCTOS_SIMILARES = '';
     $rsimilar = db_consultar($csimilar);
     if (mysql_num_rows($rsimilar))
@@ -119,9 +119,7 @@
     }
 
     $nVistas = SI_ADMIN('<p class="medio-oculto">Veces visto: '. db_contar(db_prefijo.'visita','codigo_producto='.$contenedor['codigo_producto']).'</p>');
-    echo  '<div style="width:100%;text-align:center">'.$IMG_CONTENEDOR.'<h1>Código de producto: '. $contenedor['codigo_producto'] .'</h1>'.$nVistas;
-    echo '<h2>Productos similares</h2>';
-    echo $PRODUCTOS_SIMILARES;
+    echo  '<div style="width:100%;text-align:center">'.$IMG_CONTENEDOR.BR.$nVistas;
     echo '</div></td>';
     echo '<td style="width:50%;vertical-align:top">';
     echo '<h1>Detalles</h1>';
@@ -136,7 +134,7 @@
     echo $VARIEDADES;
     echo '<hr />';
     echo '<table>';
-    echo '<td id="izq-compra" class="medio-oculto">Luego tendrás la oportunidad de escoger el texto de la tarjeta.<br />¿tarjeta gratis? ¡solo en Flor360.com!.<br /><strong>Recuerda que el precio ya incluye sevicio a domicilio de entrega en el departamento de San Salvador. Contactenos previamente si su envio es en otro departamento.</strong></td>';
+    echo '<td id="izq-compra" class="medio-oculto">Podrá escoger el texto de la tarjeta (¡gratuita!) en la página de compra. Se aceptan todas las tarjetas de crédito y débito a nivel nacional e internacional.</td>';
     echo '<td>' . ui_input('btn_comprar_ahora','Comprar ahora','submit','btn').'<br /><img src="'.PROY_URL.'IMG/stock/credit_card_logos_4.gif"/></td>';
     echo '</table>';
 
@@ -152,21 +150,30 @@
 <li>La forma de cancelar el producto (contra-entrega, etc.)</li>
 </ul>
 
+<h2>¿Prefieres los depositos a cuenta?</h2>
+<img style="float:left; margin-right:1em;" src="https://www.bac.net/regional/img/home/elbac.gif" />
 <p class="medio-oculto">
-<strong>¡Regalale ya una sonrisa a todos tus seres queridos con Flor360.com, la mejor de las floristerias en El Salvador!</strong>
+<strong>Banco de America Central</strong><br />
+Número de cuenta: <strong>200721538</strong><br />
+</p>
+<br />
+<p class="medio-oculto">
+Luego de realizar el deposito comuniquese al '.PROY_TELEFONO.' para hacer su pedido. Se le solicitará el número del deposito.
 </p>
 
 <h2>¿Deseas realizar la compra en nuestras oficinas?</h2>
 <p class="medio-oculto">
-Flor360.com opera en <strong>Residencial Cumbres de la Esmeralda, calle Teotl, #20. (Misma calle de la entrada principal U. Albert Einstein</strong>.
+Visítanos en
+Residencial Cumbres de la Esmeralda, calle Teotl, #20.<br />
+Misma calle de la entrada principal U. Albert Einstein.
 </p>
-
-<h2>¡Comparte este arreglo con tus amistades!</h2>
-'.GENERAR_SOCIAL().'
 </td>
 </tr>
 </table>
 ';
+
+echo '<h2>Productos similares</h2>';
+echo $PRODUCTOS_SIMILARES;
 
     if (_F_usuario_cache('nivel') != _N_administrador && !db_contar(db_prefijo.'visita','ip=INET_ATON("'.$_SERVER['REMOTE_ADDR'].'") AND session_id="'.session_id().'" AND codigo_producto='.$contenedor['codigo_producto'].' AND (DATE_SUB(NOW(),INTERVAL 1 HOUR) < `fecha`)'))
     {

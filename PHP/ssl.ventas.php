@@ -28,7 +28,7 @@ while ($f = mysql_fetch_assoc($r))
     if(in_array($f['estado'],array('cobrado','enviado')));
         $total += $f['precio_grabado'];
     $info_producto_foto =
-    '<a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.
+    '<a target="_blank" href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">'.
     '<img style="width:133px;height:200px" src="'.imagen_URL($f['foto'],133,200).'" /></a>'.
     '<p class="medio-oculto">
     <strong>Cod. Producto: </strong>'.$f['codigo_producto'].BR.
@@ -57,7 +57,7 @@ while ($f = mysql_fetch_assoc($r))
 
     $info_estado_admin .=
     '<hr />'.
-    '<p class="medio-oculto">Pedido</p>'.
+    '<p class="medio-oculto">Datos del pedido</p>'.
     '<form style="display:inline" action="'.PROY_URL.'~compras" method="post" target="_blank">'.
     ui_input('PME_sys_sfn[0]','0','hidden').
     ui_input('PME_sys_fl','0','hidden').
@@ -78,12 +78,19 @@ while ($f = mysql_fetch_assoc($r))
     ui_input('PME_sys_navfmdown','0','hidden').
     '<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Eliminar" />'.
     '</form>'.
+    '<form style="display:inline" action="'.PROY_URL.'~impresion" method="get" target="_blank">'.
+    ui_input('objetivo','pedido','hidden').
+    ui_input('transaccion',$f['transaccion'],'hidden').
+    '<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Imprimir" />'.
+    '</form>'.
     '<p class="medio-oculto">Correos y notificaciones</p>'.
-    ui_combobox('estado', ui_array_a_opciones(array('datos_basicos' => 'Datos básicos', 'facturacion_correcta' => 'Facturación correcta', 'facturacion_incorrecta' => 'Facturación incorrecta', 'pedido_aclarar' => 'Aclarar datos de pedido')),$f['estado'],'','width:70%').'<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Enviar" />'.BR.
+    '<form action="'.PROY_URL.'~notificacion" method="get" target="_blank">'.
+    ui_input('transaccion',$f['transaccion'],'hidden').
+    ui_combobox('plantilla', ui_array_a_opciones(array('datos_basicos' => 'Datos básicos', 'facturacion_correcta' => 'Facturación correcta', 'facturacion_incorrecta' => 'Facturación incorrecta', 'pedido_aclarar' => 'Aclarar datos de pedido', 'enviado' => 'Enviado', 'error_entrega' => 'Error de entrega')),$f['estado'],'','width:70%').'<input type="submit" class="btnlnk btnlnk-mini" style="width:30%" value="Enviar" />'.
     '</form>';
 
     $info_importante =
-    '<table class="tabla-estandar" style="height:55px;">'.
+    '<table class="tabla-estandar" style="width:99%;height:55px;">'.
     '<tr>'.
     '<td>'.
     '<p class="medio-oculto">'.
@@ -113,7 +120,7 @@ while ($f = mysql_fetch_assoc($r))
     '<strong>Elementos para preparación</strong>'.BR.ui_textarea('',$f['receta'],'','width:98%;height:55px;').
     '</p>';
     $buffer .= sprintf('
-    <div id="codigo_compra_'.$f['codigo_compra'].'" style="height:350px;clear:both;display:block;border:1px solid #AAA;margin-bottom:10px;">
+    <div id="codigo_compra_'.$f['codigo_compra'].'" style="height:350px;clear:both;display:block;border:1px solid #AAA;margin-bottom:10px;page-break-after: always;">
     <div style="float:left;overflow:auto;width:133px;height:350px;border-right:1px solid #CCC;padding:0 0.1em;">
     %s
     </div>

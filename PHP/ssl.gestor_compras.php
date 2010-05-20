@@ -76,7 +76,6 @@ $opts['fdd']['codigo_usuario'] = array(
   'name'     => 'Codigo usuario',
   'select'   => 'T',
   'maxlen'   => 11,
-    'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['codigo_variedad'] = array(
@@ -88,53 +87,63 @@ $opts['fdd']['codigo_variedad'] = array(
 $opts['fdd']['precio_grabado'] = array(
   'name'     => 'Precio grabado',
   'select'   => 'T',
-  'maxlen'   => 11,
+  'maxlen'   => 12,
   'sort'     => true
 );
 $opts['fdd']['precio_envio'] = array(
   'name'     => 'Precio envio',
   'select'   => 'T',
-  'maxlen'   => 11,
+  'maxlen'   => 12,
   'sort'     => true
 );
 $opts['fdd']['n_credito'] = array(
   'name'     => 'N credito',
   'select'   => 'T',
   'maxlen'   => -1,
-  'options'  => 'FACPDV',
   'sort'     => true
 );
-
 $opts['fdd']['n_credito']['sql'] = 'AES_DECRYPT(n_credito,"'.db__key_str.'")';
 $opts['fdd']['n_credito']['sqlw'] = 'AES_ENCRYPT($val_qas,"'.db__key_str.'")';
-
-
+$opts['fdd']['telefono_destinatario'] = array(
+  'name'     => 'Telefono destinatario',
+  'select'   => 'T',
+  'maxlen'   => 150,
+  'sort'     => true
+);
+$opts['fdd']['telefono_remitente'] = array(
+  'name'     => 'Telefono remitente',
+  'select'   => 'T',
+  'maxlen'   => 150,
+  'sort'     => true
+);
 $opts['fdd']['tipo_t_credito'] = array(
   'name'     => 'Tipo t credito',
   'select'   => 'T',
   'maxlen'   => 150,
-  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['fecha_exp_t_credito'] = array(
   'name'     => 'Fecha exp t credito',
   'select'   => 'T',
   'maxlen'   => 15,
-  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['pin_4_reverso_t_credito'] = array(
   'name'     => 'Pin 4 reverso t credito',
   'select'   => 'T',
   'maxlen'   => 12,
-  'options'  => 'FACPDV',
+  'sort'     => true
+);
+$opts['fdd']['nombre_t_credito'] = array(
+  'name'     => 'Nombre t credito',
+  'select'   => 'T',
+  'maxlen'   => 300,
   'sort'     => true
 );
 $opts['fdd']['direccion_entrega'] = array(
   'name'     => 'Direccion entrega',
   'select'   => 'T',
   'maxlen'   => -1,
-  'options'  => 'FACPDV',
   'textarea' => array(
     'rows' => 5,
     'cols' => 50),
@@ -150,21 +159,18 @@ $opts['fdd']['tarjeta_de'] = array(
   'name'     => 'Tarjeta de',
   'select'   => 'T',
   'maxlen'   => 150,
-  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['tarjeta_para'] = array(
   'name'     => 'Tarjeta para',
   'select'   => 'T',
   'maxlen'   => 150,
-  'options'  => 'FACPDV',
   'sort'     => true
 );
 $opts['fdd']['tarjeta_cuerpo'] = array(
   'name'     => 'Tarjeta cuerpo',
   'select'   => 'T',
   'maxlen'   => -1,
-  'options'  => 'FACPDV',
   'textarea' => array(
     'rows' => 5,
     'cols' => 50),
@@ -198,10 +204,27 @@ $opts['fdd']['usuario_notas'] = array(
   'name'     => 'Usuario notas',
   'select'   => 'T',
   'maxlen'   => -1,
-  'options'  => 'FACPDV',
   'textarea' => array(
     'rows' => 5,
     'cols' => 50),
+  'sort'     => true
+);
+$opts['fdd']['transaccion'] = array(
+  'name'     => 'Transaccion',
+  'select'   => 'T',
+  'maxlen'   => 120,
+  'sort'     => true
+);
+$opts['fdd']['fecha'] = array(
+  'name'     => 'Fecha',
+  'select'   => 'T',
+  'maxlen'   => 19,
+  'sort'     => true
+);
+$opts['fdd']['correo_contacto'] = array(
+  'name'     => 'Correo contacto',
+  'select'   => 'T',
+  'maxlen'   => 300,
   'sort'     => true
 );
 
