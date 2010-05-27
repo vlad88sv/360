@@ -89,7 +89,7 @@
 
     $FROM = sprintf('FROM flores_producto_contenedor AS pc LEFT JOIN (SELECT * FROM flores_producto_variedad ORDER BY precio ASC) AS pv USING(codigo_producto) LEFT JOIN flores_productos_categoria AS pcat USING(codigo_producto) LEFT JOIN flores_categorias AS cat USING(codigo_categoria) %s',$WHERE);
     $GROUP_BY = 'GROUP BY pv.codigo_producto';
-    $c = 'SELECT '. join(', ',$CAMPOS) . ' ' . $FROM . ' '. $REFINADO .' ' . $GROUP_BY . ' ORDER BY RAND(curdate()+0)';
+    $c = 'SELECT '. join(', ',$CAMPOS) . ' ' . $FROM . ' AND descontinuado="no" '. $REFINADO .' ' . $GROUP_BY . ' ORDER BY RAND(curdate()+0)';
     $r = db_consultar($c);
 
     if (!mysql_num_rows($r))

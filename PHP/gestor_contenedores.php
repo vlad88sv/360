@@ -105,6 +105,14 @@ $opts['fdd']['color'] = array(
   'sort'     => true
 );
 
+$opts['fdd']['descontinuado'] = array(
+  'name'     => 'Descontinuado',
+  'select'   => 'T',
+  'maxlen'   => 2,
+  'values'   => array('no','si'),
+  'sort'     => true
+);
+
 $opts['extra'] = ui_input('referencia','contenedor','hidden');
 
 if (isset($_GET['agregar']))

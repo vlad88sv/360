@@ -1,21 +1,26 @@
 <?php
     // Comprobación básica: cancelar si no es valido el codigo del contenedor o no existe
     if (!isset($_GET['codigo_contenedor']) || !is_numeric($_GET['codigo_contenedor']))
-        return;
-
-    // Primero obtenemos toda la información del contenedor
-    $sql_contenedor = sprintf('SELECT `codigo_producto`, `titulo`, `descripcion`, `vistas` FROM `%s` WHERE codigo_producto=%s LIMIT 1',db_prefijo.'producto_contenedor',db_codex($_GET['codigo_contenedor']));
-    $r = db_consultar($sql_contenedor);
-
-    // Comprobación extendida: cancelar si no se encontró...
-    if (!mysql_num_rows($r))
     {
-        header('Location: '.PROY_URL);
-        exit;
+        header('Location: ' . PROY_URL);
+        echo '<p>El código de producto es inválido, redirigiendo a '.ui_href('',PROY_URL,PROY_URL).'</p>';
+        return;
     }
 
-    // Pues si existe, quien diria... entonces obtengamos todos los datos
-    $contenedor = mysql_fetch_assoc($r);
+    // Primero obtenemos toda la información del contenedor
+    $cContenedor = sprintf('SELECT `codigo_producto`, `titulo`, `descripcion`, `vistas`, `descontinuado` FROM `%s` WHERE codigo_producto=%s LIMIT 1',db_prefijo.'producto_contenedor',db_codex($_GET['codigo_contenedor']));
+    $rContenedor = db_consultar($cContenedor);
+
+    // Comprobación extendida: cancelar si no se encontró...
+    if (!mysql_num_rows($rContenedor))
+    {
+        header('Location: ' . PROY_URL);
+        echo '<p>El código de producto no fue encontrado, redirigiendo a '.ui_href('',PROY_URL,PROY_URL).'</p>';
+        return;
+    }
+
+    // Existe, entonces obtengamos todos los datos
+    $contenedor = mysql_fetch_assoc($rContenedor);
 
     // Si es admin procesar cualquier cambio
     if (_F_usuario_cache('nivel') == _N_administrador)
@@ -30,7 +35,7 @@
     }
 
     // actualizamos la información del contenedor por si PROCESAR_CONTENEDOR() hizo algo...
-    $contenedor = mysql_fetch_assoc(db_consultar($sql_contenedor));
+    $contenedor = mysql_fetch_assoc(db_consultar($cContenedor));
 
     // Revisamos si la URL es correcta - por los bromistas
     $titulo_SEO = SEO($contenedor['titulo']);
@@ -76,35 +81,33 @@
     $VARIEDADES .= '</table>';
     $VARIEDADES_ADMIN = '<div style="display:block;clear:both">'. $VARIEDADES_ADMIN . '</div><form action="'.PROY_URL_ACTUAL.'" method="POST">'.BR . ui_input('btn_agregar_variedad','Agregar variedad', 'submit', 'btnlnk btnlnk-mini').'</form>';
 
-    /********************** categorias ***************************************/
-    $CATEGORIAS = '';
-    // POSTS
+    /********************** bCategoria***************************************/
+    $bCategoria= '';
 
     // Obtengamos las categorias del producto!!!
     $MOSTRAR_EN_VITRINA = SI_ADMIN('AND b.mostrar_en_vitrina=1');
     $c = sprintf('SELECT a.codigo_categoria, b.titulo, b.descripcion FROM %s AS a LEFT JOIN %s AS b ON a.codigo_categoria = b.codigo_categoria WHERE a.codigo_producto="%s" %s ORDER BY b.titulo ASC', db_prefijo.'productos_categoria', db_prefijo.'categorias',$contenedor['codigo_producto'],$MOSTRAR_EN_VITRINA);
-    $categoria = db_consultar($c);
-    $CATEGORIAS .= '<div style="text-align:center;margin:5px">';
-    while ($f = mysql_fetch_assoc($categoria))
+    $rCategoria = db_consultar($c);
+    $bCategoria.= '<div style="text-align:center;margin:5px">';
+    while ($f = mysql_fetch_assoc($rCategoria))
     {
-        $CATEGORIAS .= '<span class="etiqueta-categoria">'.
-                        $f['titulo'].
-                        SI_ADMIN(' <form style="display:inline;" action="'.PROY_URL_ACTUAL.'" method="POST">'.ui_input('codigo_categoria',$f['codigo_categoria'],'hidden').ui_input('btn_eliminar_categoria','x','submit','btnlnk').'</form>').
-                        '</span> ';
+        $bCategoria.= '<span class="etiqueta-categoria">'.$f['titulo'].SI_ADMIN(' <form style="display:inline;" action="'.PROY_URL_ACTUAL.'" method="POST">'.ui_input('codigo_categoria',$f['codigo_categoria'],'hidden').ui_input('btn_eliminar_categoria','x','submit','btnlnk').'</form>').'</span> ';
     }
-    $CATEGORIAS .= '</div>';
-    //$CATEGORIAS .= SI_ADMIN(BR.flores_db_ui_obtener_categorias_cmb('cmb_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria','Agregar','submit'));
-    $CATEGORIAS .= SI_ADMIN(BR.'<form action="'.PROY_URL_ACTUAL.'" method="POST">'.flores_db_ui_obtener_categorias_chkbox('chk_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria_v2','Agregar','submit','btnlnk').'</form>');
+    $bCategoria.= '</div>';
+    //$bCategoria.= SI_ADMIN(BR.flores_db_ui_obtener_categorias_cmb('cmb_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria','Agregar','submit'));
+    $bCategoria.= SI_ADMIN(BR.'<form action="'.PROY_URL_ACTUAL.'" method="POST">'.flores_db_ui_obtener_categorias_chkbox('chk_agregar_categoria',$contenedor['codigo_producto']).ui_input('btn_agregar_categoria_v2','Agregar','submit','btnlnk').'</form>');
 
-    $csimilar = sprintf('SELECT procon.codigo_producto, procon.titulo, provar.foto, provar.descripcion FROM flores_producto_contenedor AS procon LEFT JOIN flores_producto_variedad AS provar USING(codigo_producto) WHERE codigo_producto <> %s AND precio BETWEEN (%s)*0.60 AND (%s)*1.40 GROUP BY provar.codigo_producto ORDER BY RAND() LIMIT 9',$contenedor['codigo_producto'],$PRECIO,$PRECIO);
-    $PRODUCTOS_SIMILARES = '';
-    $rsimilar = db_consultar($csimilar);
-    if (mysql_num_rows($rsimilar))
-        while ($fsimilar = mysql_fetch_assoc($rsimilar))
-            $PRODUCTOS_SIMILARES .= sprintf('<a href="%s"><img style="width:100px;height:150px;" src="'.imagen_URL($fsimilar['foto'],100,150,'img0.').'" title="Producto similar: %s" /></a> ',PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($fsimilar['titulo'].'-'.$fsimilar['codigo_producto']),$fsimilar['descripcion']);
+    $cProducto_similar = sprintf('SELECT procon.codigo_producto, procon.titulo, provar.foto, provar.descripcion FROM flores_producto_contenedor AS procon LEFT JOIN flores_producto_variedad AS provar USING(codigo_producto) WHERE codigo_producto <> %s AND precio BETWEEN (%s)*0.60 AND (%s)*1.40 GROUP BY provar.codigo_producto ORDER BY RAND() LIMIT 9',$contenedor['codigo_producto'],$PRECIO,$PRECIO);
+    $bProducto_similar = '';
+    $rProducto_similar = db_consultar($cProducto_similar);
+    if (mysql_num_rows($rProducto_similar))
+        while ($fsimilar = mysql_fetch_assoc($rProducto_similar))
+            $bProducto_similar .= sprintf('<a href="%s"><img style="width:100px;height:150px;" src="'.imagen_URL($fsimilar['foto'],100,150,'img0.').'" title="Producto similar: %s" /></a> ',PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($fsimilar['titulo'].'-'.$fsimilar['codigo_producto']),$fsimilar['descripcion']);
 
     /* Desplegar lo que conseguimos */
-    echo '<h1>Flor360.com: regalos, flores y arreglos florales en El Salvador</h1>';
+    if( $contenedor['descontinuado'] == "si" )
+        echo '<p class="error">Lo sentimos, este producto esta descontinuado y no se encuentra disponible.</p>';
+
     // Tabla
     echo '<table style="width:100%;">';
     echo '<tr>';
@@ -125,55 +128,63 @@
     echo '<h1>Detalles</h1>';
     echo '<h2>Descripción</h2>';
     echo '<center><p style="width:90%;text-align:justify;font-size:10pt;">'.nl2br($contenedor['descripcion']).'</p></center>';
+if( $contenedor['descontinuado'] == "no" )
+{
     echo '<h2>Categoría(s)</h2>';
-    echo $CATEGORIAS;
+    echo $bCategoria;
     echo SI_ADMIN($VARIEDADES_ADMIN);
     echo '<h2>Seleccione la variedad</h2>';
     // Fin del area administrativa, inicio de las opciones de compra
     echo '<form action="'.PROY_URL.'comprar-articulo-'.SEO($contenedor['titulo']).'" method="POST">';
     echo $VARIEDADES;
     echo '<hr />';
-    echo '<table>';
-    echo '<td id="izq-compra" class="medio-oculto">Podrá escoger el texto de la tarjeta (¡gratuita!) en la página de compra. Se aceptan todas las tarjetas de crédito y débito a nivel nacional e internacional.</td>';
-    echo '<td>' . ui_input('btn_comprar_ahora','Comprar ahora','submit','btn').'<br /><img src="'.PROY_URL.'IMG/stock/credit_card_logos_4.gif"/></td>';
-    echo '</table>';
 
-    echo '
-<h2>¿Deseas realizar la compra vía telefónica?</h2>
-<p class="medio-oculto">Realiza tu compra vía llamada telefónica al número <strong>2243-6017</strong></p>
+    $bInfoCompra = '<table>
+    <td id="izq-compra" class="medio-oculto">Podrá escoger el texto de la tarjeta (¡gratuita!) en la página de compra. Se aceptan todas las tarjetas de crédito y débito a nivel nacional e internacional.</td>
+    <td>' . ui_input('btn_comprar_ahora','Comprar ahora','submit','btn').'<br /><img src="'.PROY_URL.'IMG/stock/credit_card_logos_4.gif"/></td>
+    </table>
 
-<p class="medio-oculto">No olvides tener listos los siguientes datos:</p>
+    <h2>¿Deseas realizar la compra vía telefónica?</h2>
+    <p class="medio-oculto">Realiza tu compra vía llamada telefónica al número <strong>2243-6017</strong></p>
 
-<ul class="medio-oculto">
-<li>El código del producto que deseas comprar es: <strong>'.$contenedor['codigo_producto'].'</strong></li>
-<li>La dirección <strong>exacta</strong> de entrega</li>
-<li>La forma de cancelar el producto (contra-entrega, etc.)</li>
-</ul>
+    <p class="medio-oculto">No olvides tener listos los siguientes datos:</p>
 
-<h2>¿Prefieres los depositos a cuenta?</h2>
-<img style="float:left; margin-right:1em;" src="https://www.bac.net/regional/img/home/elbac.gif" />
-<p class="medio-oculto">
-<strong>Banco de America Central</strong><br />
-Número de cuenta: <strong>200721538</strong><br />
-</p>
-<br />
-<p class="medio-oculto">
-Luego de realizar el deposito comuniquese al '.PROY_TELEFONO.' para hacer su pedido. Se le solicitará el número del deposito.
-</p>
+    <ul class="medio-oculto">
+    <li>El código del producto que deseas comprar es: <strong>'.$contenedor['codigo_producto'].'</strong></li>
+    <li>La dirección <strong>exacta</strong> de entrega</li>
+    <li>La forma de cancelar el producto (contra-entrega, etc.)</li>
+    </ul>
 
-<h2>¿Deseas realizar la compra en nuestras oficinas?</h2>
-<p class="medio-oculto">
-Visítanos en
-Residencial Cumbres de la Esmeralda, calle Teotl, #20.<br />
-Misma calle de la entrada principal U. Albert Einstein.
-</p>
-</td>
-</tr>
-</table>
-';
+    <h2>¿Prefieres los depositos a cuenta?</h2>
+    <img style="float:left; margin-right:1em;" src="https://www.bac.net/regional/img/home/elbac.gif" />
+    <p class="medio-oculto">
+    <strong>Banco de America Central</strong><br />
+    Número de cuenta: <strong>200721538</strong><br />
+    </p>
+    <br />
+    <p class="medio-oculto">
+    Luego de realizar el deposito comuniquese al '.PROY_TELEFONO.' para hacer su pedido. Se le solicitará el número del deposito.
+    </p>
 
+    <h2>¿Deseas realizar la compra en nuestras oficinas?</h2>
+    <p class="medio-oculto">
+    Visítanos en
+    Residencial Cumbres de la Esmeralda, calle Teotl, #20.<br />
+    Misma calle de la entrada principal U. Albert Einstein.
+    </p>
+    ';
+}
+else
+{
+    $bInfoCompra = '<h2>Producto descontinuado</h2>';
+    $bInfoCompra .= '<p>La elaboracion de este producto ha sido descontinuada.</p>';
+    $bInfoCompra .= '<p>Una causa usual es una imposibilidad reciente de conseguir alguna materia prima necesaria para su elaboracion.</p>';
+}
+
+echo $bInfoCompra;
+echo '</td></tr></table>';
 echo '<h2>Productos similares</h2>';
-echo $PRODUCTOS_SIMILARES;
+echo $bProducto_similar;
 
     if (_F_usuario_cache('nivel') != _N_administrador && !db_contar(db_prefijo.'visita','ip=INET_ATON("'.$_SERVER['REMOTE_ADDR'].'") AND session_id="'.session_id().'" AND codigo_producto='.$contenedor['codigo_producto'].' AND (DATE_SUB(NOW(),INTERVAL 1 HOUR) < `fecha`)'))
     {

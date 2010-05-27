@@ -157,7 +157,7 @@ for($i=0;$i<$nFilas;$i++)
         }
 
         $TOP10 .= SI_ADMIN('<FORM class="admin360" action="'.PROY_URL_ACTUAL.'" method="POST">Categoría<br />'.
-        ui_input('hdd_posicion',($j+1)+($i*5),'hidden').
+        ui_input('hdd_posicion',($j)+($i*5),'hidden').
         ui_combobox("txt_nuevo_contenedor",flores_db_ui_obtener_categorias_y_contenedores_cmb(),$f['codigo_categoria'].','.$f['codigo_producto'],'','width:100%').
     '<input type="checkbox" '.$checked.' name="usar_filtro" /> Usar filtro<br />'.
     ui_combobox("cmb_filtro",db_ui_opciones('nombre_filtro','nombre_filtro',db_prefijo.'filtros'),$f['filtro'],'','width:100%').

@@ -1,11 +1,11 @@
 html,body {margin:0 auto;padding:0;border:0;width:100%;height:100%;}
-body{background:#93d160;font-size:100%;font-family:Verdana, Helvetica,"Lucida Grande", Arial, sans-serif;font-size:1em;background-attachment:fixed;background-image:url('IMG/stock/fondo.png');background-position:top left;background-repeat:repeat;}
+body{background:#93d160;font-size:100%;font-family:Verdana, Helvetica,"Lucida Grande", Arial, sans-serif;font-size:1em;background-attachment:fixed;background-image:url('IMG/stock/fondo.jpg');background-position:top left;background-repeat:repeat;}
 input[type=text],input[type=password],select,textarea{border:1px solid #84B684;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;padding:1px;background-color:#DAFFB5;font-weight:bolder;color:#000;}
 input[type=submit]{font-size:0.7em;vertical-align:middle;}
 table th{border-top:thin solid #c0c0c0;border-left:thin solid #c0c0c0;border-right:thin solid #c0c0c0;background-color:#eee;}
 h1, h2, h3{margin:.8em 0 .2em 0;padding:0;background-image:url('IMG/stock/fondo-h.png');}
 h1{display:block;-moz-border-radius:10px;-webkit-border-radius:10px;background-color:#95C795;color:#FFF;font-size:100%;text-align:center;padding:5px;}
-.etiqueta-categoria{-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#95C795;color:#FFF;padding:3px;text-align:center;line-height:29px;height:29px;white-space:nowrap;}
+blockquote{color: #331C01;font-family: Georgia, 'Times New Roman', serif;font-size: 14px;font-style: italic; font-variant: normal;font-weight: normal;margin-bottom: 14px;padding-right: 27px;text-align:justify;}
 h2, .ventas li{display:block;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#FCC505;color:#FFF;font-size:90%;text-align:center;padding:5px;}
 h3{font-size:85%;}
 p{margin:.4em 0 .8em 0;padding:0;}
@@ -13,6 +13,8 @@ img{border:none;}
 img.bloque{display:block;}
 a{border:none;color:#00f;text-decoration:none;}
 a:hover{color:#50f;border:none;}
+
+.etiqueta-categoria{-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#95C795;color:#FFF;padding:3px;text-align:center;line-height:29px;height:29px;white-space:nowrap;}
 .articulo{width:100%;height:auto;border-collapse:collapse;border:0;padding:0;margin:0;font-size:0.8em;border:2px solid #CCC;}
 .limpio{border:0;background-color:transparent;}
 .limpio th{border:0;background-color:transparent;}

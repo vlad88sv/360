@@ -29,7 +29,7 @@ $cmbLugares =
 '<option value="10.00">Santo Tomás - $10.00</option>'.
 '<option value="10.00">Santiago Texacuango - $10.00</option>'.
 '<option value="10.00">Santiago Texacuangos - $10.00</option>'.
-'<option value="3.00">San Marcos - $3.00</option>'.
+'<option value="0.00">San Marcos - $0.00</option>'.
 '</optgroup>'.
 '<optgroup label="San Salvador, otros municipios">'.
 '<option value="12.00">Apopa - $12.00</option>'.
@@ -164,10 +164,11 @@ echo '<tr>';
 echo '<th>Otras especificaciones</th><th>Dirección de entrega</th>';
 echo '</tr>';
 echo '<tr>';
-echo '<td style="width:50%">' . ui_textarea('txt_usuario_notas',@$_POST['txt_usuario_notas'],'','width:100%').'<p class="medio-oculto">Ej. horas en las que puede encontrarse la persona o instrucciones especiales como tocar fuerte, etc.</p></td>';
+echo '<td style="width:50%">' . ui_textarea('txt_usuario_notas',@$_POST['txt_usuario_notas'],'','width:100%').'<p class="medio-oculto">Ej. *sugerencias* de las horas en las que puede encontrarse la persona, con quien dejar si no se encuentra la persona o instrucciones especiales como tocar fuerte, etc.</p></td>';
 echo '<td style="width:50%">' . ui_textarea('txt_direccion_entrega',@$_POST['txt_direccion_entrega'],'','width:100%').'<p class="medio-oculto" style="font-weight:bolder;color:#F00;">Datos requeridos: municipio, colonia/poligono, calle y número de casa.<br />Incluya todas las referencias posibles.</p></td>';
 echo '</tr>';
 echo '</table>';
+echo '<p class="confirmacion">Atencion: las entregas se realizan el día seleccionado entre las 10:00a.m. y 6:00p.m.</p>';
 
 echo '<p class="info">Personalice los detalles de su tarjeta</p>';
 echo '<table class="tabla-estandar">';
@@ -190,10 +191,10 @@ echo '</table>';
 
 echo '<table class="tabla-estandar">';
 echo '<p class="info">Ingrese los datos de facturación. Recuerde que esta bajo una conexión segura.</p>';
-echo '<tr><th>Número de tarjeta de crédito</th><th>Fecha expiración</th><th>Tipo tarjeta de crédito</th></tr>';
+echo '<tr><th>Número de tarjeta de crédito</th><th>Tipo tarjeta de crédito</th><th>Fecha expiración</th></tr>';
 echo '<tr>';
-echo '<td>'. ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']). ' <p class="medio-oculto" style="color:#F00;">Favor ingresarlo de la forma exacta en la que aparece en su tarjeta.<br />Puede ingresar el numero con o sin guiones.</p></td>';
-echo '<td>'. ui_input('txt_fecha_expiracion',@$_POST['txt_fecha_expiracion']). ' <p class="medio-oculto">Formato MM/YY</p></td>';
+echo '<td>'. ui_input('txt_numero_t_credito',@$_POST['txt_numero_t_credito']).
+' <p class="medio-oculto" style="color:#F00;">Favor ingresarlo de la forma exacta en la que aparece en su tarjeta.<br />Puede ingresar el número con o sin guiones.</p></td>';
 echo '<td>'. ui_combobox('cmb_tipo_t_credito',
 '
       <option value="Visa">Visa</option>
@@ -209,7 +210,9 @@ echo '<td>'. ui_combobox('cmb_tipo_t_credito',
       <option value="Solo">Solo</option>
       <option value="Switch">Switch</option>
       <option value="LaserCard">Laser</option>
-',@$_POST['cmb_tipo_t_credito']).'</td>';
+',@$_POST['cmb_tipo_t_credito']).
+'<p class="medio-oculto" style="color:#F00;">Necesario para válidar automáticamente su número de tarjeta</p></td>';
+echo '<td>'. ui_input('txt_fecha_expiracion',@$_POST['txt_fecha_expiracion']). ' <p class="medio-oculto" style="color:#F00;">Formato MM/YY, ej. 05/11 para Mayo de 2011.</p></td>';
 echo '</tr>';
 
 echo '<tr><th>Número de verificación CCV</th><th colspan="2">Nombre del titular de la tarjeta de credito</th></tr>';

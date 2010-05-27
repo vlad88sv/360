@@ -17,6 +17,9 @@ if(isset($_GET['fecha']))
 if(isset($_GET['fecha_entrega']))
     $WHERE = sprintf('AND fecha_entrega="%s"',mysql_date($_GET['fecha_entrega']));
 
+if (isset($_GET['fecha_inicio']) && isset($_GET['fecha_final']))
+    $WHERE = sprintf('AND fecha BETWEEN "%s" AND "%s"',mysql_date($_GET['fecha_inicio']),mysql_date($_GET['fecha_final']));
+
 if (isset($_GET['fecha_entrega_inicio']) && isset($_GET['fecha_entrega_final']))
     $WHERE = sprintf('AND fecha_entrega BETWEEN "%s" AND "%s"',mysql_date($_GET['fecha_entrega_inicio']),mysql_date($_GET['fecha_entrega_final']));
 
@@ -90,16 +93,16 @@ while ($f = mysql_fetch_assoc($r))
     '</form>';
 
     $info_importante =
-    '<table class="tabla-estandar" style="width:99%;height:55px;">'.
+    '<table class="tabla-estandar" style="width:99%;height:55px;overflow:auto;">'.
     '<tr>'.
-    '<td>'.
+    '<td style="width:280px;">'.
     '<p class="medio-oculto">'.
     '<strong>Fecha entrega:</strong> '.$f['fecha_entrega_formato'] . BR.
     '<strong>Fecha pedido:</strong> '.$f['fecha_formato'] . BR.
     '<strong>Correo contacto</strong><br />'.$f['correo_contacto'].
     '</p>'.
     '</td>'.
-    '<td>'.
+    '<td style="width:114px;">'.
     '<p class="medio-oculto">'.
     '<strong>Tarjeta De</strong><br />'.$f['tarjeta_de'] . BR.
     '<strong>Telefono remitente</strong><br />'.$f['telefono_remitente'] . BR.
