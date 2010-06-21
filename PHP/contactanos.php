@@ -25,7 +25,7 @@ if (isset($_POST['enviar']))
   }
   else
   {
-    $to      = '"Flor360.com, la mejor de las floristerias en El Salvador" <cartero@flor360.com>';
+    $to      = PROY_MAIL_BROADCAST_NOMBRE.PROY_MAIL_BROADCAST;
     $subject = 'Nueva consulta a '.PROY_NOMBRE.' - ' . dechex(crc32(microtime()));
     $message =
 	      '<style>li{font-weight:bold;}</style>' .
@@ -44,32 +44,25 @@ if (isset($_POST['enviar']))
     echo '<p>';
     echo '¡Muchas gracias por su consulta!<br />';
     echo 'Lo invitamos a seguir navegando en nuestro sitio web. <a href="'.PROY_URL.'">Ir a la página principal</a>.<br />';
-    echo 'Recuerde que nuestro número telefonico es: 2243-6017<br />';
+    echo 'Recuerde que nuestro número telefonico es: '.PROY_TELEFONO.'<br />';
     echo '</p>';
     return;
   }
 }
 ?>
 <h1>Contacto</h1>
-<p>
-Conoce mas sobre nuestros precios, flores, entrega a domicilio, utilizando el formulario de contácto (mostrado a continuación) y su consulta con gusto será amablemente contestada en el menor tiempo posible.
-</p>
-<p>
-Teléfonos <?php echo PROY_TELEFONO; ?>.
-</p>
-<p>
-Recuerde que <strong><?php echo PROY_NOMBRE; ?></strong> ofrece venta de arreglos florales personales y para eventos (bodas, quince años, confirmaciones, primeras comuniones, bautizos, fiestas y mas).
-</p>
-<p><strong>Nuestros productos ya incluyen costos de envío - ¡algo que ninguna otra floristería le ofrece!</strong></p>
+<div>
+<?php cargar_editable('contacto'); ?>
+</div>
 <hr />
 <form action="<?php echo PROY_URL_ACTUAL; ?>" method="post">
 <table style="margin:auto">
-<tr><td><p>Su teléfono</p></td><td><input name="tel" value="" /></td></tr>
-<tr><td><p>Su email</p></td><td><input name="email" value="" /></td></tr>
-<tr><td><p>Su nombre</p></td><td><input name="nombre" value="" /></td></tr>
+<tr><td><p>Su teléfono</p></td><td><input name="tel" value="<?php echo @$_POST['tel']; ?>" /></td></tr>
+<tr><td><p>Su email</p></td><td><input name="email" value="<?php echo @$_POST['email']; ?>" /></td></tr>
+<tr><td><p>Su nombre</p></td><td><input name="nombre" value="<?php echo @$_POST['nombre']; ?>" /></td></tr>
 </table>
 <p>Comentario o pregunta</p>
-<textarea cols="100" rows="10" name="mensaje"></textarea><br />
+<textarea cols="100" rows="10" name="mensaje"><?php echo  @$_POST['mensaje']; ?></textarea><br />
 <input type="submit" name="enviar" value="Enviar consulta" />
 </form>
 </div>

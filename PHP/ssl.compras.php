@@ -27,7 +27,6 @@ $cmbLugares =
 '<option value="10.00">San Bartolomé Perulapia - $10.00</option>'.
 '<option value="10.00">Panchimalco - $10.00</option>'.
 '<option value="10.00">Santo Tomás - $10.00</option>'.
-'<option value="10.00">Santiago Texacuango - $10.00</option>'.
 '<option value="10.00">Santiago Texacuangos - $10.00</option>'.
 '<option value="0.00">San Marcos - $0.00</option>'.
 '</optgroup>'.
@@ -389,9 +388,9 @@ function SSL_MOSTRAR_FACTURA($id_factura)
     list($factura,$f) = SSL_COMPRA_FACTURA($transaccion);
 
 
-    // Correo para el staff de Flor360.com
-    $to      = 'Floristeria en El Salvador Flor360.com <cartero@flor360.com>';
-    $subject = 'Compra en '.PROY_NOMBRE.' - ' . dechex(crc32(microtime()));
+    // Correo para el staff
+    $to      = PROY_MAIL_BROADCAST_NOMBRE.PROY_MAIL_BROADCAST;
+    $subject = 'Compra en '.PROY_NOMBRE_CORTO.' - ' . dechex(crc32(microtime()));
     $message = "<hr />\n" . $factura . "<hr />\n";
     $headers = 'Reply-To: ' . (empty($f['tarjeta_de']) ? @$f['nombre_t_credito'] : @$f['tarjeta_de']) . ' <' . (empty($f['correo_contacto']) ? PROY_MAIL_REPLYTO :  @$f['correo_contacto']) .'>' . "\r\n";
     @correo($to, $subject, $message, $headers);
@@ -400,9 +399,9 @@ function SSL_MOSTRAR_FACTURA($id_factura)
     if(!empty($f['correo_contacto']))
     {
         $to      = sprintf('"%s" <%s>',(empty($f['tarjeta_de']) ? @$f['nombre_t_credito'] : @$f['tarjeta_de']), @$f['correo_contacto']);
-        $subject = 'Su compra en '.PROY_NOMBRE.' - ' . dechex(crc32(microtime()));
-        $message = "<p>Gracias por su compra en Flor360.com, su pedido ha sido recibido.</p><p>Por favor corrobore que todos los datos a continuacion son correctos.</p><hr />\n" . $factura . "<hr />\n";
-        $headers = 'Reply-To: ' . (empty($f['tarjeta_de']) ? @$f['nombre_t_credito'] : @$f['tarjeta_de']) . ' <' . (empty($f['correo_contacto']) ? PROY_MAIL_REPLYTO :  @$f['correo_contacto']) .'>' . "\r\n";
+        $subject = 'Su compra en '.PROY_NOMBRE_CORTO.' - ' . dechex(crc32(microtime()));
+        $message = "<p>Gracias por su compra en ".PROY_NOMBRE_CORTO.", su pedido ha sido recibido en nuestro sistema.</p><p>Por favor corrobore que todos los datos presentandos a continuación sean correctos.</p><hr />\n" . $factura . "<hr />\n";
+        $headers = 'Reply-To: '.PROY_MAIL_REPLYTO_NOMBRE.PROY_MAIL_REPLYTO."\r\n";
         @correo($to, $subject, $message, $headers);
         }
 

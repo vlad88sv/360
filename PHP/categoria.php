@@ -120,10 +120,10 @@
                     $f['variedad_foto'] = imagen_URL($f['variedad_foto'],133,200);
                 }
                 $bELEMENTOS .= '<div class="categoria-elemento">
-                <a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO($f['contenedor_titulo'].'-'.$f['codigo_producto']).'">
-                <img title="'.$f['contenedor_descripcion'].'" src="'.$f['variedad_foto'].'" />
+                <a href="'.PROY_URL.'arreglos-florales-floristerias-en-el-salvador-'.SEO(strip_tags($f['contenedor_titulo']).'-'.$f['codigo_producto']).'">
+                <img title="'.strip_tags($f['contenedor_descripcion']).'" src="'.$f['variedad_foto'].'" />
                 </a>';
-                $bELEMENTOS .= '<div class="titulo">'.$f['contenedor_titulo'].'</div>';
+                $bELEMENTOS .= '<div class="titulo">'.strip_tags($f['contenedor_titulo']).'</div>';
                 $bELEMENTOS .= '<div class="precio">'.$f['precio_combinado'].'</div>';
                 if(isset($_GET['preparacion']))
                 {
@@ -213,7 +213,7 @@ echo JS_onload('$(".admin360").hide();$("#js_admin").click(function () {$(".admi
     echo '<hr />';
     echo '</div>';
 }
-echo '<h1>Flores, regalos, decoraciones y arreglos florales en El Salvador.<br />Tel. '.PROY_TELEFONO.'</h1>';
+echo '<h1>'.PROY_NOMBRE.'</h1>';
 echo '<table style="width:100%;border-collapse:collapse;margin:0;border:none;padding:0">';
 echo '<tr>';
 echo '<td style="width:170px;vertical-align:top;">'.$bFiltro.'</td>';

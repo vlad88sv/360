@@ -1,11 +1,14 @@
 <?php
 // Proyecto
-define('PROY_NOMBRE','Flor360, la mejor de las floristerias en El Salvador');
+define('PROY_NOMBRE','Floristeria Flor360, la mas destacada de las floristerias en el salvador');
+define('PROY_NOMBRE_CORTO','Floristeria Flor360');
 define('PROY_TELEFONO','2243-6017 (Call center de Flor360.com, pedidos y atención al cliente)');
 define('PROY_URL',preg_replace(array("/\/?$/","/www./"),"","http://".$_SERVER['HTTP_HOST'].dirname($_SERVER['PHP_SELF']))."/");
 define('PROY_MAIL_POSTMASTER','informacion@'.$_SERVER['HTTP_HOST']);
-define('PROY_MAIL_REPLYTO','cartero@'.$_SERVER['HTTP_HOST']);
-
+define('PROY_MAIL_REPLYTO_NOMBRE','"Floristeria en El Salvador Flor360.com" ');
+define('PROY_MAIL_REPLYTO','<cartero@'.$_SERVER['HTTP_HOST'].'>');
+define('PROY_MAIL_BROADCAST_NOMBRE','"Floristeria en El Salvador Flor360.com" ');
+define('PROY_MAIL_BROADCAST','<cartero@'.$_SERVER['HTTP_HOST'].'>');
 define('PROY_URL_ACTUAL_DINAMICA',curPageURL(false));
 define('PROY_URL_ACTUAL',curPageURL(true));
 

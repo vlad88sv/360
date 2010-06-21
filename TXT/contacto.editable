@@ -1,0 +1,11 @@
+<p>
+Conoce mas sobre nuestros precios, flores, entrega a domicilio, utilizando el formulario de contácto (mostrado a continuación) y su consulta con gusto será amablemente contestada en el menor tiempo posible.
+</p>
+<p>
+Teléfonos <?php echo PROY_TELEFONO; ?>.
+</p>
+<p>
+Recuerde que <strong><?php echo PROY_NOMBRE; ?></strong> ofrece venta de arreglos florales personales y para eventos (bodas, quince años, confirmaciones, primeras comuniones, bautizos, fiestas y mas).
+</p>
+<p><strong>Nuestros productos ya incluyen costos de envío - ¡algo que ninguna otra floristería le ofrece!</strong></p>
+

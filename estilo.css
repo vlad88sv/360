@@ -1,10 +1,10 @@
 html,body {margin:0 auto;padding:0;border:0;width:100%;height:100%;}
 body{background:#93d160;font-size:100%;font-family:Verdana, Helvetica,"Lucida Grande", Arial, sans-serif;font-size:1em;background-attachment:fixed;background-image:url('IMG/stock/fondo.jpg');background-position:top left;background-repeat:repeat;}
-input[type=text],input[type=password],select,textarea{border:1px solid #84B684;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;padding:1px;background-color:#DAFFB5;font-weight:bolder;color:#000;}
+input[type=text],input[type=password],select,textarea{border:1px solid #84B684;outline-color:-moz-use-text-color;outline-style:none;outline-width:medium;padding:1px;background-color:rgb(226, 247, 204);font-weight:bolder;color:#000;}
 input[type=submit]{font-size:0.7em;vertical-align:middle;}
 table th{border-top:thin solid #c0c0c0;border-left:thin solid #c0c0c0;border-right:thin solid #c0c0c0;background-color:#eee;}
 h1, h2, h3{margin:.8em 0 .2em 0;padding:0;background-image:url('IMG/stock/fondo-h.png');}
-h1{display:block;-moz-border-radius:10px;-webkit-border-radius:10px;background-color:#95C795;color:#FFF;font-size:100%;text-align:center;padding:5px;}
+h1{display:block;background-color:#95C795;color:#FFF;font-size:100%;text-align:center;padding:5px;}
 blockquote{color: #331C01;font-family: Georgia, 'Times New Roman', serif;font-size: 14px;font-style: italic; font-variant: normal;font-weight: normal;margin-bottom: 14px;padding-right: 27px;text-align:justify;}
 h2, .ventas li{display:block;-moz-border-radius:5px;-webkit-border-radius:5px;background-color:#FCC505;color:#FFF;font-size:90%;text-align:center;padding:5px;}
 h3{font-size:85%;}
@@ -103,7 +103,7 @@ a:hover{color:#50f;border:none;}
 
 .social{width:48px;height:48px;vertical-align:middle;}
 .dropdown, .dropdown li, .dropdown ul{list-style:none;margin:0;padding:0;}
-.dropdown{z-index:597;}
+.dropdown{z-index:597;background-image:url('/IMG/stock/fondo-h.png');}
 .dropdown li{float:left;height:29px;line-height:normal;}
 .dropdown li.hover, .dropdown li:hover{position:relative;z-index:599;cursor:default;}
 .dropdown ul{visibility:hidden;position:absolute;top:100%;left:0;z-index:598;width:100%;}
@@ -120,22 +120,22 @@ a:hover{color:#50f;border:none;}
 .dropdown ul a{padding-left:15px;}
 .dropdown li.hover *.open{color:#b0d730;}
 .dropdown li:hover > *.dir{color:#b0d730;}
-.dropdown{background-color:#62BD19;background-image:url('/IMG/stock/fondo-h.png');font:normal 14px/normal Tahoma, Verdana, Arial, Helvetica, sans-serif;width:976px;line-height:29px;height:29px;}
+.dropdown{background-color:rgb(149, 199, 149);font-size:0.9em;width:976px;line-height:29px;height:29px;}
 .dropdown .btnlnk{padding:0px;}
 .dropdown>li{border-left:4px solid #FFFFFF;color:#FFFFFF;white-space:nowrap;}
 .dropdown>li.ultimo{border-right:4px solid #FFFFFF;}
 .dropdown li.hover, .dropdown li:hover, .lidestacado{background-color:#EC454E;background-image:url('/IMG/stock/fondo-h.png');}
 .lidestacado{font-weight:bolder;}
-.dropdown a:link, .dropdown a:visited{color:#fff;text-decoration:none;}
-.dropdown a:hover{color:#EEE;}
+.dropdown a:link, .dropdown a:visited{color:#FFF;text-decoration:none;font-weight:bolder;}
+.dropdown a:hover{color:#FCC505f;}
 .dropdown a:active{color:#0395cc;}
 .dropdown ul{left:0px;width:160px;padding:0;}
-.dropdown ul li{line-height:29px;height:29px;padding:5px 15px;white-space:normal;}
 .dropdown ul ul{top:-12px;left:100%;padding:16px 0 0;}
+.dropdown ul li{line-height:29px;height:29px;padding:5px 15px;white-space:normal;background:transparent;}
 .dropdown-horizontal ul *.dir{padding-right:15px;background-position:95% 50%;background-repeat:no-repeat;background-color:#DEF0DC;background-image:url('/IMG/stock/fondo-h.png');}
-.dropdown .dir ul{padding-top:7px;padding-bottom:7px;border:1px solid #999999;background-color:#FFF;background-image:url('/IMG/stock/fondo-h.png');}
+.dropdown .dir ul{padding-top:7px;padding-bottom:7px;border:1px solid #999999;background-color:#FFF;background-image:url('/IMG/stock/fondo_menu.jpg');}
 .dropdown .dir ul li{border-bottom:1px dashed #CCC;border-top:1px dashed #CCC;font-family:arial;font-size:9pt;font-size-adjust:none;font-style:normal;font-variant:normal;font-weight:normal;height:auto;}
-.dropdown .dir ul li:hover{background-color:#DEF0DC;}
+.dropdown .dir ul li:hover{background-color:rgb(158, 208, 139);}
 .dropdown .dir ul li a{color:#666666;}
 .dropdown .dir ul li a:hover{color:#663399;}
 .dropdown .busqueda{float:right;}

@@ -14,6 +14,9 @@ $WHERE  = '';
 if(isset($_GET['fecha']))
     $WHERE = sprintf('AND DATE(fecha)="%s"',mysql_date($_GET['fecha']));
 
+if(isset($_GET['pendientes']))
+    $WHERE = 'AND fecha_entrega>=DATE(NOW())';
+
 if(isset($_GET['fecha_entrega']))
     $WHERE = sprintf('AND fecha_entrega="%s"',mysql_date($_GET['fecha_entrega']));
 
@@ -143,7 +146,7 @@ $total = number_format($total,2);
 echo "<h1>Ventas de Flor360.com</h1>";
 echo '<table id="tabla-ventas" class="tabla-estandar">';
 echo '<tr><th>Ventas ($)<t/h><th>Arreglos (#)</th><th>Pedidos [solicitado]</th><th>Pedidos [entrega]</th>';
-echo sprintf('<tr><td>$%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', $total, mysql_num_rows($r),'<a href="'.PROY_URL.'ventas?fecha=-1 day">ayer</a> / <a href="'.PROY_URL.'ventas?fecha=now">ahora</a> / <form style="display:inline" method="get" action="'.PROY_URL_ACTUAL.'"><input name="fecha" type="text" class="datepicker" value="'.mysql_date().'" /><input type="submit" value="Ir" class="ir"/></form>','<a href="'.PROY_URL.'ventas">todos</a> / <a href="'.PROY_URL.'ventas?fecha_entrega=-1 day">ayer</a> / <a href="'.PROY_URL.'ventas?fecha_entrega=now">ahora</a> / <a href="'.PROY_URL.'ventas?fecha_entrega=+1 day">mañana</a> / <form style="display:inline" method="get" action="'.PROY_URL_ACTUAL.'"><input name="fecha_entrega" class="datepicker" type="text" value="'.mysql_date().'" /><input type="submit" value="Ir" class="ir"/></form>' );
+echo sprintf('<tr><td>$%s</td><td>%s</td><td>%s</td><td>%s</td></tr>', $total, mysql_num_rows($r),'<a href="'.PROY_URL.'ventas?fecha=-1 day">ayer</a> / <a href="'.PROY_URL.'ventas?fecha=now">ahora</a> / <form style="display:inline" method="get" action="'.PROY_URL_ACTUAL.'"><input name="fecha" type="text" class="datepicker" value="'.mysql_date().'" /><input type="submit" value="Ir" class="ir"/></form>','<a href="'.PROY_URL.'ventas">todos</a> / <a href="'.PROY_URL.'ventas?fecha_entrega=-1 day">ayer</a> / <a href="'.PROY_URL.'ventas?fecha_entrega=now">ahora</a> / <a href="'.PROY_URL.'ventas?fecha_entrega=+1 day">mañana</a> / <a href="'.PROY_URL.'ventas?pendientes">pendiente</a> / <form style="display:inline" method="get" action="'.PROY_URL_ACTUAL.'"><input name="fecha_entrega" class="datepicker" type="text" value="'.mysql_date().'" /><input type="submit" value="Ir" class="ir"/></form>' );
 echo '</table>';
 echo $buffer;
 echo JS_onload('

@@ -14,7 +14,7 @@ $arrCSS[] = 'estilo';
 $GLOBAL_MOSTRAR_PIE = true;
 
 $HEAD_titulo = PROY_NOMBRE;
-$HEAD_descripcion = 'Floristerias en El Salvador regalos de arreglos florales con entrega a domicilio. Peluches, ramos florales, bouquet o ramo de novia, botonier para novio, bodas, novias, dia de la madre.';
+$HEAD_descripcion = 'Somos la mas destacada de las floristerias en El Salvador, enviamos a todo el pais de Lunes a Sabado. Aceptamos pedidos nacionales e internacionales, pague con tarjeta de credito o debito, deposito a cuenta o contraentrega. Ofrecemos regalos de arreglos florales, peluches, ramos florales, bouquet o ramo de novia, botonier para novio, decoracion y montaje de bodas, regalos para el dia de la madre y dia del padre.';
 ?>
 <?php ob_start(); ?>
 <?php require_once('PHP/traductor.php'); ?>

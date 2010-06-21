@@ -49,7 +49,7 @@
 
     // Titulo de la pagina
     $HEAD_titulo = PROY_NOMBRE . ' - ' . $contenedor['titulo'];
-    $HEAD_descripcion = $contenedor['descripcion'];
+    $HEAD_descripcion = strip_tags($contenedor['descripcion']);
 
     /*************** variedades ********************************************/
     // Luego obtenemos toda la información de sus variedades
@@ -59,6 +59,7 @@
     $VARIEDADES_ADMIN = '<h2>Administración de variedades</h2>';
     $VARIEDADES = '';
     $VARIEDADES .= '<table style="width:98%">';
+    $PRECIO = 0;
     for ($i=0; $i<mysql_num_rows($variedad); $i++) {
         $f = mysql_fetch_assoc($variedad);
         $VARIEDADES .=  '<tr>';
@@ -67,12 +68,12 @@
         {
             $PRECIO = $f['precio'];
             $VARIEDADES .= ' checked="checked"';
-            $IMG_CONTENEDOR = '<img id="imagen_contenedor" style="width:480px;height:720px;display:block;margin:auto;" src="'.imagen_URL($f['foto'],480,720,'img0.').'" />';
+            $IMG_CONTENEDOR = '<img id="imagen_contenedor" style="width:400px;min-height:300px;display:block;margin:auto;" src="'.imagen_URL($f['foto'],400,0,'img0.').'" />';
         }
-        $VARIEDADES .= ' rel="'.imagen_URL($f['foto'],480,720,'img0.').'"';
+        $VARIEDADES .= ' rel="'.imagen_URL($f['foto'],400,0,'img0.').'"';
         $VARIEDADES .= ' id="'.$f['foto'].'"';
         $VARIEDADES .= ' value="'.$f['codigo_variedad'].'" /></td>';
-        $VARIEDADES .= '<td style="width:100%">'.$f['descripcion'].'</td>'.
+        $VARIEDADES .= '<td style="width:100%">'.htmlentities($f['descripcion']).'</td>'.
         '<td style="text-align:right">$'.$f['precio'].'</td>';
         $VARIEDADES_ADMIN .= '<form action="'.PROY_URL_ACTUAL.'" method="POST"><p style="white-space:nowrap;clear:both;display:block;"><span style="float:left">' . $f['descripcion'] .'</span> <span style="float:right">'. ui_input('codigo_variedad',$f['codigo_variedad'],'hidden').' '.ui_input('btn_editar_variedad','Editar','submit','btnlnk btnlnk-mini').ui_input('btn_eliminar_variedad','Eliminar','submit','btnlnk btnlnk-mini').ui_input('btn_clonar_foto_variedad','Clonar Foto','submit','btnlnk btnlnk-mini').'</span></p></form>';
         $VARIEDADES .= '</tr>';
@@ -122,7 +123,8 @@
     }
 
     $nVistas = SI_ADMIN('<p class="medio-oculto">Veces visto: '. db_contar(db_prefijo.'visita','codigo_producto='.$contenedor['codigo_producto']).'</p>');
-    echo  '<div style="width:100%;text-align:center">'.$IMG_CONTENEDOR.BR.$nVistas;
+    $fbLike = '<iframe src="http://www.facebook.com/widgets/like.php?href='.curPageURL(true).'" scrolling="no" frameborder="0" style="border:none; width:450px; height:80px"></iframe>';
+    echo  '<div style="width:100%;text-align:center">'.$IMG_CONTENEDOR.BR.$fbLike.BR.$nVistas;
     echo '</div></td>';
     echo '<td style="width:50%;vertical-align:top">';
     echo '<h1>Detalles</h1>';
